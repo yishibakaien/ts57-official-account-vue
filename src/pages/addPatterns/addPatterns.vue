@@ -1,15 +1,33 @@
 <template>
   <div class="add-patterns-page">
 
-    <p>我 是新增花型页面d</p>
-    <i class="iconfont icon-qiye"></i>
+    <p class="brand">昨日上新<span class="text-blue">1200</span>款新花</p>
+    <div class="patterns-list-container" v-for="item in [1,2,3]">
+      <patterns-list-3></patterns-list-3>
+    </div>
+    <paginator></paginator>
   </div>
 </template>
 
 <script>
-export default {};
+import {
+  patternsList3,
+  paginator
+} from '../../components/index.js';
+export default {
+  components: {
+    'patterns-list-3': patternsList3,
+    paginator
+  }
+};
 </script>
 <style lang="stylus">
-  p
-    display flex
+  .brand
+    padding 12px 16px
+    font-size 12px
+    color #666
+  .patterns-list-container
+    margin-top 12px
+    &:nth-of-type(1)
+      margin-top 0
 </style>
