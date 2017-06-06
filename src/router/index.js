@@ -4,11 +4,15 @@ import {
     addPatterns,
     hotPatterns,
     lookingFor,
-    picSearch
+    picSearch,
+
+    // lyf
+    newPatterns,
+    customCf
 } from '../pages/pages.js';
 
 Vue.use(Router);
-
+// 大家在找页面 二级路由 按需加载
 const lookingForAll = resolve => require(['../pages/lookingFor/children/all'], resolve);
 const lookingForFabric = resolve => require(['../pages/lookingFor/children/fabric'], resolve);
 const lookingForBigSide = resolve => require(['../pages/lookingFor/children/bigSide'], resolve);
@@ -51,8 +55,16 @@ export default new Router({
             component: lookingForEyelash
         }]
     }, {
-      path: '/picSearch',
-      name: 'picSearch',
-      component: picSearch
+        path: '/picSearch',
+        name: 'picSearch',
+        component: picSearch
+    }, {
+        path: '/newPatterns',
+        name: 'newPatterns',
+        component: newPatterns
+    }, {
+        path: '/customCf',
+        name: 'customCf',
+        component: customCf
     }]
 });

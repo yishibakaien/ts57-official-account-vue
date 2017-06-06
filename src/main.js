@@ -4,6 +4,14 @@ import Vue from 'vue';
 import App from './App';
 import router from './router';
 
+import tsComponents from '@/Components/common/index.js';
+
+import {Button, Cell} from 'mint-ui';
+Vue.component(Button.name, Button);
+Vue.component(Cell.name, Cell);
+
+Vue.use(tsComponents);
+
 Vue.config.productionTip = false;
 
 /* eslint-disable no-new */

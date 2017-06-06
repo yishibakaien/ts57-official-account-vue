@@ -1,0 +1,77 @@
+:root {
+  /*checkbox*/
+  --checkbox-checked-bg: rgba(76, 147, 253, 0.9);
+  --checkbox-bg: #fff;
+  --checkbox-border-color: #bfcbd9;
+  --checkbox-color: #666666;
+  --checkbox-color: #666666;
+  --checkbox-disabled-color: #d1dbe5;
+  --checkbox-disabled-bg: #eef1f6;
+  /*nav*/
+  --navHoverColor: #4C93FD;
+  --navHoverBg: #FFF;
+  /*Image*/
+  --imageColor: #fff;
+  --imageBtBg: rgba(0, 0, 0, 0.4);
+  /*Radio*/
+  --radioColor: #4C93FD;
+  --radio-bordered-color: 1px solid #EAEAEA;
+  --radio-checked-color: 1px solid #4C93FD;
+  /*Filter*/
+  --filterTitileBg: #F8F8F8;
+  --filterDottedBorder: 1px dotted #EAEAEA;
+  --filterSolidBorder: 1px solid #EAEAEA;
+  /*menuTable*/
+  --menuTableHeaderBg: #F8F8F8;
+  --menuTableHeaderBorder: 1px dotted #EAEAEA;
+  --menuTableBorder: 1px solid #EAEAEA;
+  /*Dialog*/
+  --dialogFooterBg: #F8F8F8;
+  --dialogRightButton: #EAEAEA;
+  --dialogConfirmButton: #666666;
+  --dialogConfirmButton: #4C93FD;
+  /*Input*/
+  --input-border: 1px solid #D1D1D1;
+  --input-fill: #fff;
+  --input-color: #666666;
+  --input-height: 32px;
+  --border-transition-base: border-color .2s cubic-bezier(.645, .045, .355, 1);
+  --input-placeholder-color: #b0b0b0;
+  --input-hover-border: #b0b0b0;
+  --input-disabled-fill: #F8F8F8;
+  --input-disabled-border: #D1D1D1;
+  --input-disabled-color: grey;
+  --input-append-color: #666666;
+  --input-append-hover-color: #4C93FD;
+  --input-date-picker-color: #4C93FD;
+  /*select*/
+  --select-height: 32px;
+  --select-border: 1px solid #dbdbdb;
+  --select-option-hover-color: #4C93FD;
+  /*button*/
+  --button-border: 1px solid #D1D1D1;
+  --button-default-color: #666666;
+  --button-default-background-color: #fff;
+  --button-plain-color:#333;
+  --button-plain-border-color:#EAEAEA;
+  --button-plain-background-color: #fff;
+  --button-primary-color: #fff;
+  --button-primary-background-color: #4C93FD;
+  --button-cancel-background-color: #D1D1D1;
+  --button-cancel-color: #fff;
+  --button-warning-background-color: #FF8400;
+  --button-warning-color: #fff;
+  --button-height: 32px;
+  --button-width: 80px;
+  --button-border-background: #b8bbbf;
+  --buton-active-bg: rgba(155, 155, 155, 0.5);
+  /*Grid*/
+  --grid-hover-border-color: rgba(76,147,253,0.30);
+  --grid-border-color: #eaeaea;
+  --tag-gray-bgColor:#666666;
+  --tag-gray-color:#fff;
+  --tag-primary-bgColor:#4C93FD;
+  --tag-primary-color:#fff;
+  /*navbar*/
+  --navbar-color:#4C93FD;
+}
