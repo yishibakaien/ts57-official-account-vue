@@ -4,9 +4,15 @@ import patternsList3 from './patterns-list-3';
 import paginator from './paginator';
 // 排名小标签
 import rankTag from './rank-tag';
+// 下载提示
+import downloadTip from './download-tip';
+// 基础花型框
+import baseItem from './base-item';
 
 export {
   patternsList3,
   paginator,
-  rankTag
+  rankTag,
+  downloadTip,
+  baseItem
 };

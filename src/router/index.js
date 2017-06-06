@@ -3,13 +3,18 @@ import Router from 'vue-router';
 import {
     addPatterns,
     hotPatterns,
-    lookingFor
+    lookingFor,
+    picSearch
 } from '../pages/pages.js';
 
 Vue.use(Router);
-const lookingForAll = resolve => {
-    require.ensure([], () => resolve(require('../pages/lookingFor/children/all')))
-};
+
+const lookingForAll = resolve => require(['../pages/lookingFor/children/all'], resolve);
+const lookingForFabric = resolve => require(['../pages/lookingFor/children/fabric'], resolve);
+const lookingForBigSide = resolve => require(['../pages/lookingFor/children/bigSide'], resolve);
+const lookingForSmallSide = resolve => require(['../pages/lookingFor/children/smallSide'], resolve);
+const lookingForEyelash = resolve => require(['../pages/lookingFor/children/eyelash'], resolve);
+
 export default new Router({
     routes: [{
         path: '/addPatterns',
@@ -21,12 +26,33 @@ export default new Router({
         component: hotPatterns
     }, {
         path: '/lookingFor',
-        rederict: '/lookingFor/all',
+        redirect: '/lookingFor/all',
         name: 'lookingFor',
         component: lookingFor,
         children: [{
+            // 全部
             path: 'all',
             component: lookingForAll
+        }, {
+            // 面料
+            path: 'fabric',
+            component: lookingForFabric
+        }, {
+            // 大边
+            path: 'bigSide',
+            component: lookingForBigSide
+        }, {
+            // 小边
+            path: 'smallSide',
+            component: lookingForSmallSide
+        }, {
+            // 睫毛
+            path: 'eyelash',
+            component: lookingForEyelash
         }]
+    }, {
+      path: '/picSearch',
+      name: 'picSearch',
+      component: picSearch
     }]
 });
