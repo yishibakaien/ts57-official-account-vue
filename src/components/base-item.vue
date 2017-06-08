@@ -1,5 +1,5 @@
 <template>
-  <div class="base-item">
+  <div class="base-item" @click="itemClick">
     <div class="img-box" :style="{backgroundImage:'url(' + item.defaultPicUrl + ')'}"></div>
     <div class="name">{{item.productNo}}</div>
     <div class="time">{{formatTime(item.publishDate)}}</div>
@@ -20,6 +20,9 @@ export default {
   methods: {
     format(category) {
       return formatCategory(category);
+    },
+    itemClick() {
+      this.$emit('itemClick');
     },
     formatTime(time) {
       if (!time) {

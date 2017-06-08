@@ -12,7 +12,7 @@
     <div class="result-container clearfix">
       <div class="text">搜索结果：</div>
       <div class="item-wrapper" v-for="item in resultArr">
-        <base-item :item="item"></base-item>
+        <base-item :item="item" @itemClick="nav"></base-item>
       </div>
     </div>
 
@@ -64,6 +64,9 @@ export default {
     };
   },
   methods: {
+    nav() {
+      confirm('查看详情需要下载APP,是否前往下载?');
+    },
     choosePic() {
       this.$refs.file.click();
     },
