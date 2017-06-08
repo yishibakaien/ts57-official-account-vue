@@ -122,7 +122,7 @@ function _fetch(method = METHODS.get, data, url, cb, err) {
             }
         }
     };
-    console.log(param);
+    // console.log(param);
     Ajax(param);
 }
 

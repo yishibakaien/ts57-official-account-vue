@@ -9,6 +9,14 @@
     <div class="search-button-box">
       <button class="button button-blue" v-for="item in category" @click="doSearch(item.category)">{{item.text}}</button>
     </div>
+    <div class="result-container clearfix">
+      <div class="text">搜索结果：</div>
+      <div class="item-wrapper" v-for="item in resultArr">
+        <base-item :item="item"></base-item>
+      </div>
+    </div>
+
+    <paginator v-if="resultArr.length" :hasMore="hasMore" @more="loadMore"></paginator>
   </div>
 </template>
 
@@ -16,9 +24,27 @@
 // AlloyTeam 图片裁剪
 import AlloyCrop from '../../common/js/crop/crop';
 import {
-  encoded
+  encoded,
+  polling,
+  getResult
 } from '../../common/api/api';
+
+import {
+  formatCategory
+} from '../../common/js/utils';
+
+import blackTip from '../../common/js/tip/blackTip';
+
+import {
+  paginator,
+  baseItem
+} from '../../components/index';
+
 export default {
+  components: {
+    paginator,
+    baseItem
+  },
   data() {
     return {
       category: [
@@ -27,7 +53,14 @@ export default {
         {text: '搜小边', category: 100012},
         {text: '搜睫毛', category: 100013}
       ],
-      cropPic: ''
+      cropPic: '',
+      resultArr: [],
+      hasMore: false,
+      pageNo: 1,
+      searchCategory: '',
+      id: '', // 轮询之后获得的id
+      tip: null,
+      isSearching: false
     };
   },
   methods: {
@@ -35,16 +68,15 @@ export default {
       this.$refs.file.click();
     },
     uploadPic() {
+      var _this = this;
       var file = this.$refs.file.files[0];
       if (file) {
         var reader = new FileReader();
-        reader.onload = () => {
+        reader.onload = function() {
           var url = reader.result;
-          this.handleChoosePic(url);
+          _this.handleChoosePic(url);
         };
         reader.readAsDataURL(file);
-      } else {
-        // this.$toast('出错');
       }
     },
     handleChoosePic(url) {
@@ -68,21 +100,90 @@ export default {
         alert('请先上传一张图片');
         return;
       }
-
+      var _this = this;
+      if (_this.isSearching) {
+        return;
+      }
+      _this.isSearching = true;
+      _this.pageNo = 1;
+      _this.searchCategory = category;
+      _this.resultArr = []; // 置空resultArr
+      _this.tip = blackTip({
+        text: '搜索' + formatCategory(category) + '中',
+        time: 100000
+      });
       encoded({
-        category: category,
+        category: this.searchCategory,
         searchType: 300,
         encoded: this.cropPic
       }, function(res) {
-        console.log('搜图返回结果', res);
+        var searchKey = res.data.searchKey;
+        var timer = setInterval(function() {
+          polling({
+            searchKey: searchKey
+          }, function(res) {
+            console.log(res.data);
+            if (res.data !== -1) {
+              _this.id = res.data;
+              clearInterval(timer);
+              timer = null;
+
+              _this.getResult(_this.isSearching);
+            }
+          });
+        }, 1000);
       }, function(res) {
         console.log('返回结果失败', res);
       });
+    },
+    getResult(isSearching) {
+      var _this = this;
+      var args = arguments;
+      if (args.length === 0) {
+        if (_this.isSearching) {
+          return;
+        }
+        var b = blackTip({
+          text: '正在加载中',
+          time: 100000
+        });
+      }
+      getResult({
+        id: _this.id,
+        pageNo: _this.pageNo,
+        pageSize: 10
+      }, function(res) {
+        if (args.length) {
+          _this.tip.remove();
+          blackTip({
+            type: 'success',
+            text: '已完成'
+          });
+        } else {
+          b.remove();
+        }
+        _this.resultArr = _this.resultArr.concat(res.data.list);
+        // 如果返回结果小于 pageSize
+        if (res.data.list.length === res.data.pageSize) {
+          _this.hasMore = true;
+          _this.pageNo++;
+          // console.log('hasMore', _this.hasMore);
+        }
+        _this.isSearching = false;
+        console.log('搜图最终返回结果', res);
+      }, function(res) {
+        if (_this.tip) {
+           _this.tip.remove();
+        }
+      });
+    },
+    loadMore() {
+      this.getResult();
     }
   }
 };
 </script>
-<style lang="stylus">
+<style lang="stylus" scoped>
 @import '../../common/styles/mixin.styl';
 
 .search-category
@@ -120,8 +221,16 @@ export default {
   padding 14px
   font-size 14px
   color #999
-.search-history
-  background #fff
-  .history-img
-    width 30%
+.result-container
+  // padding-bottom 32px
+  .item-wrapper
+    float left
+    width 50%
+    box-sizing border-box
+    &:nth-of-type(even)
+      border-right: 1px solid rgba(7, 17, 27, 0.1);
+      border-bottom: 1px solid rgba(7, 17, 27, 0.1);
+    &:nth-of-type(odd)
+      border-bottom: 1px solid rgba(7, 17, 27, 0.1);
+      border-right: 1px solid transparent;
 </style>
