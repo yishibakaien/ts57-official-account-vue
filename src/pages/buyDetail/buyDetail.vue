@@ -58,7 +58,7 @@
 				}, // 自定义border
 				obj: {}, // 求购单详情数据
 				successPerson: {}, // 成功接单人
-				listNum: ''  // 接单人数量
+				listNum: 0  // 接单人数量
 			};
 		},
 		created() {

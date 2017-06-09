@@ -11,7 +11,8 @@ var baseURL = (function(env) {
     var baseURL;
     var urls = {
         dev: 'http://localhost:3001',
-        test: 'http://192.168.2.11:8080',
+//      test: 'http://192.168.2.11:8080',
+        test: 'http://api.tswq.wang',
         test_new: 'http://192.168.2.11/api',
         prod: ''
     };
