@@ -3,11 +3,11 @@
     <div class="search-category">
       <input type="file" capture="camera" name="file" ref="file" @change="uploadPic" style="display:none;">
       <div class="pic-wrapper border1px" :style="{backgroundImage:'url(' + cropPic + ')'}" @click="choosePic">
-        <i class="iconfont icon-xiangji" :style="{display: cropPic ? 'none' : 'inline-block'}"></i>
+        <i class="iconfont icon-tianjiatupian" :style="{display: cropPic ? 'none' : 'inline-block'}"></i>
       </div>
     </div>
     <div class="search-button-box">
-      <button class="button button-blue" v-for="item in category" @click="doSearch(item.category)">{{item.text}}</button>
+      <button class="button button-blue" v-for="item in category" @click="doSearch(item.category)" :disabled="isSearching || !cropPic">{{item.text}}</button>
     </div>
     <div class="result-container clearfix">
       <div class="text">搜索结果：</div>
@@ -63,6 +63,44 @@ export default {
       isSearching: false
     };
   },
+  mounted() {
+    this.$store.dispatch('SHOW', {
+      text: '12345',
+      type: 'loading'
+    });
+    // var queryUrl = this.$route.query.url;
+
+//     var imgSrc = "https://img.alicdn.com/bao/uploaded/TB1qimQIpXXXXXbXFXXSutbFXXX.jpg";
+// //    var imgSrc = "img/1.jpg";
+//       function getBase64(img){//传入图片路径，返回base64
+//         function getBase64Image(img,width,height) {//width、height调用时传入具体像素值，控制大小 ,不传则默认图像大小
+//           var canvas = document.createElement("canvas");
+//           canvas.width = width ? width : img.width;
+//           canvas.height = height ? height : img.height;
+
+//           var ctx = canvas.getContext("2d");
+//           ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+//           var dataURL = canvas.toDataURL();
+//           return dataURL;
+//         }
+//         var image = new Image();
+//         image.crossOrigin = '';
+//         image.src = img;
+//         var deferred=$.Deferred();
+//         if(img){
+//           image.onload =function (){
+//             deferred.resolve(getBase64Image(image));//将base64传给done上传处理
+//           }
+//           return deferred.promise();//问题要让onload完成后再return sessionStorage['imgTest']
+//         }
+      // }
+      // getBase64(imgSrc)
+      //   .then(function(base64){
+      //     console.log(base64);
+      //   },function(err){
+      //     console.log(err);
+      //   });
+  },
   methods: {
     nav() {
       confirm('查看详情需要下载APP,是否前往下载?');
@@ -99,38 +137,49 @@ export default {
       });
     },
     doSearch(category) {
-      if (!this.cropPic) {
-        alert('请先上传一张图片');
-        return;
-      }
+      // 没有上传图片，则返回
+      // if (!this.cropPic) {
+      //   alert('请先上传一张图片');
+      //   return;
+      // }
       var _this = this;
-      if (_this.isSearching) {
-        return;
-      }
+      // 正在搜索中的状态，返回
+      // if (_this.isSearching) {
+      //   return;
+      // }
       _this.isSearching = true;
       _this.pageNo = 1;
       _this.searchCategory = category;
-      _this.resultArr = []; // 置空resultArr
+      _this.resultArr = []; // 每次点击搜索按钮 置空resultArr
+      // 显示提示信息
       _this.tip = blackTip({
         text: '搜索' + formatCategory(category) + '中',
         time: 100000
       });
+
+      // 提交base64 图片码
       encoded({
         category: this.searchCategory,
         searchType: 300,
         encoded: this.cropPic
       }, function(res) {
+        // 获得搜索key
         var searchKey = res.data.searchKey;
+        // 开启轮询定时器
         var timer = setInterval(function() {
           polling({
             searchKey: searchKey
           }, function(res) {
             console.log(res.data);
+            // 当轮询结果不为 -1 时，表示搜索完毕
             if (res.data !== -1) {
+              // 记录此次搜索id
               _this.id = res.data;
+              // 清空定时器
               clearInterval(timer);
               timer = null;
-
+              // 根据id请求 搜索结果
+              // 传一个参数 用来标记 是加载更多还是 重新请求
               _this.getResult(_this.isSearching);
             }
           });
@@ -142,6 +191,7 @@ export default {
     getResult(isSearching) {
       var _this = this;
       var args = arguments;
+      console.log('args', args);
       if (args.length === 0) {
         if (_this.isSearching) {
           return;
@@ -205,7 +255,7 @@ export default {
     // border 1px solid #d8d8d8
     background-color #f2f2f2
     border-radius 2px
-    .icon-xiangji
+    .icon-tianjiatupian
       position relative
       font-size 30px
       color #aaa
