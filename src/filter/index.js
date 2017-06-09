@@ -123,10 +123,10 @@ export const type = item => {
 export const isStartUp = item => {
 	let isStartUpStr;
 	if (item === 1) {
-		isStartUpStr = '接收开机';
+		isStartUpStr = '接受开机';
 	}
 	if (item === 0) {
-		isStartUpStr = '不接收开机';
+		isStartUpStr = '不接受开机';
 	}
 	return isStartUpStr;
 };

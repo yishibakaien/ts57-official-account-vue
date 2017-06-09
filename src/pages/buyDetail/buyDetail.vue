@@ -2,30 +2,30 @@
 	<div class="detail-wrap">
 		<div class="content">
 			<div class="img-box">
-				<img src="../../../static/images/patterns3.png" alt="花型图片" />
+				<img :src="obj.buyPicUrl?obj.buyPicUrl:'/static/images/assets/defaultFlower'" alt="花型图片" />
 			</div>
 			<div class="content-box clearfix">
-				<p class="desc">数据备份数据的恢复巴克斯的法宝数据备份数据的恢复巴克斯的法宝数据备份数据的恢复巴克斯的法宝数据备份数据的恢复巴克斯的法宝</p>
+				<p class="desc">{{obj.buyDesc}}</p>
 				<div class="fl info">
-					<p class="info-item"><span class="title">求购类型：</span>睫毛-胚布<span class="state">接受开机</span></p>
-					<p class="info-item"><span class="title">求购数量：</span></p>
-					<p class="info-item"><span class="title">发布时间：</span></p>
+					<p class="info-item"><span class="title">求购类型：</span>{{obj.buyType | type}}-{{obj.buyShape | buyShape}}<span class="state">{{ obj.isStartUp | isStartUp }}</span></p>
+					<p class="info-item"><span class="title">求购数量：</span><span>{{obj.buyNum}}{{obj.buyUnit | unit}}</span></p>
+					<p class="info-item"><span class="title">发布时间：</span><span>{{obj.createDate | customTime}}</span></p>
 				</div>
-				<div class="fr">
-					<i class="iconfont icon-jiedanchenggong"></i>
+				<div class="fr" v-if="obj.buyStatus === 2">
+					<i class="iconfont icon-jiedanchenggong">TUBIAO</i>
 				</div>
 			</div>
 			<border :styleData="styleData"></border>
 			<div class="buyPerson">
-				<img class="fl" src="../../../resource/统搜57微信公众号/images/统搜57/u273.png" alt="求购人头像" />
-				<span class="fl">求购人：何二成</span>
+				<img class="fl" :src="obj.userHeadIcon" v-errorImg alt="求购人头像" />
+				<span class="fl">求购人：{{obj.userName}}</span>
 			</div>
 		</div>
-		<div class="successList">
+		<div class="successList" v-if="obj.buyStatus === 2">
 			<h5>成功接单商家</h5>
 			<div class="successList-info clearfix">
 				<div class="headImg fl">
-					<img src="../../../resource/统搜57微信公众号/images/统搜57/u159.png" alt="接单人头像"/>
+					<img :src="successPerson.userHeadIcon" v-errorImg alt="接单人头像"/>
 				</div>
 				<div class="info fl">
 					<p>蛇口街道富士康</p>
@@ -33,17 +33,21 @@
 				</div>
 			</div>
 		</div>
-		<div class="listNum">
-			<h5>共有2人接单</h5>
-			<div class="headImg">
-				<img src="../../../resource/统搜57微信公众号/images/统搜57/u267.png" alt="接单人头像"/>
-				<span>已成交</span>
+		<div class="listNum" v-if="listNum === 0">
+			暂时无人接单
+		</div>
+		<div class="listNum" v-else>
+			<h5>共有{{listNum}}人接单</h5>
+			<div class="headImg" v-for="item in this.obj.buyTaskList">
+				<img :src="item.userHeadIcon" v-errorImg alt="接单人头像"/>
+				<span v-if="item.state === 2">已成交</span>
 			</div>
 		</div>
 	</div>
 </template>
 
 <script>
+	import {getProductBuy} from '@/common/api/api';
 	export default {
 		data() {
 			return {
@@ -51,8 +55,27 @@
 					width: '96%',
 					float: 'right',
 					background: '#f2f2f2'
-				}
+				}, // 自定义border
+				obj: {}, // 求购单详情数据
+				successPerson: {}, // 成功接单人
+				listNum: ''  // 接单人数量
 			};
+		},
+		created() {
+			let data = {
+				id: 1474
+			};
+			getProductBuy(data, (res) => {
+				this.obj = res.data;
+				this.listNum = this.obj.buyTaskList.length;
+				for (let i = 0; i < this.listNum; i++) {
+					if (this.obj.buyTaskList[i].status === 2) {
+						this.successPerson = this.obj.buyTaskList[i];
+					}
+				}
+			}, (res) => {
+				console.log('错误');
+			});
 		}
 	};
 </script>
@@ -65,6 +88,7 @@
 		.content {
 			width: 100%;
 			background: #fff;
+			border-bottom: 1px solid #e5e5e5;
 			.img-box {
 				width: 100vw;
 				height: 100vw;
@@ -123,8 +147,12 @@
 		.successList,
 		.listNum {
 			margin-top: 20px;
+			margin-bottom: 20px;
 			padding: 10px 6px 10px 16px;
 			background: #fff;
+			border: 1px solid #e5e5e5;
+			border-left: 0;
+			border-right: 0;
 			h5 {
 				margin-bottom: 10px;
 				font-size: 14px;
