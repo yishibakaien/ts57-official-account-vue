@@ -5,7 +5,9 @@ import picSearch from './picSearch/picSearch.vue';
 
 // lyf
 import newPatterns from './newPatterns/newPatterns.vue';
-import customCf from './newPatterns/tsCustomCf/tsCustomCf.vue';
+import releaseSupply from './releasePages/releaseSupply.vue';
+import releaseBuy from './releasePages/releaseBuy.vue';
+import buyDetail from './buyDetail/buyDetail.vue';
 
 export {
   addPatterns,
@@ -15,5 +17,7 @@ export {
 
   // lyf
   newPatterns,
-  customCf
+  releaseSupply,
+  releaseBuy,
+  buyDetail
 };

@@ -8,7 +8,9 @@ import {
 
     // lyf
     newPatterns,
-    customCf
+    releaseBuy,
+    releaseSupply,
+    buyDetail
 } from '../pages/pages.js';
 
 Vue.use(Router);
@@ -63,8 +65,16 @@ export default new Router({
         name: 'newPatterns',
         component: newPatterns
     }, {
-        path: '/customCf',
-        name: 'customCf',
-        component: customCf
+        path: '/releaseBuy',
+        name: 'releaseBuy',
+        component: releaseBuy
+    }, {
+        path: '/releaseSupply',
+        name: 'releaseSupply',
+        component: releaseSupply
+    }, {
+        path: '/buyDetail',
+        name: 'buyDetail',
+        component: buyDetail
     }]
 });

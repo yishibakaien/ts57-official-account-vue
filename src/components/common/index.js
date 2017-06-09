@@ -1,15 +1,19 @@
-import imgUp from './imgUp.vue';
 import tsRadio from './tsRadio.vue';
+import tsRadioC from './tsRadio-circle.vue';
 import tsInput from './tsInput.vue';
 import border from './1px.vue';
 import tsGo from './tsGo.vue';
+import tsModel from './tsModel.vue';
+import tsModelC from './tsModelCustom.vue';
 // import aliUpload from './aliUpload/aliUpload.vue';
 const Components = {
- imgUp,
  tsRadio,
+ tsRadioC,
  border,
  tsInput,
- tsGo
+ tsGo,
+ tsModel,
+ tsModelC
 // 	aliUpload
 };
 const install = function(Vue) {

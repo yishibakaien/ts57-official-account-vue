@@ -3,14 +3,16 @@
 import Vue from 'vue';
 import App from './App';
 import router from './router';
+import * as directive from './directive/';
+import * as filters from './filter/';
 
 import tsComponents from '@/Components/common/index.js';
 
-import {Button, Cell} from 'mint-ui';
-Vue.component(Button.name, Button);
-Vue.component(Cell.name, Cell);
-
 Vue.use(tsComponents);
+
+Object.keys(directive).forEach(k => Vue.directive(k, directive[k]));
+Object.keys(filters).forEach(k => Vue.filter(k, filters[k]));
+Object.keys(filters).forEach(k => { Vue.prototype[k] = filters[k]; });
 
 Vue.config.productionTip = false;
 
