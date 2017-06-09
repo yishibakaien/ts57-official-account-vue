@@ -5,6 +5,7 @@ import {
     hotPatterns,
     lookingFor,
     picSearch,
+    login,
 
     // lyf
     newPatterns,
@@ -21,6 +22,10 @@ const lookingForEyelash = resolve => require(['../pages/lookingFor/children/eyel
 
 export default new Router({
     routes: [{
+        path: '/login',
+        name: 'login',
+        component: login
+    }, {
         path: '/addPatterns',
         name: 'addPatterns',
         component: addPatterns

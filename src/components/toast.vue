@@ -1,8 +1,10 @@
 <template>
-  <div class="_blackTip_" v-show="isShow">
-    <div class="icon" :class="type"></div>
-    <p class="text">{{text}}</p>
-  </div>
+  <transition name="fade">
+    <div class="_blackTip_" v-show="isShow">
+      <div class="icon" :class="type"></div>
+      <p class="text">{{text}}</p>
+    </div>
+  </transition>
 </template>
 
 <script>
@@ -21,6 +23,12 @@ export default {
 };
 </script>
 <style lang="stylus" scoped>
+.fade-enter-active, .fade-leave-active
+  transition: all 0.1s;
+.fade-enter, .fade-leave-active
+  opacity: 0;
+  transform: scale(0.8);
+
 ._blackTip_ {
   margin: 0;
   padding: 0;
@@ -39,7 +47,8 @@ export default {
   word-break: break-all
 }
 
-._blackTip_ .icon.info {
+._blackTip_ .icon.info,
+._blackTip_ .icon.error {
   display: inline-block;
   height: 40px;
   line-height: 40px;
@@ -51,8 +60,15 @@ export default {
   color: rgba(7,17,27,0.8);
   background-color: #fff
 }
+._blackTip_ .icon.error {
+  font-size: 35px;
+  line-height 38px
+}
 ._blackTip_ .icon.info:after {
   content: '!'
+}
+._blackTip_ .icon.error:after {
+  content: '×'
 }
 ._blackTip_ .icon.loading {
   display: inline-block;

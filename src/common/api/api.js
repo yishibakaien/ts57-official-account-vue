@@ -4,8 +4,8 @@ import { headers, baseURL } from '../config/config';
 
 import { Ajax } from './ajax';
 
-import blackTip from '../js/tip/blackTip';
-
+import { info, loading, error } from '../js/tip/toast';
+console.log(loading, error);
 const API = {
     user: {
         checkPhone: '/front/user/checkPhone' // 检查手机号码是否存在
@@ -50,6 +50,9 @@ const API = {
 
         // 获取分类绑定的花型列表
         listBindingProduct: '/productCategoryBanding/listBindingProduct'
+    },
+    list: {
+        listCompanyNewProduct: '/product/listCompanyNewProduct'
     },
     detail: {
         // 获取花型详情
@@ -100,10 +103,9 @@ function _fetch(method = METHODS.get, data, url, cb, err) {
         data: _formatData(method, data),
         success: function(res) {
             if (res.code !== 0) {
-                blackTip({
-                    type: 'info',
-                    time: 2100,
-                    text: '请求错误:' + res.message
+                // loading();
+                info({
+                  text: res.message
                 });
                 return;
             }
@@ -112,9 +114,8 @@ function _fetch(method = METHODS.get, data, url, cb, err) {
             }
         },
         error: function(res) {
-            blackTip({
-                text: '请检查网络',
-                type: 'info'
+            info({
+              text: '请检查网络'
             });
             // 待定 也blackTip 统一处理
             if (typeof err === 'function') {
@@ -229,4 +230,9 @@ export function urlSearch(data, cb, err) {
 // 获取搜索结果 图片
 export function getResult(data, cb, err) {
     return _fetch(METHODS.get, data, API.search.getResult, cb, err);
+}
+
+// 厂家上新
+export function listCompanyNewProduct(data, cb, err) {
+    return _fetch(METHODS.get, data, API.list.listCompanyNewProduct, cb, err);
 }
