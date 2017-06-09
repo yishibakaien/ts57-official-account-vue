@@ -1,4 +1,6 @@
 // create by cloud_cb on 2017/04/14.
+//
+// vue 项目中 可以不要使用此文件
 'use strict';
 var TIP_ID = '_blackTip_';
 var STATE_HIDE = 0;
