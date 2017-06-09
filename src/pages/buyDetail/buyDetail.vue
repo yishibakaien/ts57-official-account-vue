@@ -2,7 +2,7 @@
 	<div class="detail-wrap">
 		<div class="content">
 			<div class="img-box">
-				<img :src="obj.buyPicUrl?obj.buyPicUrl:'/static/images/assets/defaultFlower'" alt="花型图片" />
+				<img :src="obj.buyPicUrl?obj.buyPicUrl:'/static/images/assets/defaultFlower.svg'" alt="花型图片" />
 			</div>
 			<div class="content-box clearfix">
 				<p class="desc">{{obj.buyDesc}}</p>
@@ -28,19 +28,19 @@
 					<img :src="successPerson.userHeadIcon" v-errorImg alt="接单人头像"/>
 				</div>
 				<div class="info fl">
-					<p>蛇口街道富士康</p>
-					<span>3小时前</span>
+					<p>{{successPerson.userName}}</p>
+					<span>{{successPerson.createTime | customTime}}</span>
 				</div>
 			</div>
 		</div>
 		<div class="listNum" v-if="listNum === 0">
 			暂时无人接单
 		</div>
-		<div class="listNum" v-else>
+		<div class="listNum clearFix" v-else>
 			<h5>共有{{listNum}}人接单</h5>
-			<div class="headImg" v-for="item in this.obj.buyTaskList">
+			<div class="headImg fl" v-for="item in this.obj.buyTaskList">
 				<img :src="item.userHeadIcon" v-errorImg alt="接单人头像"/>
-				<span v-if="item.state === 2">已成交</span>
+				<span v-if="item.status === 2">已成交</span>
 			</div>
 		</div>
 	</div>
@@ -63,7 +63,7 @@
 		},
 		created() {
 			let data = {
-				id: 1474
+				id: 1654
 			};
 			getProductBuy(data, (res) => {
 				this.obj = res.data;
