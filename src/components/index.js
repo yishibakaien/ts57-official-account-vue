@@ -8,11 +8,14 @@ import rankTag from './rank-tag';
 import downloadTip from './download-tip';
 // 基础花型框
 import baseItem from './base-item';
+// toast 提示
+import toast from './toast';
 
 export {
   patternsList3,
   paginator,
   rankTag,
   downloadTip,
-  baseItem
+  baseItem,
+  toast
 };
