@@ -1,12 +1,26 @@
 <template>
   <div class="paginator-wrapper">
-      <div class="has-more" v-if="true">查看更多</div>
-      <div class="no-more" v-if="false">没有更多了</div>
+      <div class="has-more" v-show="hasMore" @click="seeMore">查看更多</div>
+      <div class="no-more" v-show="!hasMore">没有更多了</div>
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  props: {
+    hasMore: {
+      type: Boolean
+    }
+  },
+  mounted() {
+    console.log('paginator mounted', this.hasMore);
+  },
+  methods: {
+    seeMore() {
+      this.$emit('more');
+    }
+  }
+};
 </script>
 <style lang="stylus">
   .paginator-wrapper

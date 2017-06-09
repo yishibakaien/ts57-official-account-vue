@@ -1,18 +1,41 @@
 <template>
-  <div class="base-item border-bottom">
-    <div class="img-box" :style="{backgroundImage:'url(' + url + ')'}"></div>
-    <div class="name">大边</div>
-    <div class="time">4小时前</div>
+  <div class="base-item" @click="itemClick">
+    <div class="img-box" :style="{backgroundImage:'url(' + item.defaultPicUrl + ')'}"></div>
+    <div class="name">{{item.productNo}}</div>
+    <div class="time">{{formatTime(item.publishDate)}}</div>
   </div>
 </template>
 
 <script>
+import {
+  formatCategory,
+  formatDate
+} from '../common/js/utils';
 export default {
-  data() {
-    return {
-      url: require('../../static/images/patterns1.png')
-    };
+  props: {
+    item: {
+      type: Object
+    }
+  },
+  methods: {
+    format(category) {
+      return formatCategory(category);
+    },
+    itemClick() {
+      this.$emit('itemClick');
+    },
+    formatTime(time) {
+      if (!time) {
+        return '';
+      }
+      return formatDate(time, 'yyyy-MM-dd');
+    }
   }
+  // data() {
+  //   return {
+  //     url: require('../../static/images/patterns1.png')
+  //   };
+  // }
 };
 </script>
 <style lang="stylus">
