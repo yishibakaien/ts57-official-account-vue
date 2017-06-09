@@ -11,9 +11,12 @@ export default {
   computed: {
     ...mapState({
       isShow: state => state.toast.isShow,
-      type: state => state.toast.type,
-      text: state => state.toast.text
+      text: state => state.toast.text,
+      type: state => state.toast.type
     })
+  },
+  mounted() {
+    console.log(this.isShow);
   }
 };
 </script>
@@ -48,7 +51,9 @@ export default {
   color: rgba(7,17,27,0.8);
   background-color: #fff
 }
-
+._blackTip_ .icon.info:after {
+  content: '!'
+}
 ._blackTip_ .icon.loading {
   display: inline-block;
   margin-top: 30px;
