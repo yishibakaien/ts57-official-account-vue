@@ -64,10 +64,10 @@ export default {
     };
   },
   mounted() {
-    this.$store.dispatch('SHOW', {
-      text: '12345',
-      type: 'loading'
-    });
+    // this.$store.dispatch('SHOW', {
+    //   text: '12345',
+    //   type: 'loading'
+    // });
     // var queryUrl = this.$route.query.url;
 
 //     var imgSrc = "https://img.alicdn.com/bao/uploaded/TB1qimQIpXXXXXbXFXXSutbFXXX.jpg";
