@@ -15,7 +15,8 @@ const API = {
         addIngredient: '/ingredient/addIngredient', // 自定义成分
         listHomeProductBuys: '/productBuy/listHomeProductBuys', // 求购列表
         byTypeKey: '/front/dicTree/byTypeKey', // 字典
-        listIngredients: '/ingredient/listIngredients' // 获取成分列表
+        listIngredients: '/ingredient/listIngredients', // 获取成分列表
+        token: '/file/token' // OSS token
     },
     user: {
         checkPhone: '/front/user/checkPhone' // 检查手机号码是否存在
@@ -241,6 +242,11 @@ export function urlSearch(data, cb, err) {
 export function getResult(data, cb, err) {
     return _fetch(METHODS.get, data, API.search.getResult, cb, err);
 }
+// 厂家上新
+export function listCompanyNewProduct(data, cb, err) {
+    return _fetch(METHODS.get, data, API.list.listCompanyNewProduct, cb, err);
+}
+
 // lyf qpi
 // 求购详情
 export function getProductBuy(data, cb, err) {
@@ -252,8 +258,7 @@ export function getProductBuy(data, cb, err) {
 export function addIngredient(data, cb, err) {
     return _fetch(METHODS.post, data, API.lyf.addIngredient, cb, err);
 }
-
-// 厂家上新
-export function listCompanyNewProduct(data, cb, err) {
-    return _fetch(METHODS.get, data, API.list.listCompanyNewProduct, cb, err);
+// OSS token
+export function token(data, cb, err) {
+    return _fetch(METHODS.post, data, API.lyf.token, cb, err);
 }
