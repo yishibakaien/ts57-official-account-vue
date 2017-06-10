@@ -1,11 +1,10 @@
 'use strict';
 // var env = 'test_new'; // 开发环境
-var env = 'test'; // 测试环境
+var env = 'test_new'; // 测试环境
 
 var headers = {
     'x-version': '1.0',
-    'x-client': '4',
-    'x-token': '51d949be0151451f9a6b327b83e4e110'
+    'x-client': '4'
 };
 
 var baseURL = (function(env) {

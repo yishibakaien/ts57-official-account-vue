@@ -33,13 +33,18 @@ import {
   formatCategory
 } from '../../common/js/utils';
 
-import blackTip from '../../common/js/tip/blackTip';
+// import blackTip from '../../common/js/tip/blackTip';
 
 import {
   paginator,
   baseItem
 } from '../../components/index';
-
+import {
+  info,
+  loading,
+  success,
+  hide
+} from '../../common/js/tip/toast';
 export default {
   components: {
     paginator,
@@ -152,11 +157,13 @@ export default {
       _this.searchCategory = category;
       _this.resultArr = []; // 每次点击搜索按钮 置空resultArr
       // 显示提示信息
-      _this.tip = blackTip({
-        text: '搜索' + formatCategory(category) + '中',
-        time: 100000
+      // _this.tip = blackTip({
+      //   text: '搜索' + formatCategory(category) + '中',
+      //   time: 100000
+      // });
+      loading({
+        text: '搜索' + formatCategory(category) + '中'
       });
-
       // 提交base64 图片码
       encoded({
         category: this.searchCategory,
@@ -196,9 +203,12 @@ export default {
         if (_this.isSearching) {
           return;
         }
-        var b = blackTip({
-          text: '正在加载中',
-          time: 100000
+        // var b = blackTip({
+        //   text: '正在加载中',
+        //   time: 100000
+        // });
+        loading({
+          text: '正在加载中'
         });
       }
       getResult({
@@ -207,13 +217,16 @@ export default {
         pageSize: 10
       }, function(res) {
         if (args.length) {
-          _this.tip.remove();
-          blackTip({
-            type: 'success',
+          // _this.tip.remove();
+          // blackTip({
+          //   type: 'success',
+          //   text: '已完成'
+          // });
+          success({
             text: '已完成'
           });
         } else {
-          b.remove();
+          hide();
         }
         _this.resultArr = _this.resultArr.concat(res.data.list);
         // 如果返回结果小于 pageSize
@@ -225,9 +238,12 @@ export default {
         _this.isSearching = false;
         console.log('搜图最终返回结果', res);
       }, function(res) {
-        if (_this.tip) {
-           _this.tip.remove();
-        }
+        info({
+          text: res.message ? res.message : '请求出错'
+        });
+        // if (_this.tip) {
+        //    _this.tip.remove();
+        // }
       });
     },
     loadMore() {
