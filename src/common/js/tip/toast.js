@@ -1,3 +1,4 @@
+// toast 快捷使用方式
 import store from '../../store/store';
 
 export function loading(options) {

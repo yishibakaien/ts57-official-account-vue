@@ -48,3 +48,16 @@ export function checkIOS() {
 		return false;
 	}
 }
+
+// Object.assign
+export function objectAssign(target, source) {
+  if (!target || !source) {
+    return target || {};
+  }
+  if (target instanceof Object) {
+    for (var key in source) {
+      target[key] = source[key];
+    }
+  }
+  return target;
+}

@@ -18,7 +18,9 @@ const API = {
         listIngredients: '/ingredient/listIngredients' // 获取成分列表
     },
     user: {
-        checkPhone: '/front/user/checkPhone' // 检查手机号码是否存在
+        login: '/front/user/login', // 登录
+        checkPhone: '/front/user/checkPhone', // 检查手机号码是否存在
+        getVerifyCode: '/front/user/getVerifyCode' // 获取图片验证码
     },
     main: {
         // 首页进来之后需要展示的信息
@@ -140,6 +142,14 @@ function _fetch(method = METHODS.get, data, url, cb, err) {
 // 检查手机号码，此接口没有跨域问题
 export function checkPhone(data, cb, err) {
     return _fetch(METHODS.get, data, API.user.checkPhone, cb, err);
+}
+// 用户登录
+export function login(data, cb, err) {
+  return _fetch(METHODS.post, data, API.user.login, cb, err);
+}
+// 获取图片验证码
+export function getVerifyCode(data, cb, err) {
+  return _fetch(METHODS.post, data, API.user.getVerifyCode, cb, err);
 }
 
 // 获取公司信息(详细)
