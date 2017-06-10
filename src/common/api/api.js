@@ -5,6 +5,7 @@ import { headers, baseURL } from '../config/config';
 import { Ajax } from './ajax';
 
 import { info } from '../js/tip/toast';
+import router from '../../router';
 // console.log(loading, error);
 const API = {
     lyf: {
@@ -123,6 +124,9 @@ function _fetch(method = METHODS.get, data, url, cb, err) {
                 if (res.code === 210018) {
                   // 用户未登录，清空本地缓存
                   localStorage.clear();
+                  router.push({
+                    path: '/login'
+                  });
                 }
             }
             if (typeof cb === 'function') {
