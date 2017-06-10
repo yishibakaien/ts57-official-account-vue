@@ -5,26 +5,26 @@ import border from './1px.vue';
 import tsGo from './tsGo.vue';
 import tsModel from './tsModel.vue';
 import tsModelC from './tsModelCustom.vue';
-// import aliUpload from './aliUpload/aliUpload.vue';
+import aliUpload from './aliUpload/aliUpload.vue';
 const Components = {
- tsRadio,
- tsRadioC,
- border,
- tsInput,
- tsGo,
- tsModel,
- tsModelC
-// 	aliUpload
+	tsRadio,
+	tsRadioC,
+	border,
+	tsInput,
+	tsGo,
+	tsModel,
+	tsModelC,
+	aliUpload
 };
 const install = function(Vue) {
-  for (let i in Components) {
-    Vue.component(i, Components[i]);
-};
-// Vue.$messagebox = Vue.prototype.$messagebox = tsMessageBox;
-// Vue.$toast = Vue.prototype.$toast = tsToast;
+	for (let i in Components) {
+		Vue.component(i, Components[i]);
+	};
+	// Vue.$messagebox = Vue.prototype.$messagebox = tsMessageBox;
+	// Vue.$toast = Vue.prototype.$toast = tsToast;
 };
 if (typeof window !== 'undefined' && window.Vue) {
-  install(window.Vue);
+	install(window.Vue);
 };
 Components.install = install;
 export default Components;

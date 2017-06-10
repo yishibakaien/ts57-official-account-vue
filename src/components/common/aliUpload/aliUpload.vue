@@ -6,12 +6,8 @@
 <script>
 	import uploadPicture from '@/common/js/uploadPicture';
 	import { token } from '@/common/api/api';
-	import Toast from '@/components/common/toast/toast';
 	export default {
-		props: {
-			multiple: '',
-			id: ''
-		},
+		props: ['multiple', 'id', 'fileType'],
 		data() {
 			return {
 				dir: '',
@@ -25,7 +21,7 @@
 		methods: {
 			uuidMethod() {
 				return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-					var r = Math.random() * 16 | 0,
+					let r = Math.random() * 16 | 0,
 						v = c == 'x' ? r : (r & 0x3 | 0x8);
 					return v.toString(16);
 				});
@@ -38,29 +34,23 @@
 				for (let i = 0; i < fileLen.length; i++) {
 					let imgObj = fileLen[i];
 					if (!rFilter.test(imgObj.type) && imgObj.type != '') {
-						Toast({
-							type: 'error',
-							message: '图片格式不正确，请检查'
-						});
+						alert('图片格式不正确，请检查');
 						return;
 					}
 					// 图片大小限制1MB以下 2097152
 					if (imgObj.size <= 0 || imgObj.size >= 1048576) {
-						Toast({
-							type: 'error',
-							message: '图片大小请限制在一兆以内'
-						});
+						alert('图片大小请限制在一兆以内');
 						return;
 					}
 				};
-				token().then((res) => {
-					_.dir = res.data.data.dir;
+				token({ fileType: this.fileType }, (res) => {
+					_.dir = res.data.dir;
 					const client = new OSS.Wrapper({
 						region: _.region,
-						accessKeyId: res.data.data.accessKeyId,
-						accessKeySecret: res.data.data.accessKeySecret,
-						stsToken: res.data.data.securityToken,
-						bucket: res.data.data.bucket
+						accessKeyId: res.data.accessKeyId,
+						accessKeySecret: res.data.accessKeySecret,
+						stsToken: res.data.securityToken,
+						bucket: res.data.bucket
 					});
 					if (fileLen) {
 						for (let i = 0; i < fileLen.length; i++) {
@@ -79,7 +69,7 @@
 							});
 						}
 					}
-				}).catch();
+				}, (res) => {});
 			}
 		}
 	};
@@ -88,7 +78,7 @@
 	.oss-file {
 		float: left;
 	}
-
+	
 	.oss-file input {
 		position: absolute;
 		opacity: 0;

@@ -8,11 +8,11 @@
 				<p class="desc">{{obj.buyDesc}}</p>
 				<div class="fl info">
 					<p class="info-item"><span class="title">求购类型：</span>{{obj.buyType | type}}-{{obj.buyShape | buyShape}}<span class="state">{{ obj.isStartUp | isStartUp }}</span></p>
-					<p class="info-item"><span class="title">求购数量：</span><span>{{obj.buyNum}}{{obj.buyUnit | unit}}</span></p>
+					<p class="info-item"><span class="title">求购数量：</span><span v-if="obj.buyNum">{{obj.buyNum}}{{obj.buyUnit | unit}}</span><span>面议</span></p>
 					<p class="info-item"><span class="title">发布时间：</span><span>{{obj.createDate | customTime}}</span></p>
 				</div>
-				<div class="fr" v-if="obj.buyStatus === 2">
-					<i class="iconfont icon-jiedanchenggong">TUBIAO</i>
+				<div class="fr iconfontBox" v-if="obj.buyStatus === 2">
+					<i class="iconfont icon-paimai2"></i>
 				</div>
 			</div>
 			<border :styleData="styleData"></border>
@@ -25,7 +25,7 @@
 			<h5>成功接单商家</h5>
 			<div class="successList-info clearfix">
 				<div class="headImg fl">
-					<img :src="successPerson.userHeadIcon" v-errorImg alt="接单人头像"/>
+					<img :src="successPerson.userHeadIcon" v-errorImg alt="接单人头像" />
 				</div>
 				<div class="info fl">
 					<p>{{successPerson.userName}}</p>
@@ -39,7 +39,7 @@
 		<div class="listNum clearFix" v-else>
 			<h5>共有{{listNum}}人接单</h5>
 			<div class="headImg fl" v-for="item in this.obj.buyTaskList">
-				<img :src="item.userHeadIcon" v-errorImg alt="接单人头像"/>
+				<img :src="item.userHeadIcon" v-errorImg alt="接单人头像" />
 				<span v-if="item.status === 2">已成交</span>
 			</div>
 		</div>
@@ -47,7 +47,7 @@
 </template>
 
 <script>
-	import {getProductBuy} from '@/common/api/api';
+	import { getProductBuy } from '@/common/api/api';
 	export default {
 		data() {
 			return {
@@ -58,12 +58,13 @@
 				}, // 自定义border
 				obj: {}, // 求购单详情数据
 				successPerson: {}, // 成功接单人
-				listNum: 0  // 接单人数量
+				listNum: 0 // 接单人数量
 			};
 		},
 		created() {
 			let data = {
-				id: 1654
+				//				id: 1654    // 多人接单数据
+				id: 1734 // 多人接单数据
 			};
 			getProductBuy(data, (res) => {
 				this.obj = res.data;
@@ -73,9 +74,7 @@
 						this.successPerson = this.obj.buyTaskList[i];
 					}
 				}
-			}, (res) => {
-				console.log('错误');
-			});
+			}, (res) => {});
 		}
 	};
 </script>
@@ -159,9 +158,12 @@
 				color: #666;
 			}
 			.headImg {
-				margin-right: 15px;
+				margin-right: 10px;
+				margin-bottom: 5px;
 				width: 40px;
 				height: 40px;
+				border-radius: 5px;
+				overflow: hidden;
 				img {
 					width: 100%;
 					height: 100%;
@@ -193,7 +195,21 @@
 				font-size: 12px;
 				line-height: 36px;
 				text-align: center;
-				background: rgba(0,0,0,.4);
+				background: rgba(0, 0, 0, .4);
+			}
+		}
+		.iconfontBox {
+			margin-top: 10px;
+			margin-right: 30px;
+			width: 42px;
+			height: 42px;
+			line-height: 40px;
+			text-align: center;
+			background: #FF8400;
+			border-radius: 50%;
+			.icon-paimai2::before {
+				color: #fff;
+				font-size: 32px;
 			}
 		}
 	}

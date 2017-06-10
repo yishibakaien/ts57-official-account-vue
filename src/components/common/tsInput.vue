@@ -27,13 +27,12 @@
 			clearData() {
 				this.data = '';
 				this.isClear = false;
-				console.log(2);
 			},
 			toggleShow() {
 				if (this.data) {
 					this.toggle = false;
 				}
-				console.log(1);
+				this.$emit('toggleShow', this.data);
 			},
 			toggleShow1() {
 				this.toggle = true;
