@@ -137,7 +137,11 @@ export default {
             success({
               text: '登录成功',
               complete: function() {
-                _this.$router.go(-1);
+                console.log('success-complete');
+                var redirect = decodeURIComponent(_this.$route.query.redirect);
+                _this.$router.push({
+                  path: redirect
+                });
               }
             });
             console.log('登录成功用户数据', res);

@@ -124,14 +124,15 @@ function _fetch(method = METHODS.get, data, url, cb, err) {
                 if (res.code === 210018) {
                   // 用户未登录，清空本地缓存
                   localStorage.clear();
+                  console.log(router);
                   router.push({
-                    path: '/login'
+                    path: 'login'
                   });
                 }
             }
             if (typeof cb === 'function') {
-                cb.apply(this, arguments);
-                // cb(res, status, xhr);
+                // cb.apply(this, arguments);
+                cb(res, status, xhr);
             }
         },
         error: function(res) {
