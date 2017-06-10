@@ -22,7 +22,7 @@ const lookingForBigSide = resolve => require(['../pages/lookingFor/children/bigS
 const lookingForSmallSide = resolve => require(['../pages/lookingFor/children/smallSide'], resolve);
 const lookingForEyelash = resolve => require(['../pages/lookingFor/children/eyelash'], resolve);
 
-export default new Router({
+var routes = {
     routes: [{
         path: '/login',
         name: 'login',
@@ -30,7 +30,10 @@ export default new Router({
     }, {
         path: '/addPatterns',
         name: 'addPatterns',
-        component: addPatterns
+        component: addPatterns,
+        meta: {
+          needAuth: true
+        }
     }, {
         path: '/hotPatterns',
         name: 'hotPatterns',
@@ -82,4 +85,21 @@ export default new Router({
         name: 'buyDetail',
         component: buyDetail
     }]
+};
+
+var router = new Router(routes);
+
+// 页面路由钩子，判断进入的页面是够需要登录验证(needAuth);
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.needAuth)) {
+    if (localStorage['x-token']) {
+      next();
+    } else {
+      next('/login');
+    }
+  } else {
+    next();
+  }
 });
+
+export default router;

@@ -4,8 +4,8 @@ import { headers, baseURL } from '../config/config';
 
 import { Ajax } from './ajax';
 
-import { info, loading, error } from '../js/tip/toast';
-console.log(loading, error);
+import { info } from '../js/tip/toast';
+// console.log(loading, error);
 const API = {
     lyf: {
         releaseCompanySupply: '/companySupply/releaseCompanySupply', // 发布供应
@@ -105,24 +105,28 @@ function _formatData(method, data) {
 
 function _fetch(method = METHODS.get, data, url, cb, err) {
     let _headers = headers;
-    // 模拟用户登录token
-    // _headers['x-token'] = 'c01312548ab141769dfa3d4ef05ca6a1';
-    // alert(JSON.stringify(data));
+    // 登录之后的token
+    if (localStorage['x-token']) {
+      _headers['x-token'] = localStorage['x-token'];
+    }
     let param = {
         method: method,
         url: baseURL + url,
         headers: _headers,
         data: _formatData(method, data),
-        success: function(res) {
+        success: function(res, status, xhr) {
             if (res.code !== 0) {
-                // loading();
                 info({
                     text: res.message
                 });
-                return;
+                if (res.code === 210018) {
+                  // 用户未登录，清空本地缓存
+                  localStorage.clear();
+                }
             }
             if (typeof cb === 'function') {
-                cb(res);
+                cb.apply(this, arguments);
+                // cb(res, status, xhr);
             }
         },
         error: function(res) {

@@ -3,10 +3,10 @@
     <div class="input-wrapper">
       <input class="input" type="tel" maxlength="11" v-model="inputObject.userMobile" @blur="checkUserMobile" placeholder="请输入登录手机号码">
       <span class="border-bottom spliter" style="display:block"></span>
-      <input class="input" type="passowrd" @blur="checkPWD" v-model="inputObject.userPWD" placeholder="请输入密码">
+      <input class="input" type="password" @blur="checkPWD" v-model="inputObject.userPWD" placeholder="请输入密码">
     </div>
-    <div class="v-code-wrapper border-top">
-        <input class="input" maxlength="6" @blur="checkCode" v-model="inputObject.picCode" type="text" placeholder="请输入验证码">
+    <div class="v-code-wrapper border-top" v-if="picUrl">
+        <input class="input" maxlength="4" @blur="checkCode" v-model="inputObject.picCode" type="text" placeholder="请输入验证码">
         <div class="v-code-image-wrapper">
           <img :src="picUrl" class="v-code-image">
         </div>
@@ -19,7 +19,6 @@
 
 <script>
 import {
-
   testPWD,
   testSMSCode,
   testMobile
@@ -27,17 +26,18 @@ import {
 import {
   // getVerifyCode,
   login,
-  checkPhone
+  checkPhone,
+  getVerifyCode
 } from '../../common/api/api';
 // import md5 from 'blueimp-md5';
 // import aes from 'aes-js';
+import aes from '../../common/js/aes/mode-ecb';
 import {
   objectAssign
 } from '../../common/js/utils';
 import {
-
-  // loading,
-  // success,
+  loading,
+  success,
   info
 } from '../../common/js/tip/toast';
 // import {} from '../../components/index.js';
@@ -100,23 +100,13 @@ export default {
         }
       },
       login() {
+        loading({
+          text: '请稍后..'
+        });
+        var _this = this;
         // 复制data
         var data = objectAssign({}, this.inputObject);
-        // 128key
-        // var key_128 = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 ];
-
-        // var text = 'zuoshibuguanzsbg';
-
-        // var textBytes = aesjs.utils.utf8.toBytes(text);
-
-        // var aesEcb = new aesjs.ModeOfOperation.ecb(key);
-
-        // var encryptedBytes = aesEcb.encrypt(textBytes);
-        // // To print or store the binary data, you may convert it to hex
-        // var encryptedHex = aesjs.utils.hex.fromBytes(encryptedBytes);
-        // console.log(encryptedHex);
-        // // data.userPWD = md5(this.inputObject.userPWD);
-        // data.userPWD =
+        data.userPWD = aes(this.inputObject.userPWD);
         console.log(data);
         if (!testPWD(this.inputObject.userPWD)) {
           info({
@@ -142,8 +132,24 @@ export default {
           }
         }
 
-        login(data, function(res) {
-          console.log('登录完毕', res);
+        login(data, function(res, status, xhr) {
+          if (res.code === 0) {
+            success({
+              text: '登录成功',
+              complete: function() {
+                _this.$router.go(-1);
+              }
+            });
+            console.log('登录成功用户数据', res);
+            console.log('登录成功x-token', xhr.getResponseHeader('x-token'));
+            localStorage['x-token'] = xhr.getResponseHeader('x-token');
+          }
+          if (res.code === 2000004) {
+            getVerifyCode({}, function(res) {
+              console.log('获取图片验证码', res);
+              _this.picUrl = 'data:image/jpeg;base64,' + res.data;
+            });
+          }
         }, function(res) {
           console.log('登录失败', res);
         });

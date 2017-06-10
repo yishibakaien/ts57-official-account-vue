@@ -8,7 +8,7 @@ function testPWD(pwd) {
 }
 // 图片验证码
 function testSMSCode(str) {
-    return /\d{4}/.test(str || '');
+    return /.{4}/.test(str || '');
 }
 
 export {
