@@ -139,7 +139,7 @@ export default {
               complete: function() {
                 console.log('success-complete');
                 var redirect = decodeURIComponent(_this.$route.query.redirect);
-                _this.$router.push({
+                _this.$router.replace({
                   path: redirect
                 });
               }
