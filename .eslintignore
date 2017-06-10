@@ -1,4 +1,6 @@
-build/*.js
-config/*.js
+build/*.
+jsconfig/*.
+js
 src/common/js/crop/*
 src/common/js/aes/*
+src/components/common/aliUpload/aliUpload.vue

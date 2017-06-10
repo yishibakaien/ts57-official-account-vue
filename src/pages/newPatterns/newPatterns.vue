@@ -4,9 +4,12 @@
 			<div>
 				<div class="content">
 					<label for="pic-up">
-						<P><i class="iconfont icon-tupiansousuo"></i></P>
+						<P>
+							<img v-if="flowerData64" :src="flowerData64" alt="花型图片"/>
+							<i v-else class="iconfont icon-tianjiatupian"></i>
+						</P>
 					</label>
-					<input type="file" name="pic-up" id="pic-up" value="" />
+					<aliUpload :id="'pic-up'" :fileType="3" @doUpload="uploadImg"></aliUpload>
 				</div>
 			</div>
 			<div class="content-wrap">
@@ -17,7 +20,7 @@
 				<div class="form-item">
 					<border :styleData="styleData1"></border>
 					<label>编号：</label>
-					<ts-input></ts-input>
+					<ts-input @toggleShow="productNoData"></ts-input>
 					<border :styleData="styleData1"></border>
 				</div>
 				<div class="form-item form-item-auto">
@@ -131,10 +134,10 @@
 				modelShow: false, // 上架选择框
 				modelShow2: false, // 计量单位选择框
 				// 面料数据
-				options: [{name: 'types', label: 1, types: '面料'},
-					{name: 'types', label: 2, types: '大边'},
-					{name: 'types', label: 3, types: '小边'},
-					{name: 'types', label: 4, types: '睫毛'}
+				options: [{name: 'types', label: 100010, types: '面料'},
+					{name: 'types', label: 100011, types: '大边'},
+					{name: 'types', label: 100012, types: '小边'},
+					{name: 'types', label: 100013, types: '睫毛'}
 				],
 				// 成品胚布类型数据
 				options1: [{name: 'buliao', label: 1, types: '成品'},
@@ -156,12 +159,15 @@
 				],
 				customItems: [],
 				addPatternForm: {
-					category: '', // 面料
+					category: '', // 类别 面料大边小边睫毛
+					defaultPicUrl: '', // 花型图片
+					productNo: '', // 花型编号
 					customCf: '', // 自定义成分
 					shangjia: '',  // 上架方式
 					price: '', // 价格
 					priceUnit: '' // 价格单位
 				},
+				flowerData64: '', // 花型图片base64数据
 				styleData: {
 					width: '96%',
 					float: 'right'
@@ -253,7 +259,7 @@
 			},
 			// 选择面料
 			selectMianliao(e) {
-				console.log(e.label);
+				this.addPatternForm.category = e.label;
 			},
 			// 选择是否有库存
 			selectStock(e) {
@@ -262,6 +268,16 @@
 				} else {
 					this.haveStock = false;
 				}
+			},
+			// 上传花型
+			uploadImg(e) {
+				this.addPatternForm.defaultPicUrl = e.ossUrl[0];
+				this.flowerData64 = e.base64Url[0];
+			},
+			// 确定花型编号
+			productNoData(e) {
+				this.addPatternForm.productNo = e;
+				console.log(this.addPatternForm);
 			}
 		}
 	};
@@ -287,6 +303,14 @@
 				text-align: center;
 				line-height: 120px;
 				border: 1px dashed #7E8C8D;
+				.icon-tianjiatupian::before {
+					color: #666;
+					font-size: 26px;
+				}
+				img {
+					width: 100%;
+					height: 100%;
+				}
 			}
 			#pic-up {
 				display: none;
