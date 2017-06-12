@@ -147,6 +147,7 @@ export default {
             console.log('登录成功用户数据', res);
             console.log('登录成功x-token', xhr.getResponseHeader('x-token'));
             localStorage['x-token'] = xhr.getResponseHeader('x-token');
+            localStorage['userType'] = res.data.userType;
           }
           if (res.code === 2000004) {
             getVerifyCode({}, function(res) {
@@ -155,7 +156,9 @@ export default {
             });
           }
         }, function(res) {
-          console.log('登录失败', res);
+          info({
+            text: '登录失败:' + res.message
+          });
         });
       }
     }

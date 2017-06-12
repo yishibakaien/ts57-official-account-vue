@@ -85,7 +85,12 @@ const API = {
         // 通过url 搜索图片
         url: '/search/url',
         // 获取最终的结果
-        getResult: '/search/getResult'
+        getResult: '/search/getResult',
+
+        // 爆款热搜列表
+        burstHot: '/search/burstHot',
+        // 大家在找
+        history: '/search/history'
     }
 };
 
@@ -296,4 +301,14 @@ export function releaseCompanySupply(data, cb, err) {
 // 发布求购
 export function releaseProductBuy(data, cb, err) {
     return _fetch(METHODS.post, data, API.lyf.releaseProductBuy, cb, err);
+}
+
+// 爆款热搜
+export function burstHot(data, cb, err) {
+  return _fetch(METHODS.get, data, API.search.burstHot, cb, err);
+}
+
+// 大家在找
+export function history(data, cb, err) {
+  return _fetch(METHODS.get, data, API.search.history, cb, err);
 }

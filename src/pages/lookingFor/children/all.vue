@@ -1,10 +1,10 @@
 <template>
   <div class="categroy-all">
-    <div class="patterns-item" v-for="item in [1,2,3,4,5,6,7]">
-      <base-item></base-item>
+    <div class="item-wrapper" v-for="item in list" @click="guideToDownload">
+      <base-item :item="item" :type="type"></base-item>
     </div>
     <div class="clearfix"></div>
-    <paginator></paginator>
+    <paginator  @more="guideToDownload" :hasMore="hasMore" v-show="requestDone"></paginator>
   </div>
 </template>
 
@@ -12,26 +12,62 @@
 import {
   paginator,
   baseItem
-} from '../../../components/index.js';
+} from '../../../components/index';
+import {
+  history
+} from '../../../common/api/api';
+import {
+  loading,
+  hide,
+  info
+} from '../../../common/js/tip/toast';
+import guide from '../../../common/js/guide';
 export default {
-  components: {
-    paginator,
-    baseItem
+  data() {
+    return {
+      list: [],
+      type: 'lookingFor',
+      hasMore: false,
+      requestDone: false
+    };
   },
   created() {
     console.log('all created');
+    var _this = this;
+    loading();
+    history({
+      pageNo: 1,
+      pageSize: 10
+    }, function(res) {
+      hide();
+      console.log('all', res);
+      _this.list = res.data.list;
+      _this.requestDone = true;
+      if (res.data.pageNO < res.data.totalPage) {
+        _this.hasMore = true;
+      }
+    }, function(err) {
+      info({
+        text: '错误:' + err.message
+      });
+    });
+  },
+  methods: {
+    guideToDownload() {
+      guide();
+    }
   },
   mounted() {
     console.log('all mounted');
+  },
+  components: {
+    paginator,
+    baseItem
   }
 };
 </script>
 <style lang="stylus">
-  .patterns-item
-    width 50%
-    box-sizing border-box
-    float left
-    border-right 1px solid #f7f7f7
-    &:nth-of-type(2n)
-      border-right 0
+@import '../../../common/styles/mixin';
+.item-wrapper
+  itemListLayout()
 </style>
