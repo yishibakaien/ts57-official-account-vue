@@ -10,11 +10,11 @@
         <router-view></router-view>
       </keep-alive>
     </div>
-    <div class="btn-box border-top" v-if="false">
-      <button class="button button-blue button-block">发布求购</button>
+    <div class="btn-box border-top" v-if="userType === '1'">
+      <button class="button button-blue button-block" @click="toRelease">发布求购</button>
     </div>
-    <div class="btn-box border-top">
-      <button class="button button-blue button-block">发布供应</button>
+    <div class="btn-box border-top" v-else>
+      <button class="button button-blue button-block" @click="toRelease">发布供应</button>
     </div>
     <download-tip></download-tip>
   </div>
@@ -31,7 +31,8 @@ export default {
     return {
       tabItem: ['全部', '面料', '大边', '小边', '睫毛'],
       tabItemRouter: ['all', 'fabric', 'bigSide', 'smallSide', 'eyelash'],
-      activeItem: '全部'
+      activeItem: '全部',
+      userType: localStorage.userType
     };
   },
   methods: {
@@ -42,6 +43,17 @@ export default {
       this.$router.push({
         path: '/lookingFor/' + this.tabItemRouter[index]
       });
+    },
+    toRelease() {
+      if (this.userType === '1') {
+        this.$router.push({
+          path: 'releaseBuy'
+        });
+      } else {
+        this.$router.push({
+          path: 'releaseSupply'
+        });
+      }
     }
   },
   components: {

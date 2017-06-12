@@ -1,8 +1,8 @@
 <template>
   <div class="base-item" @click="itemClick">
-    <div class="img-box" :style="{backgroundImage:'url(' + item.defaultPicUrl + ')'}"></div>
-    <div class="name">{{item.productNo}}</div>
-    <div class="time">{{formatTime(item.publishDate)}}</div>
+    <div class="img-box" :style="{backgroundImage:'url(' + getPic(item) + ')'}"></div>
+    <div class="name">{{getName(item)}}</div>
+    <div class="time">{{getTime(item)}}</div>
   </div>
 </template>
 
@@ -15,27 +15,38 @@ export default {
   props: {
     item: {
       type: Object
+    },
+    type: {
+      type: String
     }
   },
   methods: {
-    format(category) {
-      return formatCategory(category);
-    },
     itemClick() {
       this.$emit('itemClick');
     },
-    formatTime(time) {
-      if (!time) {
-        return '';
+    getName(item) {
+      if (this.type === 'lookingFor') {
+        return formatCategory(item.category);
       }
-      return formatDate(time, 'yyyy-MM-dd');
+      return item.productNo;
+    },
+    getTime(item) {
+      var time;
+      var fmt = 'yyyy-MM-dd';
+      if (this.type === 'lookingFor') {
+        time = new Date(item.createDate);
+        return formatDate(time, fmt);
+      }
+      time = new Date(item.publishDate);
+      return formatDate(time, fmt);
+    },
+    getPic(item) {
+      if (this.type === 'lookingFor') {
+        return item.searchSource;
+      }
+      return item.defaultPicUrl;
     }
   }
-  // data() {
-  //   return {
-  //     url: require('../../static/images/patterns1.png')
-  //   };
-  // }
 };
 </script>
 <style lang="stylus">
