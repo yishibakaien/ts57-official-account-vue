@@ -47,11 +47,11 @@ export default {
     toRelease() {
       if (this.userType === '1') {
         this.$router.push({
-          path: 'releaseBuy'
+          path: '/releaseBuy'
         });
       } else {
         this.$router.push({
-          path: 'releaseSupply'
+          path: '/releaseSupply'
         });
       }
     }

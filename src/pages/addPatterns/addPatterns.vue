@@ -1,6 +1,6 @@
 <template>
   <div class="add-patterns-page">
-    <p class="brand">昨日上新<span class="text-blue">1200</span>款新花</p>
+    <p class="brand">昨日上新<span class="text-blue">{{totalNum}}</span>款新花</p>
     <div class="patterns-list-container" @click="guideToDownload" v-for="item in list">
       <patterns-list-3 :item="item" :type="type"></patterns-list-3>
     </div>
@@ -27,7 +27,8 @@ export default {
       type: 'addPatterns',
       list: [],
       hasMore: false,
-      requestDone: false
+      requestDone: false,
+      totalNum: 0
     };
   },
   components: {
@@ -43,6 +44,7 @@ export default {
     }, function(res) {
         hide();
         _this.requestDone = true;
+        _this.totalNum = res.data.totalNum;
         console.log('厂家上新', res);
         _this.list = res.data.list;
         if (res.data.pageNO < res.data.totalPage) {
@@ -56,10 +58,10 @@ export default {
   },
   methods: {
     seeMore() {
-      guide('您可以在统搜57APP中查看更多细节，是否前往下载？');
+      guide();
     },
     guideToDownload() {
-      guide('您可以在统搜57APP中查看更多细节，是否前往下载？');
+      guide();
     }
   }
 };
