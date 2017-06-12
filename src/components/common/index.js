@@ -5,6 +5,7 @@ import border from './1px.vue';
 import tsGo from './tsGo.vue';
 import tsModel from './tsModel.vue';
 import tsModelC from './tsModelCustom.vue';
+import tsButton from './tsButton.vue';
 import aliUpload from './aliUpload/aliUpload.vue';
 const Components = {
 	tsRadio,
@@ -14,6 +15,7 @@ const Components = {
 	tsGo,
 	tsModel,
 	tsModelC,
+	tsButton,
 	aliUpload
 };
 const install = function(Vue) {

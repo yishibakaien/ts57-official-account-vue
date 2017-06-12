@@ -1,6 +1,6 @@
 <template>
 	<div :class="[{'short': short} ,'ts-go']" @click="tsGo">
-		<i class="fr">{{title}}<i class="iconfont icon-back"></i></i>
+		<i class="fr" v-if="!data">{{title}}<i class="iconfont icon-back"></i></i>
 		<span class="fr">
 			{{data}}
 		</span>

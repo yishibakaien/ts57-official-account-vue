@@ -21,7 +21,6 @@
 		},
 		methods: {
 			onChange(e) {
-//				console.log(this.items[e]);
 				this.$emit('onChange', this.items[e]);
 			}
 		}

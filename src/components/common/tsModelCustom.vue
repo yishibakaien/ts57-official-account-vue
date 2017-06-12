@@ -10,7 +10,7 @@
 				<slot></slot>
 			</div>
 			<div class="content2">
-				<button class="cancel" @click="cancelMethod">重置</button>
+				<button class="cancel" @click="cancelMethod">取消</button>
 				<button class="yes" @click="yesMethod">确定</button>
 			</div>
 		</div>
