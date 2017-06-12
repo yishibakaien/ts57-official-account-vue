@@ -302,12 +302,10 @@ export function releaseCompanySupply(data, cb, err) {
 export function releaseProductBuy(data, cb, err) {
     return _fetch(METHODS.post, data, API.lyf.releaseProductBuy, cb, err);
 }
-<<<<<<< HEAD
 // 求购列表
 export function listHomeProductBuys(data, cb, err) {
     return _fetch(METHODS.get, data, API.lyf.listHomeProductBuys, cb, err);
-=======
-
+}
 // 爆款热搜
 export function burstHot(data, cb, err) {
   return _fetch(METHODS.get, data, API.search.burstHot, cb, err);
@@ -316,5 +314,4 @@ export function burstHot(data, cb, err) {
 // 大家在找
 export function history(data, cb, err) {
   return _fetch(METHODS.get, data, API.search.history, cb, err);
->>>>>>> b57fb08289434ef8f29a12ecb854156d47f17c3b
 }
