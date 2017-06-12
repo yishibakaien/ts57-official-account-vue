@@ -11,6 +11,10 @@
           <img :src="picUrl" class="v-code-image">
         </div>
     </div>
+    <div class="guide" @click="toDownload">
+      没有账号？
+      <a class="register">去注册</a>
+      </div>
     <div class="button-wrapper">
       <button class="button button-blue button-block" @click="login">登录</button>
     </div>
@@ -54,6 +58,9 @@ export default {
         };
     },
     methods: {
+      toDownload() {
+        location.href = 'http://a.app.qq.com/o/simple.jsp?pkgname=cn.ts57.app';
+      },
       checkUserMobile() {
         if (!testMobile(this.inputObject.userMobile)) {
           info({
@@ -147,6 +154,7 @@ export default {
             console.log('登录成功用户数据', res);
             console.log('登录成功x-token', xhr.getResponseHeader('x-token'));
             localStorage['x-token'] = xhr.getResponseHeader('x-token');
+            localStorage['userType'] = res.data.userType;
           }
           if (res.code === 2000004) {
             getVerifyCode({}, function(res) {
@@ -155,7 +163,9 @@ export default {
             });
           }
         }, function(res) {
-          console.log('登录失败', res);
+          info({
+            text: '登录失败:' + res.message
+          });
         });
       }
     }
@@ -186,6 +196,12 @@ export default {
         display inline-block
         width 100%
         height 100%
+  .guide
+    padding 16px 16px 0 0
+    text-align right
+    font-size 14px
+    .register
+      color #4c93fd
   .button-wrapper
     padding 32px 16px
 </style>

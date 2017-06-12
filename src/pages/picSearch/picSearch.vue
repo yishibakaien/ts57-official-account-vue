@@ -293,13 +293,5 @@ export default {
 .result-container
   // padding-bottom 32px
   .item-wrapper
-    float left
-    width 50%
-    box-sizing border-box
-    &:nth-of-type(even)
-      border-right: 1px solid rgba(7, 17, 27, 0.1);
-      border-bottom: 1px solid rgba(7, 17, 27, 0.1);
-    &:nth-of-type(odd)
-      border-bottom: 1px solid rgba(7, 17, 27, 0.1);
-      border-right: 1px solid transparent;
+    itemListLayout()
 </style>

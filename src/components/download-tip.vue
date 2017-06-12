@@ -1,6 +1,6 @@
 <template>
   <div class="download-tip" v-if="show">
-    <span class="text-blue text">下载APP</span><span class="text">，即可与查找人取得联系!</span>
+    <span class="text-blue text" @click="goDownload">下载APP</span><span class="text">，即可与查找人取得联系!</span>
     <span class="no-show" @click="hide">
       <span class="origin-badge">不再显示</span>
       <span class="close">&times;</span>
@@ -12,12 +12,16 @@
 export default {
   data() {
     return {
-      show: true
+      show: !localStorage.showTip
     };
   },
   methods: {
     hide() {
       this.show = false;
+      localStorage.showTip = 1;
+    },
+    goDownload() {
+      location.href = 'http://a.app.qq.com/o/simple.jsp?pkgname=cn.ts57.app';
     }
   }
 };

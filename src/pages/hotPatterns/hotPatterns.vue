@@ -1,22 +1,51 @@
 <template>
   <div class="add-patterns-page">
     <p class="brand">最近一周热搜排行榜</p>
-    <div class="patterns-list-container" v-for="item in [1,2,3]">
-      <patterns-list-3></patterns-list-3>
+    <div class="patterns-list-container" @click="guideToDownload" v-for="item in list">
+      <patterns-list-3 :type="type" :item="item"></patterns-list-3>
     </div>
-    <paginator></paginator>
+    <paginator @more="seeMore" :hasMore="hasMore" v-show="requestDone"></paginator>
   </div>
 </template>
 
 <script>
-import {
-  patternsList3,
-  paginator
-} from '../../components/index.js';
+import { patternsList3, paginator } from '../../components/index';
+import guide from '../../common/js/guide';
+import { loading, hide } from '../../common/js/tip/toast';
+import { burstHot } from '../../common/api/api';
+
 export default {
+  data() {
+    return {
+      type: 'hotPatterns',
+      list: [],
+      hasMore: false,
+      requestDone: false
+    };
+  },
+  mounted() {
+    var _this = this;
+    loading();
+    burstHot({
+      pageNo: 1,
+      pageSize: 10
+    }, function(res) {
+      hide();
+      _this.list = res.data.list;
+      console.log('爆款热搜加载成功', res);
+    });
+  },
   components: {
     'patterns-list-3': patternsList3,
     paginator
+  },
+  methods: {
+    seeMore() {
+      guide('您可以在统搜57APP中查看更多，是否前往下载？');
+    },
+    guideToDownload() {
+      guide('您可以在统搜57APP中查看详情，是否前往下载？');
+    }
   }
 };
 </script>
