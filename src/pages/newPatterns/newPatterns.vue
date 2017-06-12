@@ -97,7 +97,6 @@
 							</div>
 						</ts-model>
 					</div>
-					<border :styleData="styleData1"></border>
 				</div>
 				<div class="form-item">
 					<border :styleData="styleData1"></border>
@@ -448,7 +447,7 @@
 			background: #fff;
 			width: 100%;
 			.form-item {
-				height: 40px;
+				height: 42px;
 				padding-left: 16px;
 				label {
 					display: inline-block;

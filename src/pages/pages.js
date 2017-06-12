@@ -10,6 +10,7 @@ import releaseSupply from './releasePages/releaseSupply.vue';
 import releaseBuy from './releasePages/releaseBuy.vue';
 import buyDetail from './buyDetail/buyDetail.vue';
 import buyList from './buyList/buyList.vue';
+import releaseSuccess from './releasePages/releaseSuccess.vue';
 
 export {
   addPatterns,
@@ -22,5 +23,6 @@ export {
   releaseSupply,
   releaseBuy,
   buyDetail,
-  buyList
+  buyList,
+  releaseSuccess
 };

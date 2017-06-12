@@ -225,9 +225,12 @@
 				console.log(this.releaseSupplyForm);
 				releaseCompanySupply(this.releaseSupplyForm, (res) => {
 					if (res.code === 0) {
-						info({ text: '发布成功' });
+//						info({ text: '发布成功' });
 						this.$router.push({
-							path: '/buyList'
+							path: '/releaseSuccess',
+							query: {
+								type: 1
+							}
 						});
 					};
 				}, (err) => {

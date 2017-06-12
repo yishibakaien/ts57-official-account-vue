@@ -12,7 +12,8 @@ import {
     releaseBuy,
     releaseSupply,
     buyDetail,
-    buyList
+    buyList,
+    releaseSuccess
 } from '../pages/pages.js';
 
 Vue.use(Router);
@@ -107,6 +108,10 @@ var routes = {
         meta: {
           needAuth: true
         }
+    }, {
+        path: '/releaseSuccess',
+        name: 'releaseSuccess',
+        component: releaseSuccess
     }]
 };
 

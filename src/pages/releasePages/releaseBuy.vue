@@ -249,9 +249,12 @@
 				releaseProductBuy(this.releaseBuyForm, (res) => {
 					if (res.code === 0) {
 						console.log(1);
-						info({text: '发布成功'});
+//						info({text: '发布成功'});
 						this.$router.push({
-							path: '/buyDetail'
+							path: '/releaseSuccess',
+							query: {
+								type: 2
+							}
 						});
 					}
 				}, (err) => {
