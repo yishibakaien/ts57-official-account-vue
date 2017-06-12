@@ -226,6 +226,9 @@
 				releaseCompanySupply(this.releaseSupplyForm, (res) => {
 					if (res.code === 0) {
 						info({ text: '发布成功' });
+						this.$router.push({
+							path: '/buyList'
+						});
 					};
 				}, (err) => {
 					console.log(err);

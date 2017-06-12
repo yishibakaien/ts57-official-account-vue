@@ -297,3 +297,7 @@ export function releaseCompanySupply(data, cb, err) {
 export function releaseProductBuy(data, cb, err) {
     return _fetch(METHODS.post, data, API.lyf.releaseProductBuy, cb, err);
 }
+// 求购列表
+export function listHomeProductBuys(data, cb, err) {
+    return _fetch(METHODS.get, data, API.lyf.listHomeProductBuys, cb, err);
+}

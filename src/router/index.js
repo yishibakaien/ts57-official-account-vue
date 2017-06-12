@@ -11,7 +11,8 @@ import {
     newPatterns,
     releaseBuy,
     releaseSupply,
-    buyDetail
+    buyDetail,
+    buyList
 } from '../pages/pages.js';
 
 Vue.use(Router);
@@ -71,19 +72,38 @@ var routes = {
     }, {
         path: '/newPatterns',
         name: 'newPatterns',
-        component: newPatterns
+        component: newPatterns,
+        meta: {
+          needAuth: true
+        }
     }, {
         path: '/releaseBuy',
         name: 'releaseBuy',
-        component: releaseBuy
+        component: releaseBuy,
+        meta: {
+          needAuth: true
+        }
     }, {
         path: '/releaseSupply',
         name: 'releaseSupply',
-        component: releaseSupply
+        component: releaseSupply,
+        meta: {
+          needAuth: true
+        }
     }, {
         path: '/buyDetail',
         name: 'buyDetail',
-        component: buyDetail
+        component: buyDetail,
+        meta: {
+          needAuth: true
+        }
+    }, {
+        path: '/buyList',
+        name: 'buyList',
+        component: buyList,
+        meta: {
+          needAuth: true
+        }
     }]
 };
 

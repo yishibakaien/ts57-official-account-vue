@@ -63,8 +63,7 @@
 		},
 		created() {
 			let data = {
-				//				id: 1654    // 多人接单数据
-				id: 1734 // 多人接单数据
+				id: this.$route.query.id
 			};
 			getProductBuy(data, (res) => {
 				this.obj = res.data;

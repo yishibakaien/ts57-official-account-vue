@@ -250,6 +250,9 @@
 					if (res.code === 0) {
 						console.log(1);
 						info({text: '发布成功'});
+						this.$router.push({
+							path: '/buyDetail'
+						});
 					}
 				}, (err) => {
 					console.log(err);
