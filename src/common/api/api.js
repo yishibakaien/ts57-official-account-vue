@@ -281,3 +281,19 @@ export function addIngredient(data, cb, err) {
 export function token(data, cb, err) {
     return _fetch(METHODS.post, data, API.lyf.token, cb, err);
 }
+// 获取成分列表
+export function listIngredients(data, cb, err) {
+    return _fetch(METHODS.get, data, API.lyf.listIngredients, cb, err);
+}
+// 新增花型
+export function addProduct(data, cb, err) {
+    return _fetch(METHODS.post, data, API.lyf.addProduct, cb, err);
+}
+// 发布供应
+export function releaseCompanySupply(data, cb, err) {
+    return _fetch(METHODS.post, data, API.lyf.releaseCompanySupply, cb, err);
+}
+// 发布求购
+export function releaseProductBuy(data, cb, err) {
+    return _fetch(METHODS.post, data, API.lyf.releaseProductBuy, cb, err);
+}

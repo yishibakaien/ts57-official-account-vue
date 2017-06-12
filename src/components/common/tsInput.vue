@@ -27,6 +27,7 @@
 			clearData() {
 				this.data = '';
 				this.isClear = false;
+				this.$emit('clearData');
 			},
 			toggleShow() {
 				if (this.data) {
