@@ -7,6 +7,7 @@ import tsModel from './tsModel.vue';
 import tsModelC from './tsModelCustom.vue';
 import tsButton from './tsButton.vue';
 import aliUpload from './aliUpload/aliUpload.vue';
+import tsTips from './downloadTip.vue';
 const Components = {
 	tsRadio,
 	tsRadioC,
@@ -16,6 +17,7 @@ const Components = {
 	tsModel,
 	tsModelC,
 	tsButton,
+	tsTips,
 	aliUpload
 };
 const install = function(Vue) {

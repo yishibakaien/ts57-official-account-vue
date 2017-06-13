@@ -12,6 +12,8 @@ import buyDetail from './buyDetail/buyDetail.vue';
 import buyList from './buyList/buyList.vue';
 import releaseSuccess from './releasePages/releaseSuccess.vue';
 
+import tsNav from './nav.vue';
+
 export {
   addPatterns,
   hotPatterns,
@@ -24,5 +26,6 @@ export {
   releaseBuy,
   buyDetail,
   buyList,
-  releaseSuccess
+  releaseSuccess,
+  tsNav
 };

@@ -62,7 +62,7 @@
 				<border :styleData="styleData"></border>
 			</div>
 		</div>
-		<ts-button @btnClick="submitForm"></ts-button>
+		<ts-button @btnClick="submitForm" :dis="isDisable"></ts-button>
 	</div>
 </template>
 
@@ -87,6 +87,7 @@
 				modelShow: false, // 选择计量单位
 				modelShow1: false, // 上传照片
 				modelShow2: false, // 供应类型
+//				isDisable: false, // 提交按钮是否禁用
 				priceOptions: [{ title: '码', value: 400010 }, { title: '公斤', value: 400011 }, { title: '条', value: 400012 }],
 				releaseSupplyForm: {
 					productPicUrl: '', // 图片
@@ -123,9 +124,24 @@
 				} else {
 					return '上传花型';
 				}
+			},
+			isDisable() {
+				let userType = localStorage.getItem('userType');
+				// 1是工厂 2是档口
+				if (userType === '2') {
+					return true;
+				} else {
+					return false;
+				}
 			}
 		},
-		created() {},
+		created() {
+			let userType = localStorage.getItem('userType');
+			// 1是工厂 2是档口
+			if (userType === '2') {
+				info({ text: '贸易商用户不能发布供应' });
+			}
+		},
 		methods: {
 			goPriceHide() {
 				this.modelShow = false;
@@ -225,7 +241,7 @@
 				console.log(this.releaseSupplyForm);
 				releaseCompanySupply(this.releaseSupplyForm, (res) => {
 					if (res.code === 0) {
-//						info({ text: '发布成功' });
+						//						info({ text: '发布成功' });
 						this.$router.push({
 							path: '/releaseSuccess',
 							query: {
@@ -274,6 +290,9 @@
 	}
 	
 	.model-item {
+		label {
+			width: 100%;
+		}
 		p {
 			padding: 5px 0 2px 0;
 			color: #4C93FD;

@@ -1,19 +1,33 @@
 <template>
 	<div class="wrap">
-		<div class="content" v-if="show">
+		<div class="content" v-if="show === 1">
 			<i class="iconfont icon-chenggong"></i>
 			<p>已成功发布供应</p>
 			<div class="btn-group">
-				<button class="btn1">继续发布</button>
-				<button class="btn2">求购列表</button>
+				<!--<button class="btn1">继续发布</button>-->
+				<router-link to="releaseSupply">继续发布</router-link>
+				<router-link to="buyList">求购列表</router-link>
+				<!--<button class="btn2">求购列表</button>-->
+			</div>
+		</div>
+		<div class="content" v-else-if="show === 2">
+			<i class="iconfont icon-chenggong"></i>
+			<p>已成功发布求购</p>
+			<div class="btn-group">
+				<router-link to="releaseBuy">继续发布</router-link>
+				<router-link to="addPatterns">厂家上新</router-link>
+				<!--<button class="btn1">继续发布</button>-->
+				<!--<button class="btn2">厂家上新</button>-->
 			</div>
 		</div>
 		<div class="content" v-else>
 			<i class="iconfont icon-chenggong"></i>
-			<p>已成功发布求购</p>
+			<p>已成功新增花型</p>
 			<div class="btn-group">
-				<button class="btn1">继续发布</button>
-				<button class="btn2">厂家上新</button>
+				<!--<button class="btn1">继续新增</button>-->
+				<router-link to="newPatterns">继续新增</router-link>
+				<router-link to="lookingFor">大家在找</router-link>
+				<!--<button class="btn2">厂家上新</button>-->
 			</div>
 		</div>
 	</div>
@@ -27,12 +41,7 @@
 			};
 		},
 		created() {
-			console.log(this.$route.query.type);
-			if (this.$route.query.type === 1) {
-				this.show = true;
-			} else {
-				this.show = false;
-			}
+			this.show = this.$route.query.type;
 		}
 	};
 </script>
@@ -56,10 +65,14 @@
 		}
 		.btn-group {
 			margin-top: 30px;
-			button {
+			a {
+				display: inline-block;
 				margin: 0 20px;
 				width: 90px;
 				height: 30px;
+				line-height: 30px;
+				font-size: 14px;
+				color: #333;
 				background: #fafafa;
 				border: 1px solid #ccc; 
 				border-radius: 3px;

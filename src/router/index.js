@@ -1,19 +1,20 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import {
-    addPatterns,
-    hotPatterns,
-    lookingFor,
-    picSearch,
-    login,
+	addPatterns,
+	hotPatterns,
+	lookingFor,
+	picSearch,
+	login,
 
-    // lyf
-    newPatterns,
-    releaseBuy,
-    releaseSupply,
-    buyDetail,
-    buyList,
-    releaseSuccess
+	// lyf
+	newPatterns,
+	releaseBuy,
+	releaseSupply,
+	buyDetail,
+	buyList,
+	releaseSuccess,
+	tsNav
 } from '../pages/pages.js';
 
 Vue.use(Router);
@@ -25,114 +26,143 @@ const lookingForSmallSide = resolve => require(['../pages/lookingFor/children/sm
 const lookingForEyelash = resolve => require(['../pages/lookingFor/children/eyelash'], resolve);
 
 var routes = {
-    routes: [{
-        path: '/login',
-        name: 'login',
-        component: login
-    }, {
-        path: '/addPatterns',
-        name: 'addPatterns',
-        component: addPatterns,
-        meta: {
-          needAuth: true
-        }
-    }, {
-        path: '/hotPatterns',
-        name: 'hotPatterns',
-        component: hotPatterns
-    }, {
-        path: '/lookingFor',
-        redirect: '/lookingFor/all',
-        name: 'lookingFor',
-        component: lookingFor,
-        meta: {
-          needAuth: true
-        },
-        children: [{
-            // 全部
-            path: 'all',
-            component: lookingForAll
-        }, {
-            // 面料
-            path: 'fabric',
-            component: lookingForFabric
-        }, {
-            // 大边
-            path: 'bigSide',
-            component: lookingForBigSide
-        }, {
-            // 小边
-            path: 'smallSide',
-            component: lookingForSmallSide
-        }, {
-            // 睫毛
-            path: 'eyelash',
-            component: lookingForEyelash
-        }]
-    }, {
-        path: '/picSearch',
-        name: 'picSearch',
-        component: picSearch
-    }, {
-        path: '/newPatterns',
-        name: 'newPatterns',
-        component: newPatterns,
-        meta: {
-          needAuth: true
-        }
-    }, {
-        path: '/releaseBuy',
-        name: 'releaseBuy',
-        component: releaseBuy,
-        meta: {
-          needAuth: true
-        }
-    }, {
-        path: '/releaseSupply',
-        name: 'releaseSupply',
-        component: releaseSupply,
-        meta: {
-          needAuth: true
-        }
-    }, {
-        path: '/buyDetail',
-        name: 'buyDetail',
-        component: buyDetail,
-        meta: {
-          needAuth: true
-        }
-    }, {
-        path: '/buyList',
-        name: 'buyList',
-        component: buyList,
-        meta: {
-          needAuth: true
-        }
-    }, {
-        path: '/releaseSuccess',
-        name: 'releaseSuccess',
-        component: releaseSuccess
-    }]
+	routes: [{
+		path: '/',
+		redirect: '/tsNav'
+	}, {
+		path: '/login',
+		name: 'login',
+		component: login,
+		meta: {
+			title: '登录'
+		}
+	}, {
+		path: '/tsNav',
+		name: 'tsNav',
+		component: tsNav,
+		meta: {
+			title: '导航'
+		}
+	}, {
+		path: '/addPatterns',
+		name: 'addPatterns',
+		component: addPatterns,
+		meta: {
+			needAuth: true,
+			title: '厂家上新'
+		}
+	}, {
+		path: '/hotPatterns',
+		name: 'hotPatterns',
+		component: hotPatterns,
+		meta: {
+			title: '爆款热搜'
+		}
+	}, {
+		path: '/lookingFor',
+		redirect: '/lookingFor/all',
+		name: 'lookingFor',
+		component: lookingFor,
+		meta: {
+			needAuth: true,
+			title: '大家在找'
+		},
+		children: [{
+			// 全部
+			path: 'all',
+			component: lookingForAll
+		}, {
+			// 面料
+			path: 'fabric',
+			component: lookingForFabric
+		}, {
+			// 大边
+			path: 'bigSide',
+			component: lookingForBigSide
+		}, {
+			// 小边
+			path: 'smallSide',
+			component: lookingForSmallSide
+		}, {
+			// 睫毛
+			path: 'eyelash',
+			component: lookingForEyelash
+		}]
+	}, {
+		path: '/picSearch',
+		name: 'picSearch',
+		component: picSearch,
+		meta: {
+			title: '快照搜花'
+		}
+	}, {
+		path: '/newPatterns',
+		name: 'newPatterns',
+		component: newPatterns,
+		meta: {
+			needAuth: true,
+			title: '新增花型'
+		}
+	}, {
+		path: '/releaseBuy',
+		name: 'releaseBuy',
+		component: releaseBuy,
+		meta: {
+			needAuth: true,
+			title: '发布求购'
+		}
+	}, {
+		path: '/releaseSupply',
+		name: 'releaseSupply',
+		component: releaseSupply,
+		meta: {
+			needAuth: true,
+			title: '发布供应'
+		}
+	}, {
+		path: '/buyDetail',
+		name: 'buyDetail',
+		component: buyDetail,
+		meta: {
+			needAuth: true,
+			title: '求购详情'
+		}
+	}, {
+		path: '/buyList',
+		name: 'buyList',
+		component: buyList,
+		meta: {
+			needAuth: true,
+			title: '求购列表'
+		}
+	}, {
+		path: '/releaseSuccess',
+		name: 'releaseSuccess',
+		component: releaseSuccess,
+		meta: {
+			title: '成功发布'
+		}
+	}]
 };
 
 var router = new Router(routes);
 
 // 页面路由钩子，判断进入的页面是够需要登录验证(needAuth);
 router.beforeEach((to, from, next) => {
-  if (to.matched.some(record => record.meta.needAuth)) {
-    if (localStorage['x-token']) {
-      next();
-    } else {
-      next({
-        path: '/login',
-        query: {
-          redirect: to.fullPath
-        }
-      });
-    }
-  } else {
-    next();
-  }
+	if (to.matched.some(record => record.meta.needAuth)) {
+		if (localStorage['x-token']) {
+			next();
+		} else {
+			next({
+				path: '/login',
+				query: {
+					redirect: to.fullPath
+				}
+			});
+		}
+	} else {
+		next();
+	}
 });
 
 export default router;

@@ -1,13 +1,15 @@
 <template>
 	<div class="btn-wrap">
-		<button @click="btnClick">{{title || '提交'}}</button>
+		<button @click="btnClick" v-if="!dis">{{title || '提交'}}</button>
+		<button class="dis-btn" disabled v-else>提交</button>
 	</div>
 </template>
 
 <script>
 	export default {
 		props: {
-			title: ''
+			title: '',
+			dis: ''
 		},
 		methods: {
 			btnClick() {
@@ -27,6 +29,9 @@
 		color: #fff;
 		background: #4C93FD;
 		border: 0;
+	}
+	.dis-btn {
+		background: #ccc;
 	}
 }
 </style>

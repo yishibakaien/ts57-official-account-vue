@@ -67,7 +67,7 @@
 				<border :styleData="styleData"></border>
 			</div>
 		</div>
-		<ts-button @btnClick="submitForm"></ts-button>
+		<ts-button @btnClick="submitForm" :dis="isDisable"></ts-button>
 	</div>
 </template>
 
@@ -136,6 +136,22 @@
 				} else {
 					return '上传花型';
 				}
+			},
+			isDisable() {
+				let userType = localStorage.getItem('userType');
+				// 1是工厂 2是档口
+				if (userType === '1') {
+					return true;
+				} else {
+					return false;
+				}
+			}
+		},
+		created() {
+			let userType = localStorage.getItem('userType');
+			// 1是工厂 2是档口
+			if (userType === '1') {
+				info({ text: '工厂用户不能发布求购' });
 			}
 		},
 		methods: {
@@ -249,7 +265,6 @@
 				releaseProductBuy(this.releaseBuyForm, (res) => {
 					if (res.code === 0) {
 						console.log(1);
-//						info({text: '发布成功'});
 						this.$router.push({
 							path: '/releaseSuccess',
 							query: {
@@ -299,6 +314,9 @@
 	}
 	
 	.model-item {
+		label {
+			width: 100%;
+		}
 		p {
 			padding: 5px 0 2px 0;
 			color: #4C93FD;
