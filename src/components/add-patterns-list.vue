@@ -1,5 +1,5 @@
 <template>
-  <div class="add-patterns-list" @click="addPattersListClick(item.companyId)">
+  <div class="add-patterns-list" @click="addPattersListClick([item.companyId, item.isWebsite, item.indexName])">
     <div class="list-wrapper">
       <div class="title">
         <span class="name">{{item.companyName}}</span>
