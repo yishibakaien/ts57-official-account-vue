@@ -11,6 +11,7 @@ import releaseBuy from './releasePages/releaseBuy.vue';
 import buyDetail from './buyDetail/buyDetail.vue';
 import buyList from './buyList/buyList.vue';
 import releaseSuccess from './releasePages/releaseSuccess.vue';
+import zsbg from './zsbg/zsbg.vue';
 
 import tsNav from './nav.vue';
 
@@ -27,5 +28,6 @@ export {
   buyDetail,
   buyList,
   releaseSuccess,
+  zsbg,
   tsNav
 };

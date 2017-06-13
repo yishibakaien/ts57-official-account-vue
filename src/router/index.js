@@ -14,6 +14,7 @@ import {
 	buyDetail,
 	buyList,
 	releaseSuccess,
+	zsbg,
 	tsNav
 } from '../pages/pages.js';
 
@@ -141,6 +142,13 @@ var routes = {
 		component: releaseSuccess,
 		meta: {
 			title: '成功发布'
+		}
+	}, {
+		path: '/zsbg',
+		name: 'zsbg',
+		component: zsbg,
+		meta: {
+			title: '坐视布管简介'
 		}
 	}]
 };
