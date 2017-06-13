@@ -42,10 +42,11 @@ export default {
         pageNo: 1,
         pageSize: 10
     }, function(res) {
+        console.log('厂家上新', res);
         hide();
         _this.requestDone = true;
         _this.totalNum = res.data.totalNum;
-        console.log('厂家上新', res);
+
         _this.list = res.data.list;
         if (res.data.pageNO < res.data.totalPage) {
           console.log('还有更多分页');
@@ -60,9 +61,14 @@ export default {
     guideToDownload() {
       guide();
     },
-    guideToStore(companyId) {
-      console.log(companyId);
-      location.href = 'http://192.168.2.11/share2/?companyId=' + companyId;
+    guideToStore([companyId, isWebsite, indexName]) {
+      console.log(companyId, isWebsite, indexName);
+      if (isWebsite === 1) {
+        location.href = 'http://' + indexName + '.tswq.wang';
+      }
+      if (isWebsite === 0) {
+        location.href = 'http://www.tswq.wang/share/index.html?companyId=' + companyId;
+      }
     }
   }
 };
