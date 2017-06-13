@@ -45,9 +45,6 @@ var routes = {
         redirect: '/lookingFor/all',
         name: 'lookingFor',
         component: lookingFor,
-        meta: {
-          needAuth: true
-        },
         children: [{
             // 全部
             path: 'all',

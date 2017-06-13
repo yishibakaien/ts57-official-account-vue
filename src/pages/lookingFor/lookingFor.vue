@@ -10,10 +10,10 @@
         <router-view></router-view>
       </keep-alive>
     </div>
-    <div class="btn-box border-top" v-if="userType === '1'">
+    <div class="btn-box border-top" v-if="userType === '2'">
       <button class="button button-blue button-block" @click="toRelease">发布求购</button>
     </div>
-    <div class="btn-box border-top" v-else>
+    <div class="btn-box border-top" v-if="userType === '1'">
       <button class="button button-blue button-block" @click="toRelease">发布供应</button>
     </div>
     <download-tip></download-tip>
@@ -22,7 +22,6 @@
 
 <script>
 import {
-  patternsList3,
   paginator,
   downloadTip
 } from '../../components/index.js';
@@ -45,11 +44,11 @@ export default {
       });
     },
     toRelease() {
-      if (this.userType === '1') {
+      if (this.userType === '2') {
         this.$router.push({
           path: '/releaseBuy'
         });
-      } else {
+      } else if (this.userType === '1') {
         this.$router.push({
           path: '/releaseSupply'
         });
@@ -57,7 +56,6 @@ export default {
     }
   },
   components: {
-    'patterns-list-3': patternsList3,
     paginator,
     downloadTip
   }
