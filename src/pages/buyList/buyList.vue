@@ -99,9 +99,15 @@
 
 <style lang="stylus" scoped>
 	.buyList {
+		position: relative;
 		.navBar {
+			position: fixed;
+			top: 0;
+			width: 100%;
 			background: #fff;
-			height: 32px
+			height: 32px;
+			border-bottom: 1px solid #e5e5e5;
+			z-index: 999;
 			p {
 				float: left;
 				width: 20%;
@@ -121,7 +127,7 @@
 		}
 		background: #f2f2f2;
 		.buyList-item {
-			margin-top: 8px;
+			margin-top: 40px;
 		}
 	}
 </style>
