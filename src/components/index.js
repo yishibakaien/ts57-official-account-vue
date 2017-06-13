@@ -1,5 +1,5 @@
 // 一行三张图片的列表
-import patternsList3 from './patterns-list-3';
+import addPatternsList from './add-patterns-list';
 // 分页器，查看更多，没有更多了
 import paginator from './paginator';
 // 排名小标签
@@ -10,12 +10,15 @@ import downloadTip from './download-tip';
 import baseItem from './base-item';
 // toast 提示
 import toast from './toast';
+// 爆款热搜列表
+import hotPatternsList from './hot-patterns-list';
 
 export {
-  patternsList3,
+  addPatternsList,
   paginator,
   rankTag,
   downloadTip,
   baseItem,
-  toast
+  toast,
+  hotPatternsList
 };

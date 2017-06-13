@@ -1,9 +1,10 @@
 <template>
-  <div class="patterns-list-3">
+  <div class="add-patterns-list" @click="addPattersListClick(item.companyId)">
     <div class="list-wrapper">
       <div class="title">
-        <rank-tag v-if="type==='hotPatterns'"></rank-tag>
-        <span class="name">{{item.companyName}}</span><span class="detail">新增{{item.newCount}}款/共{{item.totalCount}}款</span><i class="iconfont icon-back"></i>
+        <span class="name">{{item.companyName}}</span>
+        <span class="detail">新增 <span class="text-blue">{{item.newCount}}</span> 款/共 <span class="text-blue">{{item.totalCount}}</span> 款</span>
+        <i class="iconfont icon-back"></i>
       </div>
       <div class="pic-wrapper">
         <div v-for="_item in item.productList" class="pic-item" :style="{backgroundImage:'url(' + _item.defaultPicUrl + ')'}">
@@ -29,8 +30,10 @@ export default {
       type: String
     }
   },
-  data() {
-    return {};
+  methods: {
+    addPattersListClick(companyId) {
+      this.$emit('listClick', companyId);
+    }
   },
   components: {
     rankTag
@@ -39,27 +42,29 @@ export default {
 </script>
 <style lang="stylus">
 @import '../common/styles/mixin.styl';
-.patterns-list-3
+.add-patterns-list
   background #fff
   .list-wrapper
     padding 0 16px
     .title
+      display flex
       height 40px
       line-height 40px
       width 100%
-      span
-        display inline-block
-        float left
-        max-width 60%
+      .name
+        flex 1
         overflow hidden
-        white-space nowrap
         text-overflow ellipsis
-        &.detail
-          margin-left 16px
-          color #666
-          font-size 14px
+        white-space nowrap
+      .detail
+        flex 0 0 130px
+        width 130px
+        text-align right
+        color #666
+        font-size 14px
       .icon-back
-        float right
+        flex 0 0 10px
+        width 10px
     .pic-wrapper
       display flex
       .pic-item

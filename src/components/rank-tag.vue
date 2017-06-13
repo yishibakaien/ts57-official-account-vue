@@ -1,5 +1,5 @@
 <template>
-  <div class="rank-tag">
+  <div class="rank-tag" v-if="num < 4">
       <div class="top">TOP</div>
       <div class="number">{{num}}</div>
   </div>
@@ -7,10 +7,10 @@
 
 <script>
 export default {
-  data() {
-    return {
-      num: 1
-    };
+  props: {
+    num: {
+      type: Number
+    }
   }
 };
 </script>

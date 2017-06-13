@@ -1,7 +1,7 @@
 <template>
   <div class="pic-search-page">
     <div class="search-category">
-      <input type="file" capture="camera" name="file" ref="file" @change="uploadPic" style="display:none;">
+      <input type="file" capture="camera" name="file" accept="image/*" ref="file" @change="uploadPic" style="display:none;">
       <div class="pic-wrapper border1px" :style="{backgroundImage:'url(' + cropPic + ')'}" @click="choosePic">
         <i class="iconfont icon-tianjiatupian" :style="{display: cropPic ? 'none' : 'inline-block'}"></i>
       </div>
@@ -12,7 +12,7 @@
     <div class="result-container clearfix">
       <div class="text">搜索结果：</div>
       <div class="item-wrapper" v-for="item in resultArr">
-        <base-item :item="item" @itemClick="nav"></base-item>
+        <base-item :item="item" @itemClick="guideToDownload"></base-item>
       </div>
     </div>
 
@@ -45,6 +45,8 @@ import {
   success,
   hide
 } from '../../common/js/tip/toast';
+
+import guide from '../../common/js/guide';
 export default {
   components: {
     paginator,
@@ -107,8 +109,8 @@ export default {
       //   });
   },
   methods: {
-    nav() {
-      confirm('查看详情需要下载APP,是否前往下载?');
+    guideToDownload() {
+      guide('查看详情需要下载APP,是否前往下载?');
     },
     choosePic() {
       this.$refs.file.click();
@@ -192,7 +194,10 @@ export default {
           });
         }, 1000);
       }, function(res) {
-        console.log('返回结果失败', res);
+        info({
+          text: '查找失败' + res.message
+        });
+        _this.isSearching = false;
       });
     },
     getResult(isSearching) {
@@ -238,6 +243,7 @@ export default {
         _this.isSearching = false;
         console.log('搜图最终返回结果', res);
       }, function(res) {
+        _this.isSearching = false;
         info({
           text: res.message ? res.message : '请求出错'
         });
