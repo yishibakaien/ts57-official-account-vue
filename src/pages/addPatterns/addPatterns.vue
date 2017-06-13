@@ -1,16 +1,16 @@
 <template>
   <div class="add-patterns-page">
-    <p class="brand">昨日上新<span class="text-blue">{{totalNum}}</span>款新花</p>
-    <div class="patterns-list-container" @click="guideToDownload" v-for="item in list">
-      <patterns-list-3 :item="item" :type="type"></patterns-list-3>
+    <p class="brand">昨日上新 <span class="text-blue">{{totalNum}}</span> 款新花</p>
+    <div class="patterns-list-container" v-for="item in list">
+      <add-patterns-list :item="item" :type="type" @listClick="guideToStore"></add-patterns-list>
     </div>
-    <paginator @more="seeMore" :hasMore="hasMore" v-show="requestDone"></paginator>
+    <paginator @more="guideToDownload" :hasMore="hasMore" v-show="requestDone"></paginator>
   </div>
 </template>
 
 <script>
 import {
-    patternsList3,
+    addPatternsList,
     paginator
 } from '../../components/index';
 import {
@@ -32,7 +32,7 @@ export default {
     };
   },
   components: {
-    'patterns-list-3': patternsList3,
+    'add-patterns-list': addPatternsList,
     paginator
   },
   mounted() {
@@ -57,11 +57,12 @@ export default {
     });
   },
   methods: {
-    seeMore() {
-      guide();
-    },
     guideToDownload() {
       guide();
+    },
+    guideToStore(companyId) {
+      console.log(companyId);
+      location.href = 'http://192.168.2.11/share2/?companyId=' + companyId;
     }
   }
 };
