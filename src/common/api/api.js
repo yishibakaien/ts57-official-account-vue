@@ -11,7 +11,7 @@ const API = {
     lyf: {
         releaseCompanySupply: '/companySupply/releaseCompanySupply', // 发布供应
         releaseProductBuy: '/productBuy/releaseProductBuy', // 发布求购
-        getProductBuy: '/productBuy/getProductBuy', // 求购详情
+        getProductBuy: '/productBuy/getProductBuy/', // 求购详情
         addProduct: '/product/addProduct', // 新增花型
         addIngredient: '/ingredient/addIngredient', // 自定义成分
         listHomeProductBuys: '/productBuy/listHomeProductBuys', // 求购列表
@@ -275,7 +275,7 @@ export function listCompanyNewProduct(data, cb, err) {
 // 求购详情
 export function getProductBuy(data, cb, err) {
     let _data = data;
-    let url = API.lyf.getProductBuy.toString() + '/' + _data.id.toString();
+    let url = API.lyf.getProductBuy.toString() + _data.id.toString();
     return _fetch(METHODS.get, {}, url, cb, err);
 }
 // 自定义成分

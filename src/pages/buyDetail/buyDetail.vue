@@ -1,5 +1,6 @@
 <template>
 	<div class="detail-wrap">
+		<ts-tips></ts-tips>
 		<div class="content">
 			<div class="img-box">
 				<img :src="obj.buyPicUrl?obj.buyPicUrl:'/static/images/assets/defaultFlower.svg'" alt="花型图片" />
@@ -48,6 +49,7 @@
 
 <script>
 	import { getProductBuy } from '@/common/api/api';
+	import { info } from '@/common/js/tip/toast';
 	export default {
 		data() {
 			return {
@@ -62,18 +64,26 @@
 			};
 		},
 		created() {
+			if (!this.$route.query.id) {
+				info({ text: '未发现该求购单' });
+				return;
+			}
 			let data = {
 				id: this.$route.query.id
 			};
 			getProductBuy(data, (res) => {
-				this.obj = res.data;
-				this.listNum = this.obj.buyTaskList.length;
-				for (let i = 0; i < this.listNum; i++) {
-					if (this.obj.buyTaskList[i].status === 2) {
-						this.successPerson = this.obj.buyTaskList[i];
+				if (res.code === 0) {
+					this.obj = res.data;
+					this.listNum = this.obj.buyTaskList.length;
+					for (let i = 0; i < this.listNum; i++) {
+						if (this.obj.buyTaskList[i].status === 2) {
+							this.successPerson = this.obj.buyTaskList[i];
+						}
 					}
 				}
-			}, (res) => {});
+			}, (res) => {
+				info({ text: '请检查网络' });
+			});
 		}
 	};
 </script>
@@ -90,8 +100,6 @@
 			.img-box {
 				width: 100vw;
 				height: 100vw;
-				display: table-cell;
-				vertical-align: middle;
 				overflow: hidden;
 				border-bottom: 1px solid #f2f2f2;
 				img {

@@ -32,7 +32,8 @@
 					<div class="ts-customCf" v-show="customShow">
 						<div class="ts-custom-item" v-for="(customItem, index) in customItems" @click="isOKMethod(index)">
 							<span>{{customItem.ingredientName}}</span>
-							<i v-show="customItem.isOK" class="fr iconfont icon-quandagou" @click.stop="yesCustom(index)"></i>
+							<i v-show="customItem.isOK" class="fr selected" @click.stop="yesCustom(index)">确定</i>
+							<!--<i v-show="customItem.isOK" class="fr iconfont icon-quandagou" @click.stop="yesCustom(index)">确定</i>-->
 						</div>
 						<div class="ts-custom-input" v-if="customIsShow">
 							<div class="">
@@ -401,7 +402,14 @@
 					return;
 				}
 				addProduct(this.addPatternForm, (res) => {
-					console.log(res);
+					if (res.code === 0) {
+						this.$router.push({
+							path: '/releaseSuccess',
+							query: {
+								type: 3
+							}
+						});
+					}
 				}, (err) => {
 					console.log(err);
 				});
@@ -512,6 +520,9 @@
 	}
 	
 	.model-item {
+		label {
+			width: 100%;
+		}
 		p {
 			padding: 5px 0 2px 0;
 			color: #4C93FD;
@@ -534,5 +545,17 @@
 		i {
 			padding-left: 10px;
 		}
+	}
+	i.selected {
+		margin-right: 15px;
+		margin-top: 7px;
+		width: 32px;
+		height: 22px;
+		text-align: center;
+		line-height: 22px;
+		font-size: 12px;
+		color: #fff;
+		background: #4C93FD;
+		border-radius: 2px;
 	}
 </style>

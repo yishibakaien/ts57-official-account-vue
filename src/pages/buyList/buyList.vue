@@ -14,6 +14,7 @@
 	import { listHomeProductBuys } from '@/common/api/api';
 	import buyListItem from './buyListItem.vue';
 	import { paginator } from '../../components/index.js';
+	import { loading, hide } from '../../common/js/tip/toast';
 	export default {
 		data() {
 			return {
@@ -37,6 +38,7 @@
 			paginator
 		},
 		created() {
+			loading();
 			this.listHomeProductBuysMethod1();
 		},
 		methods: {
@@ -46,8 +48,10 @@
 			},
 			// 分页请求数据
 			listHomeProductBuysMethod() {
+				loading();
 				listHomeProductBuys(this.param, (res) => {
 					if (res.code === 0) {
+						hide();
 						this.items = this.items.concat(res.data.list);
 						if (res.data.list.length < 10) {
 							this.hasMore = false;
@@ -61,6 +65,7 @@
 			listHomeProductBuysMethod1() {
 				listHomeProductBuys(this.param, (res) => {
 					if (res.code === 0) {
+						hide();
 						this.items = res.data.list;
 					}
 				}, (err) => {
@@ -94,9 +99,15 @@
 
 <style lang="stylus" scoped>
 	.buyList {
+		position: relative;
 		.navBar {
+			position: fixed;
+			top: 0;
+			width: 100%;
 			background: #fff;
-			height: 32px
+			height: 32px;
+			border-bottom: 1px solid #e5e5e5;
+			z-index: 999;
 			p {
 				float: left;
 				width: 20%;
@@ -116,7 +127,7 @@
 		}
 		background: #f2f2f2;
 		.buyList-item {
-			margin-top: 8px;
+			margin-top: 40px;
 		}
 	}
 </style>

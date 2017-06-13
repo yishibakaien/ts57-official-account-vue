@@ -6,6 +6,7 @@
 <script>
 	import uploadPicture from '@/common/js/uploadPicture';
 	import { token } from '@/common/api/api';
+	import { loading, hide } from '@/common/js/tip/toast';
 	export default {
 		props: ['multiple', 'id', 'fileType'],
 		data() {
@@ -37,12 +38,13 @@
 						alert('图片格式不正确，请检查');
 						return;
 					}
-					// 图片大小限制1MB以下 2097152
-					if (imgObj.size <= 0 || imgObj.size >= 1048576) {
-						alert('图片大小请限制在一兆以内');
+					// 图片大小限制5MB以下
+					if (imgObj.size <= 0 || imgObj.size >= 5242880) {
+						alert('图片大小请限制在五兆以内');
 						return;
 					}
 				};
+				loading({text: '图片上传中'});
 				token({ fileType: this.fileType }, (res) => {
 					_.dir = res.data.dir;
 					const client = new OSS.Wrapper({
@@ -62,6 +64,7 @@
 							let storeAs = _.dir + 'web-' + _.uuidMethod().split('-').join('') + '.' + file.name.split('.')[file.name.split('.').length - 1];
 							//2
 							client.multipartUpload(storeAs, file, {}).then((results) => {
+								hide();
 								_.url.ossUrl.push(storeAs);
 								_.$emit('doUpload', _.url);
 							}).catch((err) => {

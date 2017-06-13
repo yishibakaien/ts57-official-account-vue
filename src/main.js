@@ -10,6 +10,7 @@ import * as filters from './filter/';
 import tsComponents from '@/Components/common/index.js';
 
 Vue.use(tsComponents);
+Vue.use(require('vue-wechat-title'));
 
 Object.keys(directive).forEach(k => Vue.directive(k, directive[k]));
 Object.keys(filters).forEach(k => Vue.filter(k, filters[k]));
