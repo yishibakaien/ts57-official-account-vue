@@ -71,6 +71,11 @@ export default {
     };
   },
   mounted() {
+    // console.log('参数：', this.$route.query.img);
+    var img = this.$route.query.img;
+    if (img) {
+      this.handleChoosePic(this.$route.query.img);
+    }
     // this.$store.dispatch('SHOW', {
     //   text: '12345',
     //   type: 'loading'
