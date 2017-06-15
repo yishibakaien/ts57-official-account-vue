@@ -20,7 +20,7 @@
 				<div class="form-item">
 					<border :styleData="styleData1"></border>
 					<label>编号：</label>
-					<ts-input @toggleShow="productNoData" @clearData="clearProductNoData"></ts-input>
+					<ts-input-text @toggleShow="productNoData" @clearData="clearProductNoData"></ts-input-text>
 					<border :styleData="styleData1"></border>
 				</div>
 				<div class="form-item form-item-auto">
@@ -206,6 +206,9 @@
 			}, (res) => {
 				console.log(res);
 			});
+			if (localStorage.getItem('userType') === '2') {
+				this.options3 = this.options3.slice(1, 3);
+			}
 		},
 		methods: {
 			// 显示自定义成分
