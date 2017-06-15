@@ -7,7 +7,7 @@
         <i class="iconfont icon-back"></i>
       </div>
       <div class="pic-wrapper">
-        <div v-for="_item in item.pics" class="pic-item" :style="{backgroundImage:'url(' + _item + ')'}">
+        <div v-for="_item in item.pics" class="pic-item" :style="{backgroundImage:'url(' + miniPic(_item, 200) + ')'}">
         </div>
       </div>
     </div>
@@ -16,6 +16,7 @@
 
 <script>
 import rankTag from './rank-tag';
+import { miniPic } from '../common/js/utils';
 export default {
   props: {
     item: {
@@ -25,8 +26,10 @@ export default {
       type: Number
     }
   },
-  data() {
-    return {};
+  methods: {
+    miniPic() {
+      return miniPic.apply(null, arguments);
+    }
   },
   components: {
     rankTag
