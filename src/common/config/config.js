@@ -12,6 +12,7 @@ var baseURL = (function(env) {
         dev: 'http://localhost:3001',
         test: 'http://192.168.2.11:8080',
         test_new: 'http://api.tswq.wang',
+        test_news: 'https://api.tswq.wang',
         prod: ''
     };
     return urls[env];

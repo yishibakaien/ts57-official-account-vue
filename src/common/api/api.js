@@ -22,7 +22,9 @@ const API = {
     user: {
         login: '/front/user/login', // 登录
         checkPhone: '/front/user/checkPhone', // 检查手机号码是否存在
-        getVerifyCode: '/front/user/getVerifyCode' // 获取图片验证码
+        getVerifyCode: '/front/user/getVerifyCode', // 获取图片验证码
+        bind: '/wechat/bind',
+        authorizeUrl: '/wechat/oauth/authorizeUrl' // 生成微信公众平台网页授权url
     },
     main: {
         // 首页进来之后需要展示的信息
@@ -114,7 +116,7 @@ function _fetch(method = METHODS.get, data, url, cb, err) {
     let _headers = headers;
     // 登录之后的token
     if (localStorage['x-token']) {
-      _headers['x-token'] = localStorage['x-token'];
+        _headers['x-token'] = localStorage['x-token'];
     }
     let param = {
         method: method,
@@ -127,12 +129,12 @@ function _fetch(method = METHODS.get, data, url, cb, err) {
                     text: res.message
                 });
                 if (res.code === 210018) {
-                  // 用户未登录，清空本地缓存
-                  localStorage.clear();
-                  console.log(router);
-                  router.push({
-                    path: 'login'
-                  });
+                    // 用户未登录，清空本地缓存
+                    localStorage.clear();
+                    console.log(router);
+                    router.push({
+                        path: 'login'
+                    });
                 }
             }
             if (typeof cb === 'function') {
@@ -160,11 +162,11 @@ export function checkPhone(data, cb, err) {
 }
 // 用户登录
 export function login(data, cb, err) {
-  return _fetch(METHODS.post, data, API.user.login, cb, err);
+    return _fetch(METHODS.post, data, API.user.login, cb, err);
 }
 // 获取图片验证码
 export function getVerifyCode(data, cb, err) {
-  return _fetch(METHODS.post, data, API.user.getVerifyCode, cb, err);
+    return _fetch(METHODS.post, data, API.user.getVerifyCode, cb, err);
 }
 
 // 获取公司信息(详细)
@@ -308,10 +310,20 @@ export function listHomeProductBuys(data, cb, err) {
 }
 // 爆款热搜
 export function burstHot(data, cb, err) {
-  return _fetch(METHODS.get, data, API.search.burstHot, cb, err);
+    return _fetch(METHODS.get, data, API.search.burstHot, cb, err);
 }
 
 // 大家在找
 export function history(data, cb, err) {
-  return _fetch(METHODS.get, data, API.search.history, cb, err);
+    return _fetch(METHODS.get, data, API.search.history, cb, err);
+}
+
+// 生成微信公众平台网页授权url
+export function authorizeUrl(data, cb, err) {
+    return _fetch(METHODS.get, data, API.user.authorizeUrl, cb, err);
+}
+
+// 为登录成功的用户绑定微信公众号
+export function bind(data, cb, err) {
+    return _fetch(METHODS.post, data, API.user.bind, cb, err);
 }
