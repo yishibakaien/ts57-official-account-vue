@@ -11,9 +11,7 @@
     "lint": "eslint --ext .js,.vue src"
   },
   "dependencies": {
-    "aes-js": "^3.1.0",
     "async-validator": "^1.6.9",
-    "blueimp-md5": "^2.7.0",
     "mint-ui": "^2.2.7",
     "vue": "^2.3.3",
     "vue-router": "^2.3.1",

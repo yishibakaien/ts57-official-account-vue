@@ -1,6 +1,6 @@
 <template>
   <div class="base-item" @click="itemClick">
-    <div class="img-box" :style="{backgroundImage:'url(' + getPic(item) + ')'}"></div>
+    <div class="img-box" :style="{backgroundImage:'url(' + miniPic(getPic(item), 200) + ')'}"></div>
     <div class="name">{{getName(item)}}</div>
     <div class="time">{{getTime(item)}}</div>
   </div>
@@ -9,7 +9,8 @@
 <script>
 import {
   formatCategory,
-  formatDate
+  formatDate,
+  miniPic
 } from '../common/js/utils';
 export default {
   props: {
@@ -21,6 +22,9 @@ export default {
     }
   },
   methods: {
+    miniPic() {
+      return miniPic.apply(null, arguments);
+    },
     itemClick() {
       this.$emit('itemClick');
     },

@@ -7,7 +7,7 @@
         <i class="iconfont icon-back"></i>
       </div>
       <div class="pic-wrapper">
-        <div v-for="_item in item.productList" class="pic-item" :style="{backgroundImage:'url(' + _item.defaultPicUrl + ')'}">
+        <div v-for="_item in item.productList" class="pic-item" :style="{backgroundImage:'url(' + miniPic(_item.defaultPicUrl, 200) + ')'}">
         </div>
         <!-- <div class="pic-item" :style="{backgroundImage:'url(' + url.b + ')'}"></div>
         <div class="pic-item" :style="{backgroundImage:'url(' + url.c + ')'}"></div> -->
@@ -21,6 +21,7 @@
 
 <script>
 import rankTag from './rank-tag';
+import { miniPic } from '../common/js/utils';
 export default {
   props: {
     item: {
@@ -33,6 +34,9 @@ export default {
   methods: {
     addPattersListClick(companyId) {
       this.$emit('listClick', companyId);
+    },
+    miniPic() {
+      return miniPic.apply(null, arguments);
     }
   },
   components: {
