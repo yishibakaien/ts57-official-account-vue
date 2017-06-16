@@ -1,6 +1,7 @@
 import tsRadio from './tsRadio.vue';
 import tsRadioC from './tsRadio-circle.vue';
 import tsInput from './tsInput.vue';
+import tsInputText from './tsInputText.vue';
 import border from './1px.vue';
 import tsGo from './tsGo.vue';
 import tsModel from './tsModel.vue';
@@ -13,6 +14,7 @@ const Components = {
 	tsRadioC,
 	border,
 	tsInput,
+	tsInputText,
 	tsGo,
 	tsModel,
 	tsModelC,
