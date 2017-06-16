@@ -3,4 +3,5 @@ jsconfig/*.
 js
 src/common/js/crop/*
 src/common/js/aes/*
+src/pages/picSearch/picSearch.vue
 src/components/common/aliUpload/aliUpload.vue

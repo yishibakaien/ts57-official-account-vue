@@ -23,6 +23,7 @@
 <script>
 // AlloyTeam 图片裁剪
 import AlloyCrop from '../../common/js/crop/crop';
+// import AlloyCrop from '../../common/js/newCrop/alloyCrop.js';
 import {
   encoded,
   polling,
@@ -91,26 +92,30 @@ export default {
         var reader = new FileReader();
         reader.onload = function() {
           var url = reader.result;
+          // alert(url.length);
           _this.handleChoosePic(url);
         };
         reader.readAsDataURL(file);
       }
     },
     handleChoosePic(url) {
-      var _this = this;
-      /* eslint-disable no-new */
-      new AlloyCrop({
-          image_src: url,
-          circle: false,
-          width: 240,
-          height: 240,
-          ok: function(base64, canvas) {
-              _this.cropPic = base64;
-          },
-          cancel: function() {},
-          ok_text: '截取',
-          cancel_text: '取消'
-      });
+        // alert('进入了切图');
+        var _this = this;
+        // alert(url);
+        /* eslint-disable no-new */
+        // try {
+        AlloyCrop({
+            image_src: url,
+            circle: false,
+            width: 240,
+            height: 240,
+            ok: function(base64) {
+                _this.cropPic = base64;
+            },
+            cancel: function() {},
+            ok_text: '截取',
+            cancel_text: '取消'
+        });
     },
     doSearch(category) {
       // 没有上传图片，则返回

@@ -1,6 +1,6 @@
 'use strict';
 // var env = 'test_new'; // 开发环境
-var env = 'test'; // 测试环境
+var env = 'prod'; // 测试环境
 
 var headers = {
     'x-version': '1.0',
@@ -13,7 +13,7 @@ var baseURL = (function(env) {
         test: 'http://192.168.2.11:8080',
         test_new: 'http://api.tswq.wang',
         test_news: 'https://api.tswq.wang',
-        prod: ''
+        prod: 'https://api.ts57.cn'
     };
     return urls[env];
 })(env);
