@@ -17,7 +17,10 @@ const API = {
         listHomeProductBuys: '/productBuy/listHomeProductBuys', // 求购列表
         byTypeKey: '/front/dicTree/byTypeKey', // 字典
         listIngredients: '/ingredient/listIngredients', // 获取成分列表
-        token: '/file/token' // OSS token
+        token: '/file/token', // OSS token
+        findNewCompanys: '/company/findNewCompanys', // 最新入驻列表
+        search: '/company/search', // 文本搜花-公司搜索
+        totalCompanies: '/company/totalCompanies' // 获取工厂or店铺总数统计
     },
     user: {
         login: '/front/user/login', // 登录
@@ -307,6 +310,18 @@ export function releaseProductBuy(data, cb, err) {
 // 求购列表
 export function listHomeProductBuys(data, cb, err) {
     return _fetch(METHODS.get, data, API.lyf.listHomeProductBuys, cb, err);
+}
+// 最新入驻
+export function findNewCompanys(data, cb, err) {
+    return _fetch(METHODS.post, data, API.lyf.findNewCompanys, cb, err);
+}
+// 厂家和店铺总数统计
+export function totalCompanies(data, cb, err) {
+    return _fetch(METHODS.post, data, API.lyf.totalCompanies, cb, err);
+}
+// 文本搜花-公司搜索
+export function searchCompany(data, cb, err) {
+    return _fetch(METHODS.post, data, API.lyf.search, cb, err);
 }
 // 爆款热搜
 export function burstHot(data, cb, err) {

@@ -12,6 +12,9 @@ import buyDetail from './buyDetail/buyDetail.vue';
 import buyList from './buyList/buyList.vue';
 import releaseSuccess from './releasePages/releaseSuccess.vue';
 import zsbg from './zsbg/zsbg.vue';
+import newEnter from './newEnter/newEnter.vue';
+import searchCompany from './searchCompany/searchCompany.vue';
+import releaseBefore from './releasePages/releaseBefore.vue';
 
 import tsNav from './nav.vue';
 
@@ -25,9 +28,12 @@ export {
   newPatterns,
   releaseSupply,
   releaseBuy,
+  releaseSuccess,
+  releaseBefore,
   buyDetail,
   buyList,
-  releaseSuccess,
+  newEnter,
+  searchCompany,
   zsbg,
   tsNav
 };

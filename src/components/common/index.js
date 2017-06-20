@@ -9,6 +9,7 @@ import tsModelC from './tsModelCustom.vue';
 import tsButton from './tsButton.vue';
 import aliUpload from './aliUpload/aliUpload.vue';
 import tsTips from './downloadTip.vue';
+import searchBar from './searchBar.vue';
 const Components = {
 	tsRadio,
 	tsRadioC,
@@ -20,6 +21,7 @@ const Components = {
 	tsModelC,
 	tsButton,
 	tsTips,
+	searchBar,
 	aliUpload
 };
 const install = function(Vue) {

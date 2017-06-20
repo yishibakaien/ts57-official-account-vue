@@ -11,9 +11,12 @@ import {
     newPatterns,
     releaseBuy,
     releaseSupply,
+    releaseSuccess,
+    releaseBefore,
     buyDetail,
     buyList,
-    releaseSuccess,
+    newEnter,
+    searchCompany,
     zsbg,
     tsNav
 } from '../pages/pages';
@@ -129,6 +132,14 @@ var routes = {
             title: '发布供应'
         }
     }, {
+        path: '/releaseBefore',
+        name: 'releaseBefore',
+        component: releaseBefore,
+        meta: {
+            needAuth: true,
+            title: '跳转中'
+        }
+    }, {
         path: '/buyDetail',
         name: 'buyDetail',
         component: buyDetail,
@@ -150,6 +161,20 @@ var routes = {
         component: releaseSuccess,
         meta: {
             title: '成功发布'
+        }
+    }, {
+        path: '/newEnter',
+        name: 'newEnter',
+        component: newEnter,
+        meta: {
+            title: '入驻信息'
+        }
+    }, {
+        path: '/searchCompany',
+        name: 'searchCompany',
+        component: searchCompany,
+        meta: {
+            title: '搜索结果'
         }
     }, {
         path: '/zsbg',

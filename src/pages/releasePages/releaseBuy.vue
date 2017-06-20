@@ -1,6 +1,18 @@
 <template>
 	<div class="buy-wrap">
 		<div class="content-wrap">
+			<div class="content">
+				<label for="pic-up">
+					<P>
+						<img v-if="imgData" :src="imgData" alt="花型图片"/>
+						<i v-else class="iconfont icon-tianjiatupian"></i>
+					</P>
+				</label>
+				<aliUpload :id="'pic-up'" :fileType="4" @doUpload="picUpload"></aliUpload>
+			</div>
+		</div>
+		<div class="content-wrap">
+			<border :styleData="styleData"></border>
 			<div class="form-item">
 				<div>
 					<label>求购类型</label>
@@ -18,19 +30,12 @@
 					</ts-model-c>
 				</div>
 			</div>
-			<border :styleData="styleData"></border>
-		</div>
-		<div class="content-wrap">
-			<border :styleData="styleData"></border>
+			<border :styleData="styleData1"></border>
 			<div class="form-item">
 				<label>接受开机：</label>
 				<ts-radio-c :items="options2" @onChange="selectStartUp"></ts-radio-c>
 			</div>
-			<div class="form-item form-item-auto">
-				<border :styleData="styleData"></border>
-				<textarea class="buy-desc" v-model="releaseBuyForm.buyDesc" name="" rows="2" placeholder="请填写求购花型的详细信息，如花高，宽幅等"></textarea>
-				<border :styleData="styleData"></border>
-			</div>
+			<border :styleData="styleData1"></border>
 			<div class="form-item">
 				<div>
 					<label>求购数量(选填)：</label>
@@ -43,9 +48,14 @@
 					</ts-model>
 				</div>
 			</div>
-			<border :styleData="styleData"></border>
+			<border :styleData="styleData1"></border>
+			<!--<border :styleData="styleData"></border>-->
+			<div class="form-item form-item-auto">
+				<textarea class="buy-desc" v-model="releaseBuyForm.buyDesc" name="" rows="4" placeholder="请填写求购花型的详细信息，如花高，宽幅等"></textarea>
+				<border :styleData="styleData1"></border>
+			</div>
 		</div>
-		<div class="content-wrap">
+		<!--<div class="content-wrap">
 			<border :styleData="styleData"></border>
 			<div class="form-item form-item-auto">
 				<div>
@@ -66,14 +76,14 @@
 				<img :src="imgData" />
 				<border :styleData="styleData"></border>
 			</div>
-		</div>
+		</div>-->
 		<ts-button @btnClick="submitForm" :dis="isDisable"></ts-button>
 	</div>
 </template>
 
 <script>
-		import { releaseProductBuy } from '@/common/api/api';
-		import { info } from '@/common/js/tip/toast';
+	import { releaseProductBuy } from '@/common/api/api';
+	import { info } from '@/common/js/tip/toast';
 	const unitData = [{ title: '公斤', value: 400011 },
 		{ title: '码', value: 400010 },
 		{ title: '条', value: 400012 }
@@ -91,7 +101,7 @@
 				},
 				buyTypeTitle: '请选择类型',
 				modelShow: false, // 选择计量单位
-				modelShow1: false, // 上传照片
+				//				modelShow1: false, // 上传照片
 				modelShow2: false, // 求购类型
 				priceOptions: [{ title: '公斤', value: 400011 },
 					{ title: '码', value: 400010 },
@@ -130,13 +140,13 @@
 			};
 		},
 		computed: {
-			flowerModelTitle() {
-				if (this.imgData) {
-					return '变更花型';
-				} else {
-					return '上传花型';
-				}
-			},
+			//			flowerModelTitle() {
+			//				if (this.imgData) {
+			//					return '变更花型';
+			//				} else {
+			//					return '上传花型';
+			//				}
+			//			},
 			isDisable() {
 				let userType = localStorage.getItem('userType');
 				// 1是工厂 2是档口
@@ -167,17 +177,17 @@
 				this.buyUnitStr = this.priceOptions[e].title; // tsGO 赋值展示
 				this.goPriceHide();
 			},
-			goUpFlowerShow() {
-				this.modelShow1 = true;
-			},
-			goUpFlowerHide() {
-				this.modelShow1 = false;
-			},
+			//			goUpFlowerShow() {
+			//				this.modelShow1 = true;
+			//			},
+			//			goUpFlowerHide() {
+			//				this.modelShow1 = false;
+			//			},
 			// 花型上传预览
 			picUpload(e) {
 				this.imgData = e.base64Url[0];
 				this.releaseBuyForm.buyPicUrl = e.ossUrl[0];
-				this.goUpFlowerHide();
+				//				this.goUpFlowerHide();
 			},
 			goBuyShow() {
 				this.modelShow2 = true;
@@ -274,7 +284,7 @@
 					}
 				}, (err) => {
 					console.log(err);
-					info({text: err});
+					info({ text: err });
 				});
 			}
 		}
@@ -283,6 +293,32 @@
 
 <style lang="stylus" scoped>
 	.content-wrap {
+		.content {
+			width: 100%;
+			padding: 20px 0;
+			border-bottom: 1px solid #d2d2d2;
+			border-top: 1px solid #d2d2d2;
+			background: #fff;
+			p {
+				margin: 0 auto;
+				width: 120px;
+				height: 120px;
+				text-align: center;
+				line-height: 120px;
+				border: 1px dashed #7E8C8D;
+				.icon-tianjiatupian::before {
+					color: #666;
+					font-size: 26px;
+				}
+				img {
+					width: 100%;
+					height: 100%;
+				}
+			}
+			#pic-up {
+				display: none;
+			}
+		}
 		margin-bottom: 10px;
 		background: #fff;
 		width: 100%;

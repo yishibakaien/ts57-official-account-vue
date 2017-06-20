@@ -4,10 +4,8 @@
 			<i class="iconfont icon-chenggong"></i>
 			<p>已成功发布供应</p>
 			<div class="btn-group">
-				<!--<button class="btn1">继续发布</button>-->
 				<router-link to="releaseSupply">继续发布</router-link>
 				<router-link to="buyList">求购列表</router-link>
-				<!--<button class="btn2">求购列表</button>-->
 			</div>
 		</div>
 		<div class="content" v-else-if="show === 2">
@@ -16,18 +14,14 @@
 			<div class="btn-group">
 				<router-link to="releaseBuy">继续发布</router-link>
 				<router-link to="addPatterns">厂家上新</router-link>
-				<!--<button class="btn1">继续发布</button>-->
-				<!--<button class="btn2">厂家上新</button>-->
 			</div>
 		</div>
 		<div class="content" v-else>
 			<i class="iconfont icon-chenggong"></i>
 			<p>已成功新增花型</p>
 			<div class="btn-group">
-				<!--<button class="btn1">继续新增</button>-->
 				<router-link to="newPatterns">继续新增</router-link>
 				<router-link to="lookingFor">大家在找</router-link>
-				<!--<button class="btn2">厂家上新</button>-->
 			</div>
 		</div>
 	</div>
@@ -37,7 +31,7 @@
 	export default {
 		data() {
 			return {
-				show: true
+				show: ''
 			};
 		},
 		created() {

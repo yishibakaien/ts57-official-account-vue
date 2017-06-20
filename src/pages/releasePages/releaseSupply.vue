@@ -1,6 +1,17 @@
 <template>
 	<div class="buy-wrap">
 		<div class="content-wrap">
+			<div class="content">
+				<label for="pic-up">
+						<P>
+							<img v-if="imgData" :src="imgData" alt="花型图片"/>
+							<i v-else class="iconfont icon-tianjiatupian"></i>
+						</P>
+					</label>
+				<aliUpload :id="'pic-up'" :fileType="4" @doUpload="picUpload"></aliUpload>
+			</div>
+		</div>
+		<div class="content-wrap">
 			<div class="form-item">
 				<div>
 					<label>供应类型</label>
@@ -18,14 +29,7 @@
 					</ts-model-c>
 				</div>
 			</div>
-			<border :styleData="styleData"></border>
-		</div>
-		<div class="content-wrap">
-			<border :styleData="styleData"></border>
-			<div class="form-item form-item-auto">
-				<textarea class="buy-desc" v-model="releaseSupplyForm.supplyDesc" maxlength="50" rows="2" placeholder="请填写供应花型的详细信息，如花高，宽幅等"></textarea>
-				<border :styleData="styleData"></border>
-			</div>
+			<border :styleData="styleData1"></border>
 			<div class="form-item">
 				<div>
 					<label>供应数量(选填)：</label>
@@ -38,9 +42,13 @@
 					</ts-model>
 				</div>
 			</div>
+			<border :styleData="styleData1"></border>
+			<div class="form-item form-item-auto">
+				<textarea class="buy-desc" v-model="releaseSupplyForm.supplyDesc" maxlength="50" rows="4" placeholder="请填写供应花型的详细信息，如花高，宽幅等"></textarea>
+			</div>
 			<border :styleData="styleData"></border>
 		</div>
-		<div class="content-wrap">
+		<!--<div class="content-wrap">
 			<border :styleData="styleData"></border>
 			<div class="form-item form-item-auto">
 				<div>
@@ -61,7 +69,7 @@
 				<img :src="imgData" />
 				<border :styleData="styleData"></border>
 			</div>
-		</div>
+		</div>-->
 		<ts-button @btnClick="submitForm" :dis="isDisable"></ts-button>
 	</div>
 </template>
@@ -85,7 +93,7 @@
 					float: 'right'
 				},
 				modelShow: false, // 选择计量单位
-				modelShow1: false, // 上传照片
+//				modelShow1: false, // 上传照片
 				modelShow2: false, // 供应类型
 //				isDisable: false, // 提交按钮是否禁用
 				priceOptions: [{ title: '码', value: 400010 }, { title: '公斤', value: 400011 }, { title: '条', value: 400012 }],
@@ -118,13 +126,13 @@
 			};
 		},
 		computed: {
-			flowerModelTitle() {
-				if (this.imgData) {
-					return '变更花型';
-				} else {
-					return '上传花型';
-				}
-			},
+//			flowerModelTitle() {
+//				if (this.imgData) {
+//					return '变更花型';
+//				} else {
+//					return '上传花型';
+//				}
+//			},
 			isDisable() {
 				let userType = localStorage.getItem('userType');
 				// 1是工厂 2是档口
@@ -172,17 +180,17 @@
 				console.log(this.supplyUnitStr);
 				this.goPriceHide();
 			},
-			goUpFlowerShow() {
-				this.modelShow1 = true;
-			},
-			goUpFlowerHide() {
-				this.modelShow1 = false;
-			},
+//			goUpFlowerShow() {
+//				this.modelShow1 = true;
+//			},
+//			goUpFlowerHide() {
+//				this.modelShow1 = false;
+//			},
 			// 花型上传预览
 			picUpload(e) {
 				this.imgData = e.base64Url[0];
 				this.releaseSupplyForm.productPicUrl = e.ossUrl[0];
-				this.goUpFlowerHide();
+//				this.goUpFlowerHide();
 			},
 			goSupplyShow() {
 				this.modelShow2 = true;
@@ -259,6 +267,32 @@
 
 <style lang="stylus" scoped>
 	.content-wrap {
+		.content {
+			width: 100%;
+			padding: 20px 0;
+			border-bottom: 1px solid #d2d2d2;
+			border-top: 1px solid #d2d2d2;
+			background: #fff;
+			p {
+				margin: 0 auto;
+				width: 120px;
+				height: 120px;
+				text-align: center;
+				line-height: 120px;
+				border: 1px dashed #7E8C8D;
+				.icon-tianjiatupian::before {
+					color: #666;
+					font-size: 26px;
+				}
+				img {
+					width: 100%;
+					height: 100%;
+				}
+			}
+			#pic-up {
+				display: none;
+			}
+		}
 		margin-bottom: 10px;
 		background: #fff;
 		width: 100%;
