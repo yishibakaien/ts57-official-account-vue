@@ -3,6 +3,7 @@ import hotPatterns from './hotPatterns/hotPatterns.vue';
 import lookingFor from './lookingFor/lookingFor.vue';
 import picSearch from './picSearch/picSearch.vue';
 import login from './login/login.vue';
+import patternsDetail from './patternsDetail/patternsDetail.vue';
 
 // lyf
 import newPatterns from './newPatterns/newPatterns.vue';
@@ -23,7 +24,9 @@ export {
   hotPatterns,
   lookingFor,
   picSearch,
+  patternsDetail,
   login,
+
   // lyf
   newPatterns,
   releaseSupply,

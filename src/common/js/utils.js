@@ -82,3 +82,42 @@ export function miniPic() {
     // 默认缩小为 300 * 300
     return url + '/resize,w_300,h_300';
 }
+
+export function formateMoney(price, unit) {
+    // 金额以 分 作为单位
+    if (!price) {
+        return '价格面议';
+    }
+    unit = Number(unit);
+    var _unit = '';
+    if (unit === 400010) {
+        _unit = '码';
+    } else if (unit === 400011) {
+        _unit = '公斤';
+    } else if (unit === 400012) {
+        _unit = '条';
+    }
+    return '￥ ' + (price / 100) + ' / ' + _unit;
+}
+export function formatStockUnit(unit) {
+    unit = Number(unit);
+    var _unit = '';
+    if (unit === 400010) {
+        _unit = '码';
+    } else if (unit === 400011) {
+        _unit = '公斤';
+    } else if (unit === 400012) {
+        _unit = '条';
+    }
+    return _unit;
+}
+
+export function formatProduceShape(num) {
+    if (num === 200010) {
+        return '胚布';
+    } else if (num === 200011) {
+        return '成品';
+    } else {
+        return '成品';
+    }
+}

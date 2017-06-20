@@ -8,6 +8,7 @@
 		<router-link to="addPatterns">厂家上新</router-link>
 		<router-link to="hotPatterns">爆款热搜</router-link>
 		<router-link to="zsbg">坐视布管</router-link>
+		<router-link to="newEnter">入驻信息</router-link>
 	</div>
 </template>
 

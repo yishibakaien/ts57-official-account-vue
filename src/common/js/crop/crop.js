@@ -83,21 +83,21 @@ import AlloyFinger from './AlloyFinger';
 
             // 这个tap 事件会穿透到 蒙版之下，导致额外点击事件
             // 2017年6月8日11:23:20 cloud_cb
-            // new AlloyFinger(this.cancel_btn, {
-            //     tap: this._cancel.bind(this)
-            // });
+            new AlloyFinger(this.cancel_btn, {
+                tap: this._cancel.bind(this)
+            });
 
-            // new AlloyFinger(this.ok_btn, {
-            //     tap: this._ok.bind(this)
-            // });
+            new AlloyFinger(this.ok_btn, {
+                tap: this._ok.bind(this)
+            });
 
-            this.cancel_btn.addEventListener('click', function() {
-                this._cancel();
-            }.bind(this), false);
+            // this.cancel_btn.addEventListener('click', function() {
+            //     this._cancel();
+            // }.bind(this), false);
 
-            this.ok_btn.addEventListener('click', function() {
-                this._ok();
-            }.bind(this), false);
+            // this.ok_btn.addEventListener('click', function() {
+            //     this._ok();
+            // }.bind(this), false);
 
             this.renderCover();
             this.setStyle();
@@ -176,20 +176,16 @@ import AlloyFinger from './AlloyFinger';
             this._css(this.ok_btn, {
                 position: 'fixed',
                 zIndex: '101',
-                width: '80%',
-                left: '50%',
-                transform: 'translateX(-50%)',
-                '-webkit-transform': 'translateX(-50%)',
-                bottom: '88px'
+                width: '30%',
+                right: '10%',
+                bottom: '20px'
             });
 
             this._css(this.cancel_btn, {
                 position: 'fixed',
                 zIndex: '101',
-                width: '80%',
-                left: '50%',
-                transform: 'translateX(-50%)',
-                '-webkit-transform': 'translateX(-50%)',
+                width: '30%',
+                left: '10%',
                 bottom: '20px'
             });
         },

@@ -5,6 +5,7 @@ import {
     hotPatterns,
     lookingFor,
     picSearch,
+    patternsDetail,
     login,
 
     // lyf
@@ -175,6 +176,13 @@ var routes = {
         component: searchCompany,
         meta: {
             title: '搜索结果'
+        }
+    }, {
+        path: '/patternsDetail',
+        name: 'patternsDetail',
+        component: patternsDetail,
+        meta: {
+          title: '花型详情'
         }
     }, {
         path: '/zsbg',

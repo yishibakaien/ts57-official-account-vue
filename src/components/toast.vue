@@ -16,9 +16,6 @@ export default {
       text: state => state.toast.text,
       type: state => state.toast.type
     })
-  },
-  mounted() {
-    console.log(this.isShow);
   }
 };
 </script>

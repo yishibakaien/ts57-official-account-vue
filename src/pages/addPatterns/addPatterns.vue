@@ -62,12 +62,12 @@ export default {
       guide();
     },
     guideToStore([companyId, isWebsite, indexName]) {
-      console.log(companyId, isWebsite, indexName);
+//    console.log(companyId, isWebsite, indexName);
       if (isWebsite === 1) {
-        location.href = 'http://' + indexName + '.tswq.wang';
+        location.href = 'http://' + indexName + '.ts57.cn';
       }
       if (isWebsite === 0) {
-        location.href = 'http://www.tswq.wang/share/index.html?companyId=' + companyId;
+        location.href = 'http://www.ts57.cn/share/index.html?companyId=' + companyId;
       }
     }
   }
