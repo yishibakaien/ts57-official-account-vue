@@ -1,6 +1,6 @@
 <template>
 	<div class="item-wrap">
-		<div class="title clearFix">
+		<div class="title clearFix" @click="gotoStore(itemObj.indexName)">
 			<img class="fl" :src="itemObj.companyHeadIcon" v-errorImg alt="厂家头像"/>
 			<span class="fl">{{itemObj.companyName}}</span>
 			<i class="fr iconfont icon-back"></i>
@@ -32,6 +32,11 @@
 			},
       picUrl() {
         return miniPic.apply(0, arguments) || '/static/images/assets/defaultFlower.svg';
+      },
+      gotoStore(indexName) {
+        if (indexName) {
+          location.href = indexName + '.ts57.cn';
+        }
       }
 		}
 	};
