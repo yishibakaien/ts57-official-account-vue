@@ -6,14 +6,15 @@
 			<i class="fr iconfont icon-back"></i>
 		</div>
 		<div class="content clearFix">
-			<div class="img-box" v-for="item in itemObj.products.slice(0,3)">
-				<img :src="item.defaultPicUrl?item.defaultPicUrl:'/static/images/assets/defaultFlower.svg'" alt="花型图片"/>
+			<div class="img-box" v-for="item in itemObj.products.slice(0,3)" :style="{backgroundImage: 'url(' + picUrl(item.defaultPicUrl, 200) + ')'}">
+				<!-- <img :src="item.defaultPicUrl?item.defaultPicUrl:'/static/images/assets/defaultFlower.svg'" alt="花型图片"/> -->
 			</div>
 		</div>
 	</div>
 </template>
 
 <script>
+  import { miniPic } from '../../common/js/utils';
 	export default {
 		props: {
 			itemObj: {
@@ -28,12 +29,16 @@
 						id: ''
 					}
 				});
-			}
+			},
+      picUrl() {
+        return miniPic.apply(0, arguments) || '/static/images/assets/defaultFlower.svg';
+      }
 		}
 	};
 </script>
 
 <style lang="stylus" scoped>
+@import '../../common/styles/mixin';
 .item-wrap {
 	background: #fff;
 	border-bottom: 1px solid #f2f2f2;
@@ -62,14 +67,15 @@
 		margin-top: 8px;
 		margin-bottom: 8px;
 		.img-box {
+      centerPic();
 			float: left;
 			margin-left: 2.5%;
 			width: 30vw;
 			height: 30vw;
 			overflow: hidden;
-			img {
-				width: 100%;
-			}
+			// img {
+			// 	width: 100%;
+			// }
 		}
 	}
 }
