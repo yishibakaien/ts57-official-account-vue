@@ -12,7 +12,7 @@
     <div class="result-container clearfix">
       <div class="text">搜索结果：</div>
       <div class="item-wrapper" v-for="item in resultArr">
-        <base-item :item="item" @itemClick="guideToDownload"></base-item>
+        <base-item :item="item"></base-item>
       </div>
     </div>
 
@@ -47,7 +47,7 @@ import {
   hide
 } from '../../common/js/tip/toast';
 
-import guide from '../../common/js/guide';
+// import guide from '../../common/js/guide';
 export default {
   components: {
     paginator,
@@ -79,9 +79,9 @@ export default {
     }
   },
   methods: {
-    guideToDownload() {
-      guide('查看详情需要下载APP,是否前往下载?');
-    },
+    // guideToDownload() {
+    //   guide('查看详情需要下载APP,是否前往下载?');
+    // },
     choosePic() {
       this.$refs.file.click();
     },

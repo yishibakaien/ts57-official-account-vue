@@ -26,9 +26,9 @@
 
     <div class="message border-bottom" id="companyMessage">
         <div class="avatar-wrapper">
-            <img class="avatar" id="avatar" width="60" height="60" :src="companyMessage.companyHeadIcon">
+            <img class="avatar" id="avatar" width="60" height="60" :src="companyMessage.companyHeadIcon ? companyMessage.companyHeadIcon : '../../static/images/default_avatar.png'">
         </div>
-        <div class="content-wrapper" @click="guideToStore()">
+        <div class="content-wrapper" @click="guideToStore([companyMessage.id, companyMessage.indexName, companyMessage.isWebsite])">
             <div class="content">
                 <div class="title">
                     <span class="tag" :class="{factory: companyMessage.companyType===1, stalls: companyMessage.companyType===2}" id="tag"></span><span class="name" id="companyName">
@@ -79,14 +79,13 @@
             <span class="name">出码率:</span><span class="value">90%</span>
         </div> -->
     </div>
-
-    <div class="footer border-top" @click="guideToDownload">
+    <!-- <div class="footer border-top" @click="guideToDownload">
         <div class="dress" id="dress"><span class="pink">3D</span><span class="text">试衣</span></div>
         <div class="call" id="tel">
             <i class="iconfont icon-iconfontdianhua"></i>
             <span class="text">拨打电话</span>
         </div>
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -108,13 +107,9 @@
         stock: '',
         width: '',
         height: '',
-        companyMessage: {}
-        // {
-        //   companyName: '',
-        //   companyAvatar: '',
-        //   companyBusiness: '',
-        //   userType: ''
-        // }
+        companyMessage: {
+          companyExtendBO: {}
+        }
       };
     },
     created() {
@@ -123,8 +118,8 @@
     methods: {
       fetchData() {
         var _this = this;
-        console.log(this.$route.query.id);
-        getProduct({ id: this.$route.query.id }, function(res) {
+        console.log(this.$route.query.dataId);
+        getProduct({ id: this.$route.query.dataId }, function(res) {
           console.log('花型详情', res);
           var data = res.data;
           _this.defaultPicUrl = miniPic(data.defaultPicUrl, 400);
@@ -137,7 +132,8 @@
           _this.productShape = formatProduceShape(data.productShape);
           _this.width = data.width;
           _this.height = data.height;
-          getCompanyInfo({ id: data.companyId }, function(res) {
+        });
+        getCompanyInfo({ companyId: this.$route.query.companyId }, function(res) {
             console.log('公司信息', res);
             _this.companyMessage = res.data;
             // _this.companyMessage.companyName = res.data.companyName;
@@ -145,10 +141,18 @@
             // _this.companyMessage.companyAvatar = res.data.companyHeadIcon;
             // _this.companyMessage.userType = res.data.userType;
           });
-        });
       },
       guideToDownload() {
         guide();
+      },
+      guideToStore([companyId, indexName, isWebsite]) {
+        location.href = 'http://' + indexName + '.ts57.cn';
+        // if (isWebsite === 1) {
+        //   location.href = 'http://' + indexName + '.ts57.cn';
+        // }
+        // if (isWebsite === 0) {
+        //   location.href = 'http://www.ts57.cn/share/index.html?companyId=' + companyId;
+        // }
       }
     },
     computed: {}

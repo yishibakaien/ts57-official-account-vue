@@ -24,7 +24,7 @@ export default {
     var _this = this;
     loading();
     burstHot({
-      pageNo: 2,
+      pageNo: 1,
       pageSize: 10
     }, function(res) {
       hide();
@@ -38,9 +38,9 @@ export default {
     paginator
   },
   methods: {
-    seeMore() {
-      console.log('点击查看更多');
-    },
+    // seeMore() {
+    //   console.log('点击查看更多');
+    // },
     guideToDownload() {
       guide('您可以在统搜57APP中查看详情，是否前往下载？');
     }
