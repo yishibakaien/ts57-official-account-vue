@@ -1,3 +1,4 @@
+import { miniPic } from '../common/js/utils';
 // 加载图片
 export const loadImg = {
   bind(el) {
@@ -40,8 +41,20 @@ export const errorLogo = value => {
     ? '/static/images/assets/defaultHeadIcon.svg'
     : value.src;
 };
-
 // input聚焦
 export const focus = (el) => {
 	el.focus();
 };
+
+// 花型图片(背景)加载
+export function patternsPic(el, args) {
+  var formatPicUrl = miniPic(args.value.pic, args.value.size);
+  var _img = new Image();
+  _img.onload = function() {
+    el.style.backgroundImage = 'url(' + formatPicUrl + ')';
+  };
+  _img.onerror = function() {
+    el.style.backgroundImage = 'url(/static/images/assets/defaultFlower.svg)';
+  };
+  _img.src = formatPicUrl;
+}

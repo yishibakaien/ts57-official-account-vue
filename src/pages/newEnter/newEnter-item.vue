@@ -6,7 +6,8 @@
 			<i class="fr iconfont icon-back"></i>
 		</div>
 		<div class="content clearFix">
-			<div class="img-box" v-for="item in itemObj.products.slice(0,3)" :style="{backgroundImage: 'url(' + picUrl(item.defaultPicUrl, 200) + ')'}">
+			<!-- <div class="img-box" v-for="item in itemObj.products.slice(0,3)" :style="{backgroundImage: 'url(' + picUrl(item.defaultPicUrl, 200) + ')'}"> -->
+      <div class="img-box" v-for="item in itemObj.products.slice(0,3)" v-patternsPic="{pic: item.defaultPicUrl, size: 200}">
 				<!-- <img :src="item.defaultPicUrl?item.defaultPicUrl:'/static/images/assets/defaultFlower.svg'" alt="花型图片"/> -->
 			</div>
 		</div>
@@ -14,7 +15,6 @@
 </template>
 
 <script>
-  import { miniPic } from '../../common/js/utils';
 	export default {
 		props: {
 			itemObj: {
@@ -30,12 +30,11 @@
 					}
 				});
 			},
-      picUrl() {
-        return miniPic.apply(0, arguments) || '/static/images/assets/defaultFlower.svg';
-      },
       gotoStore(indexName) {
         if (indexName) {
           location.href = indexName + '.ts57.cn';
+        } else {
+          console.log('接口数据暂无indexNmae');
         }
       }
 		}

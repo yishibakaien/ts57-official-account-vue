@@ -5,7 +5,7 @@
 			<span>入住厂家<em> {{factory}} </em>家</span>
 			<span>入住贸易商<em> {{shop}} </em>家</span>
 		</p>
-		<div class="item-box" v-for="item in items" @click="goStore">
+		<div class="item-box" v-for="item in items">
 			<new-enter-item :itemObj="item"></new-enter-item>
 		</div>
 	</div>
@@ -60,10 +60,6 @@
 						keyWord: e
 					}
 				});
-			},
-			// 跳转店铺
-			goStore() {
-				console.log(111);
 			}
 		}
 	};
