@@ -16,6 +16,8 @@ import {
     releaseBefore,
     buyDetail,
     buyList,
+    supplyList,
+    supplyDetail,
     newEnter,
     searchCompany,
     zsbg,
@@ -149,12 +151,28 @@ var routes = {
             title: '求购详情'
         }
     }, {
+        path: '/supplyDetail',
+        name: 'supplyDetail',
+        component: supplyDetail,
+        meta: {
+            needAuth: true,
+            title: '供应详情'
+        }
+    }, {
         path: '/buyList',
         name: 'buyList',
         component: buyList,
         meta: {
             needAuth: true,
             title: '求购列表'
+        }
+    }, {
+        path: '/supplyList',
+        name: 'supplyList',
+        component: supplyList,
+        meta: {
+            needAuth: true,
+            title: '供应列表'
         }
     }, {
         path: '/releaseSuccess',

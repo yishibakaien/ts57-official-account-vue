@@ -10,7 +10,9 @@ import newPatterns from './newPatterns/newPatterns.vue';
 import releaseSupply from './releasePages/releaseSupply.vue';
 import releaseBuy from './releasePages/releaseBuy.vue';
 import buyDetail from './buyDetail/buyDetail.vue';
+import supplyDetail from './supplyDetail/supplyDetail.vue';
 import buyList from './buyList/buyList.vue';
+import supplyList from './supplyList/supplyList.vue';
 import releaseSuccess from './releasePages/releaseSuccess.vue';
 import zsbg from './zsbg/zsbg.vue';
 import newEnter from './newEnter/newEnter.vue';
@@ -34,7 +36,9 @@ export {
   releaseSuccess,
   releaseBefore,
   buyDetail,
+  supplyDetail,
   buyList,
+  supplyList,
   newEnter,
   searchCompany,
   zsbg,

@@ -4,55 +4,55 @@
 			<p v-for="(item, index) in options" @click="selectClass(index)"><span :class="{active: item.isActive}">{{item.classes}}</span></p>
 		</div>
 		<div class="item-box">
-			<div class="buyList-item" v-for="item in items" @click="goDetail(item)">
-				<buy-list-item :item="item"></buy-list-item>
-			</div>
+		<div class="buyList-item" v-for="item in items" @click="goDetail(item)">
+			<supply-list-item :item="item"></supply-list-item>
+		</div>
 		</div>
 		<paginator :hasMore="hasMore" @more="moreMethod"></paginator>
 	</div>
 </template>
 
 <script>
-	import { listHomeProductBuys } from '@/common/api/api';
-	import buyListItem from './buyListItem.vue';
+	import { listHomeCompanySupplys } from '@/common/api/api';
+	import supplyListItem from './supplyListItem.vue';
 	import { paginator } from '../../components/index.js';
 	import { loading, hide } from '../../common/js/tip/toast';
 	export default {
 		data() {
 			return {
 				param: {
-					buyShapes: '', // 求购形态
-					buyTypes: '', // 求购类型
+//					supplyShapes: '', // 供应形态
+//					supplyStatus: '', // 供应状态
+					supplyTypes: '', // 供应类型
 					pageNo: 1, // 第几页
 					pageSize: 10 // 每页记录数
 				},
-				options: [{ classes: '全部', value: '', isActive: true },
-					{ classes: '面料', value: 100010, isActive: false },
-					{ classes: '大边', value: 100011, isActive: false },
-					{ classes: '小边', value: 100012, isActive: false },
-					{ classes: '睫毛', value: 100013, isActive: false }
-				],
+				options: [{classes: '全部', value: '', isActive: true},
+				{classes: '面料', value: 100010, isActive: false},
+				{classes: '大边', value: 100011, isActive: false},
+				{classes: '小边', value: 100012, isActive: false},
+				{classes: '睫毛', value: 100013, isActive: false}],
 				items: [],
 				hasMore: true
 			};
 		},
 		components: {
-			buyListItem,
+			supplyListItem,
 			paginator
 		},
 		created() {
 			loading();
-			this.listHomeProductBuysMethod1();
+			this.listHomeCompanySupplys();
 		},
 		methods: {
 			moreMethod() {
-				this.param.pageNo++;
-				this.listHomeProductBuysMethod();
+				this.param.pageNo ++;
+				this.listHomeCompanySupplys();
 			},
-			// 分页请求数据
-			listHomeProductBuysMethod() {
+			// 请求供应列表数据
+			listHomeCompanySupplys() {
 				loading();
-				listHomeProductBuys(this.param, (res) => {
+				listHomeCompanySupplys(this.param, (res) => {
 					if (res.code === 0) {
 						hide();
 						this.items = this.items.concat(res.data.list);
@@ -66,8 +66,7 @@
 			},
 			// 分类请求数据
 			listHomeProductBuysMethod1() {
-				this.hasMore = true;
-				listHomeProductBuys(this.param, (res) => {
+				listHomeCompanySupplys(this.param, (res) => {
 					if (res.code === 0) {
 						hide();
 						this.items = res.data.list;
@@ -82,16 +81,16 @@
 					item.isActive = false;
 				});
 				this.options[e].isActive = true;
-				console.log(this.options[e].value);
-				this.param.buyTypes = this.options[e].value;
+				this.param.supplyTypes = this.options[e].value;
 				this.param.pageNo = 1;
+				this.hasMore = true;
 				this.listHomeProductBuysMethod1();
 			},
 			// 跳转详情页
 			goDetail(e) {
 				console.log(e.id);
 				this.$router.push({
-					path: '/buyDetail',
+					path: '/supplyDetail',
 					query: {
 						id: e.id
 					}
@@ -103,7 +102,7 @@
 
 <style lang="stylus" scoped>
 	.buyList {
-		position: relative;
+		background: #f2f2f2;
 		.navBar {
 			position: fixed;
 			top: 0;
@@ -129,7 +128,6 @@
 				}
 			}
 		}
-		background: #f2f2f2;
 		.item-box {
 			margin-top: 40px;
 		}

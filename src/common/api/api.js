@@ -12,6 +12,7 @@ const API = {
         releaseCompanySupply: '/companySupply/releaseCompanySupply', // 发布供应
         releaseProductBuy: '/productBuy/releaseProductBuy', // 发布求购
         getProductBuy: '/productBuy/getProductBuy/', // 求购详情
+        getCompanySupply: '/companySupply/getCompanySupply/', // 供应详情
         addProduct: '/product/addProduct', // 新增花型
         addIngredient: '/ingredient/addIngredient', // 自定义成分
         listHomeProductBuys: '/productBuy/listHomeProductBuys', // 求购列表
@@ -20,7 +21,8 @@ const API = {
         token: '/file/token', // OSS token
         findNewCompanys: '/company/findNewCompanys', // 最新入驻列表
         search: '/company/search', // 文本搜花-公司搜索
-        totalCompanies: '/company/totalCompanies' // 获取工厂or店铺总数统计
+        totalCompanies: '/company/totalCompanies', // 获取工厂or店铺总数统计
+        listHomeCompanySupplys: '/companySupply/listHomeCompanySupplys' // 供应列表
     },
     user: {
         login: '/front/user/login', // 登录
@@ -214,13 +216,6 @@ export function getProduct(data, cb, err) {
     return _fetch(METHODS.get, {}, url, cb, err);
 }
 
-// 获取供应详情
-export function getCompanySupply(data, cb, err) {
-    let _data = data;
-    let url = API.detail.getCompanySupply.toString() + _data.id.toString();
-    return _fetch(METHODS.get, {}, url, cb, err);
-}
-
 // 店铺分类绑定的花型列表
 export function listCompanyBindingProduct(data, cb, err) {
     return _fetch(METHODS.get, data, API.main.listCompanyBindingProduct, cb, err);
@@ -283,6 +278,12 @@ export function getProductBuy(data, cb, err) {
     let url = API.lyf.getProductBuy.toString() + _data.id.toString();
     return _fetch(METHODS.get, {}, url, cb, err);
 }
+// 供应详情
+export function getCompanySupply(data, cb, err) {
+    let _data = data;
+    let url = API.lyf.getCompanySupply.toString() + _data.id.toString();
+    return _fetch(METHODS.get, {}, url, cb, err);
+}
 // 自定义成分
 export function addIngredient(data, cb, err) {
     return _fetch(METHODS.post, data, API.lyf.addIngredient, cb, err);
@@ -310,6 +311,10 @@ export function releaseProductBuy(data, cb, err) {
 // 求购列表
 export function listHomeProductBuys(data, cb, err) {
     return _fetch(METHODS.get, data, API.lyf.listHomeProductBuys, cb, err);
+}
+// 供应列表
+export function listHomeCompanySupplys(data, cb, err) {
+    return _fetch(METHODS.get, data, API.lyf.listHomeCompanySupplys, cb, err);
 }
 // 最新入驻
 export function findNewCompanys(data, cb, err) {
