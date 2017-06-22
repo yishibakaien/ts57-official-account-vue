@@ -1,13 +1,27 @@
 <template>
   <div class="pic-search-page">
-    <div class="search-category">
-      <input type="file" name="file" accept="image/*" ref="file" @change="uploadPic" style="display:none;">
-      <div class="pic-wrapper border1px" :style="{backgroundImage:'url(' + cropPic + ')'}" @click="choosePic">
-        <i class="iconfont icon-tianjiatupian" :style="{display: cropPic ? 'none' : 'inline-block'}"></i>
+    <div v-if="!receive.receiveId">
+      <div class="search-category">
+        <input type="file" name="file" accept="image/*" ref="file" @change="uploadPic" style="display:none;">
+        <div class="pic-wrapper border1px" :style="{backgroundImage:'url(' + cropPic + ')'}" @click="choosePic">
+          <i class="iconfont icon-tianjiatupian" :style="{display: cropPic ? 'none' : 'inline-block'}"></i>
+        </div>
+      </div>
+      <div class="search-button-box">
+        <button class="button button-blue" v-for="item in category" @click="doSearch(item.category)" :disabled="isSearching || !cropPic">{{item.text}}</button>
       </div>
     </div>
-    <div class="search-button-box">
-      <button class="button button-blue" v-for="item in category" @click="doSearch(item.category)" :disabled="isSearching || !cropPic">{{item.text}}</button>
+    <div v-if="receive.receiveId">
+        <div class="receive-id-box">
+          <div class="receive-pic-box">
+            <img class="receive-pic" :src="receive.receiveSrc" width="80" height="80">
+          </div>
+          <div class="receive-pic-message">
+            <p class="receive-type">查找类型：{{receive.category}}</p>
+            <p class="receive-person">查找人：{{receive.user.userName}}</p>
+            <p class="receive-tip">温馨提示：白色的花型图片更利于找到匹配花型</p>
+          </div>
+        </div>
     </div>
     <div class="result-container clearfix">
       <div class="text">搜索结果：</div>
@@ -27,7 +41,8 @@ import AlloyCrop from '../../common/js/crop/crop';
 import {
   encoded,
   polling,
-  getResult
+  getResult,
+  searchHistory
 } from '../../common/api/api';
 
 import {
@@ -69,14 +84,28 @@ export default {
       searchCategory: '',
       id: '', // 轮询之后获得的id
       tip: null,
-      isSearching: false
+      isSearching: false,
+      receive: {
+        receiveId: '',
+        receiveSrc: '',
+        category: '',
+        user: {}
+      }
     };
   },
   mounted() {
     // console.log('参数：', this.$route.query.img);
     var img = this.$route.query.img;
+    var id = this.$route.query.id;
+
     if (img) {
       this.handleChoosePic(this.$route.query.img);
+    }
+
+    if (id) {
+      this.id = id;
+      this.receive.receiveId = id;
+      this.historySearch(id);
     }
     if (checkAndroid()) {
       this.$refs.file.setAttribute('captrue', 'camera');
@@ -230,6 +259,18 @@ export default {
         // }
       });
     },
+    historySearch(id) {
+      var _this = this;
+      this.getResult();
+      searchHistory({
+        id: id
+      }, function(res) {
+        console.log('根据历史记录id搜索的图片结果', res);
+        _this.receive.category = formatCategory(res.data.category);
+        _this.receive.receiveSrc = res.data.searchSource;
+        _this.receive.user = res.data.user;
+      });
+    },
     loadMore() {
       this.getResult();
     }
@@ -278,4 +319,19 @@ export default {
   // padding-bottom 32px
   .item-wrapper
     itemListLayout()
+.receive-id-box
+  display flex
+  background #fff
+  padding 16px
+  .receive-id-box
+    flex 0 0 80px
+  .receive-pic-message
+    flex 1
+    p
+      line-height 20px
+      font-size 14px
+      height 20px
+      margin-left 16px
+      &.receive-tip
+        color #999
 </style>
