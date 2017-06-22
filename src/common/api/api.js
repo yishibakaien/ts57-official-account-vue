@@ -22,7 +22,8 @@ const API = {
         findNewCompanys: '/company/findNewCompanys', // 最新入驻列表
         search: '/company/search', // 文本搜花-公司搜索
         totalCompanies: '/company/totalCompanies', // 获取工厂or店铺总数统计
-        listHomeCompanySupplys: '/companySupply/listHomeCompanySupplys' // 供应列表
+        listHomeCompanySupplys: '/companySupply/listHomeCompanySupplys', // 供应列表
+        getCompanyBestList: '/companyBest/getCompanyBestList' // 优质厂家列表
     },
     user: {
         login: '/front/user/login', // 登录
@@ -332,7 +333,10 @@ export function searchCompany(data, cb, err) {
 export function burstHot(data, cb, err) {
     return _fetch(METHODS.get, data, API.search.burstHot, cb, err);
 }
-
+// 优质厂家
+export function getCompanyBestList(data, cb, err) {
+    return _fetch(METHODS.get, data, API.lyf.getCompanyBestList, cb, err);
+}
 // 大家在找
 export function history(data, cb, err) {
     return _fetch(METHODS.get, data, API.search.history, cb, err);
