@@ -87,7 +87,8 @@ export function miniPic() {
 
 export function formateMoney(price, unit) {
     // 金额以 分 作为单位
-    if (!price) {
+    price = Number(price);
+    if (price < 0.1) {
         return '价格面议';
     }
     unit = Number(unit);
