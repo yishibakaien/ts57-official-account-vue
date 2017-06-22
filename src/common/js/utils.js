@@ -51,7 +51,9 @@ export function checkIOS() {
         return false;
     }
 }
-
+export function checkAndroid() {
+  return navigator.userAgent.indexOf('Android') > -1;
+}
 // Object.assign
 export function objectAssign(target, source) {
     if (!target || !source) {

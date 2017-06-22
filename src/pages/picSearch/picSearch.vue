@@ -1,7 +1,7 @@
 <template>
   <div class="pic-search-page">
     <div class="search-category">
-      <input type="file" name="file" accept="image/*" ref="file" @change="uploadPic" style="display:none;">
+      <input type="file" :capture="isAndroid ? 'camera' : ''" name="file" accept="image/*" ref="file" @change="uploadPic" style="display:none;">
       <div class="pic-wrapper border1px" :style="{backgroundImage:'url(' + cropPic + ')'}" @click="choosePic">
         <i class="iconfont icon-tianjiatupian" :style="{display: cropPic ? 'none' : 'inline-block'}"></i>
       </div>
@@ -31,7 +31,8 @@ import {
 } from '../../common/api/api';
 
 import {
-  formatCategory
+  formatCategory,
+  checkAndroid
 } from '../../common/js/utils';
 
 // import blackTip from '../../common/js/tip/blackTip';
@@ -68,7 +69,8 @@ export default {
       searchCategory: '',
       id: '', // 轮询之后获得的id
       tip: null,
-      isSearching: false
+      isSearching: false,
+      isAndroid: false
     };
   },
   mounted() {
@@ -76,6 +78,9 @@ export default {
     var img = this.$route.query.img;
     if (img) {
       this.handleChoosePic(this.$route.query.img);
+    }
+    if (checkAndroid()) {
+      this.isAndroid = true;
     }
   },
   methods: {
