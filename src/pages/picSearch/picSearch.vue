@@ -1,7 +1,7 @@
 <template>
   <div class="pic-search-page">
     <div class="search-category">
-      <input type="file" capture="camera" name="file" accept="image/*" ref="file" @change="uploadPic" style="display:none;">
+      <input type="file" name="file" accept="image/*" ref="file" @change="uploadPic" style="display:none;">
       <div class="pic-wrapper border1px" :style="{backgroundImage:'url(' + cropPic + ')'}" @click="choosePic">
         <i class="iconfont icon-tianjiatupian" :style="{display: cropPic ? 'none' : 'inline-block'}"></i>
       </div>
