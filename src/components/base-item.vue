@@ -26,10 +26,11 @@ export default {
       return miniPic.apply(null, arguments);
     },
     itemClick() {
-      this.$router.push({
-        path: `/patternsDetail?companyId=${this.item.companyId}&dataId=${this.item.id}`
-      });
-      // this.$emit('itemClick', this.item.id);
+      if (this.type !== 'lookingFor') {
+        this.$router.push({
+          path: `/patternsDetail?companyId=${this.item.companyId}&dataId=${this.item.id}`
+        });
+      }
     },
     getName(item) {
       if (this.type === 'lookingFor') {

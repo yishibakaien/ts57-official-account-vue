@@ -1,6 +1,6 @@
 'use strict';
-// var env = 'test_new'; // 开发环境
-var env = 'test'; // 测试环境
+// var env = 'test'; // 测试环境
+var env = 'prod';
 
 var headers = {
     'x-version': '1.0',

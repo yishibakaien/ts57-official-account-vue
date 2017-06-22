@@ -7,7 +7,8 @@
         <i class="iconfont icon-back"></i>
       </div>
       <div class="pic-wrapper">
-        <div v-for="_item in item.pics" class="pic-item" :style="{backgroundImage:'url(' + miniPic(_item, 200) + ')'}">
+        <!-- <div v-for="_item in item.pics" class="pic-item" :style="{backgroundImage:'url(' + miniPic(_item, 200) + ')'}"> -->
+        <div v-for="_item in item.pics" class="pic-item" v-patternsPic="{pic:_item, size:200}">
         </div>
       </div>
     </div>

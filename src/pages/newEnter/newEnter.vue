@@ -21,7 +21,7 @@
 <script>
 	import newEnterItem from './newEnter-item.vue';
 	import newEnterItem1 from './newEnter-item1.vue';
-	import {findNewCompanys, totalCompanies, getCompanyBestList} from '@/common/api/api';
+	import { findNewCompanys, totalCompanies, getCompanyBestList } from '@/common/api/api';
 	export default {
 		data() {
 			return {
@@ -54,7 +54,7 @@
 			},
 			// 获取优质厂家
 			getCompanyBestListMethod() {
-				getCompanyBestList({pageNo: 1, pageSize: 9999}, (res) => {
+				getCompanyBestList({ pageNo: 1, pageSize: 9999 }, (res) => {
 					if (res.code === 0) {
 						this.items1 = res.data.list;
 					}
@@ -99,41 +99,41 @@
 </script>
 
 <style lang="stylus" scoped>
-.wrap {
-	width: 100%;
-	min-height: 100vh;
-	background: #f2f2f2;
-	.item-box {
-		margin-top: 10px;
-	}
-	.item1-box {
-		padding-bottom: 20px;
-		background: #fff;
-	}
-	.title {
-		font-size: 14px;
-		span {
-			margin-left: 40px;
-			line-height: 36px;
+	.wrap {
+		width: 100%;
+		min-height: 100vh;
+		background: #f2f2f2;
+		.item-box {
+			margin-top: 10px;
 		}
-		em {
-			color: #FF8400;
+		.item1-box {
+			padding-bottom: 20px;
+			background: #fff;
 		}
-	}
-	.nav-bar {
-		background: #fff;
-		height: 36px;
-		text-align: center;
-		span {
-			float: left;
-			width: 50%;
-			line-height: 36px;
+		.title {
 			font-size: 14px;
+			span {
+				margin-left: 40px;
+				line-height: 36px;
+			}
+			em {
+				color: #FF8400;
+			}
 		}
-		.active {
-			color: #4C93FD;
-			border-bottom: 2px solid #4C93FD;			
+		.nav-bar {
+			background: #fff;
+			height: 36px;
+			text-align: center;
+			span {
+				float: left;
+				width: 50%;
+				line-height: 36px;
+				font-size: 14px;
+			}
+			.active {
+				color: #4C93FD;
+				border-bottom: 2px solid #4C93FD;
+			}
 		}
 	}
-}
 </style>
