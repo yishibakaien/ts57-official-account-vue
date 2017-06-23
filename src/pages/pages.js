@@ -18,6 +18,7 @@ import zsbg from './zsbg/zsbg.vue';
 import newEnter from './newEnter/newEnter.vue';
 import searchCompany from './searchCompany/searchCompany.vue';
 import releaseBefore from './releasePages/releaseBefore.vue';
+import listSelect from './supplyList/listSelect.vue';
 
 import tsNav from './nav.vue';
 
@@ -41,6 +42,7 @@ export {
   supplyList,
   newEnter,
   searchCompany,
+  listSelect,
   zsbg,
   tsNav
 };
