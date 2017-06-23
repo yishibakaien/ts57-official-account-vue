@@ -18,7 +18,7 @@
           </div>
           <div class="receive-pic-message">
             <p class="receive-type">查找类型：{{receive.category}}</p>
-            <p class="receive-person">查找人：{{receive.user.userName}}</p>
+            <p class="receive-person">查找人：{{ receive.user && receive.user.userName ? receive.user.userName : ''}}</p>
             <p class="receive-tip">温馨提示：白色的花型图片更利于找到匹配花型</p>
           </div>
         </div>
@@ -99,6 +99,7 @@ export default {
     var id = this.$route.query.id;
 
     if (img) {
+      console.log('获取的route的图片', this.$route.query.img);
       this.handleChoosePic(this.$route.query.img);
     }
 
@@ -332,6 +333,12 @@ export default {
       font-size 14px
       height 20px
       margin-left 16px
+      &.receive-type
+        ellipsisLn(1)
+      &.receive-person
+        ellipsisLn(1)
       &.receive-tip
+        height 40px
         color #999
+        ellipsisLn(2)
 </style>

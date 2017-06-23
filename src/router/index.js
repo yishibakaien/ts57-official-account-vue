@@ -7,7 +7,7 @@ import {
     picSearch,
     patternsDetail,
     login,
-
+    textSearch,
     // lyf
     newPatterns,
     releaseBuy,
@@ -103,6 +103,11 @@ var routes = {
             path: 'eyelash',
             component: lookingForEyelash
         }]
+    }, {
+        // 文本搜索
+        path: '/textSearch',
+        name: 'textSearch',
+        component: textSearch
     }, {
         path: '/picSearch',
         name: 'picSearch',
@@ -200,7 +205,7 @@ var routes = {
         name: 'patternsDetail',
         component: patternsDetail,
         meta: {
-          title: '花型详情'
+            title: '花型详情'
         }
     }, {
         path: '/zsbg',
@@ -216,20 +221,20 @@ var router = new Router(routes);
 
 // 页面路由钩子，判断进入的页面是够需要登录验证(needAuth);
 router.beforeEach((to, from, next) => {
- if (to.matched.some(record => record.meta.needAuth)) {
-   if (localStorage['x-token']) {
-     next();
-   } else {
-     next({
-       path: '/login',
-       query: {
-         redirect: to.fullPath
-       }
-     });
-   }
- } else {
-   next();
- }
+    if (to.matched.some(record => record.meta.needAuth)) {
+        if (localStorage['x-token']) {
+            next();
+        } else {
+            next({
+                path: '/login',
+                query: {
+                    redirect: to.fullPath
+                }
+            });
+        }
+    } else {
+        next();
+    }
 });
 
 // 现在需要生成微信授权url
