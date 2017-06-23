@@ -267,6 +267,14 @@ export function urlSearch(data, cb, err) {
 export function getResult(data, cb, err) {
     return _fetch(METHODS.get, data, API.search.getResult, cb, err);
 }
+
+// 查找搜索结果
+export function searchHistory(data, cb, err) {
+  let _data = data;
+  let url = API.search.history.toString() + '/' + _data.id.toString();
+  return _fetch(METHODS.get, {}, url, cb, err);
+}
+
 // 厂家上新
 export function listCompanyNewProduct(data, cb, err) {
     return _fetch(METHODS.get, data, API.list.listCompanyNewProduct, cb, err);

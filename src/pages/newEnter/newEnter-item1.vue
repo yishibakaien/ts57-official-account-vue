@@ -14,9 +14,9 @@
 		methods: {
 			gotoStore(indexName) {
 				if (indexName) {
-					location.href = indexName + '.ts57.cn';
+					location.href = 'https://' + indexName + '.ts57.cn';
 				} else {
-					console.log('接口数据暂无indexNmae');
+					console.log('接口数据暂无indexName');
 				}
 			}
 		}
