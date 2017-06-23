@@ -20,6 +20,7 @@ import {
     supplyDetail,
     newEnter,
     searchCompany,
+    listSelect,
     zsbg,
     tsNav
 } from '../pages/pages';
@@ -178,6 +179,14 @@ var routes = {
         meta: {
             needAuth: true,
             title: '供应列表'
+        }
+    }, {
+        path: '/listSelect',
+        name: 'listSelect',
+        component: listSelect,
+        meta: {
+            needAuth: true,
+            title: '正在跳转'
         }
     }, {
         path: '/releaseSuccess',

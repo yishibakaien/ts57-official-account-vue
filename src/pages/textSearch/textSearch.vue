@@ -6,7 +6,7 @@
       </div>
     </div>
     <div class="result-container clearfix" v-show="activeTab===1">
-      <div class="text">花型搜索结果：</div>
+      <div class="text"><span class="text-blue">{{ keywords + ' '}}</span>花型搜索结果：</div>
       <div class="noop-tip" v-show="noPatterns">暂无搜索结果</div>
       <div class="patterns-item-wrapper" v-for="item in patternsResultArr">
         <base-item :item="item"></base-item>
@@ -14,7 +14,7 @@
       <paginator v-if="patternsResultArr.length" :hasMore="hasMore" @more="loadMore"></paginator>
     </div>
     <div class="result-container clearfix" v-show="activeTab===2">
-      <div class="text">厂家搜索结果：</div>
+      <div class="text"><span class="text-blue">{{ keywords + ' '}}</span>厂家搜索结果：</div>
       <div class="noop-tip" v-show="noCompany">暂无搜索结果</div>
       <div class="company-list-wrapper" v-for="item in companyResultArr">
         <company-list :item="item"></company-list>

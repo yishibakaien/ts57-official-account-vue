@@ -1,5 +1,5 @@
 <template>
-  <div class="company-list-item" @click="addPattersListClick(item.companyId)">
+  <div class="company-list-item" @click="addPattersListClick(item.indexName)">
     <div class="head-icon">
       <img :src="item.companyHeadIcon ? item.companyHeadIcon : '/static/images/default_avatar.png'" alt="" class="head-icon-pic" width="70" height="70">
     </div>
@@ -25,8 +25,12 @@ export default {
     }
   },
   methods: {
-    addPattersListClick(companyId) {
-      this.$emit('listClick', companyId);
+    addPattersListClick(indexName) {
+      if (indexName) {
+        location.href = 'https://' + indexName + '.ts57.cn';
+      } else {
+        console.log('暂无indexName参数, indexName:', indexName);
+      }
     },
     miniPic() {
       return miniPic.apply(null, arguments);

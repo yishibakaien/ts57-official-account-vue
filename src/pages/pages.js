@@ -5,6 +5,7 @@ import picSearch from './picSearch/picSearch.vue';
 import login from './login/login.vue';
 import patternsDetail from './patternsDetail/patternsDetail.vue';
 import textSearch from './textSearch/textSearch.vue';
+
 // lyf
 import newPatterns from './newPatterns/newPatterns.vue';
 import releaseSupply from './releasePages/releaseSupply.vue';
@@ -18,6 +19,7 @@ import zsbg from './zsbg/zsbg.vue';
 import newEnter from './newEnter/newEnter.vue';
 import searchCompany from './searchCompany/searchCompany.vue';
 import releaseBefore from './releasePages/releaseBefore.vue';
+import listSelect from './supplyList/listSelect.vue';
 
 import tsNav from './nav.vue';
 
@@ -42,6 +44,7 @@ export {
   supplyList,
   newEnter,
   searchCompany,
+  listSelect,
   zsbg,
   tsNav
 };
