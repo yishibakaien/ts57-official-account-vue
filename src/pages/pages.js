@@ -4,6 +4,7 @@ import lookingFor from './lookingFor/lookingFor.vue';
 import picSearch from './picSearch/picSearch.vue';
 import login from './login/login.vue';
 import patternsDetail from './patternsDetail/patternsDetail.vue';
+import textSearch from './textSearch/textSearch.vue';
 
 // lyf
 import newPatterns from './newPatterns/newPatterns.vue';
@@ -29,6 +30,7 @@ export {
   picSearch,
   patternsDetail,
   login,
+  textSearch,
 
   // lyf
   newPatterns,

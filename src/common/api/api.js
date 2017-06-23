@@ -86,6 +86,7 @@ const API = {
     search: {
         // 文本搜索
         search: '/product/search',
+        searchCompany: '/company/search',
         // 图片搜索会返回阿里云url
         encoded: '/search/encoded',
         // 图片搜索发起后像客户端 轮询 搜索结果
@@ -94,7 +95,6 @@ const API = {
         url: '/search/url',
         // 获取最终的结果
         getResult: '/search/getResult',
-
         // 爆款热搜列表
         burstHot: '/search/burstHot',
         // 大家在找
@@ -248,6 +248,10 @@ export function listVistitCompanyProducts(data, cb, err) {
 export function search(data, cb, err) {
     return _fetch(METHODS.post, data, API.search.search, cb, err);
 }
+// 搜索公司
+export function searchCompany(data, cb, err) {
+  return _fetch(METHODS.post, data, API.search.searchCompany, cb, err);
+}
 // 图片搜索
 export function encoded(data, cb, err) {
     return _fetch(METHODS.post, data, API.search.encoded, cb, err);
@@ -333,10 +337,7 @@ export function findNewCompanys(data, cb, err) {
 export function totalCompanies(data, cb, err) {
     return _fetch(METHODS.post, data, API.lyf.totalCompanies, cb, err);
 }
-// 文本搜花-公司搜索
-export function searchCompany(data, cb, err) {
-    return _fetch(METHODS.post, data, API.lyf.search, cb, err);
-}
+
 // 爆款热搜
 export function burstHot(data, cb, err) {
     return _fetch(METHODS.get, data, API.search.burstHot, cb, err);
