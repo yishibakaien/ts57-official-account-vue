@@ -6,15 +6,19 @@
 			<span>入住贸易商<em> {{shop}} </em>家</span>
 		</p>
 		<div class="nav-bar">
-			<span :class="{active: isActive}" @click="activeTab1">最新入驻</span>
-			<span :class="{active: !isActive}" @click="activeTab2">优质厂家</span>
+			<span v-for="(tab, index) in tabs" :class="{active: tab.isActive}" @click="activeTab(index)">{{tab.name}}</span>
 		</div>
-		<div class="item-box" v-for="item in items" @click="goStore" v-show="isActive">
+		<div class="item-box" v-for="item in items" @click="goStore" v-show="tabs[1].isActive">
 			<new-enter-item :itemObj="item"></new-enter-item>
 		</div>
-		<div v-show="!isActive" class="item1-box clearFix">
+		<div v-show="tabs[0].isActive" class="item1-box clearFix">
 			<new-enter-item1 v-for="(e, index) in items1" :itemObj="e" :key="index" class="fl"></new-enter-item1>
 		</div>
+		<ts-model-t v-show="modelShow" @cancelMethod="hideModel">
+			<p class="tipsInfo">
+				成为会员，请联系热线电话：4008013357
+			</p>
+		</ts-model-t>
 	</div>
 </template>
 
@@ -29,7 +33,17 @@
 				items1: [],
 				factory: '',
 				shop: '',
-				isActive: true
+				modelShow: false,
+				tabs: [{
+					name: '优质厂家',
+					isActive: true
+				}, {
+					name: '入驻厂家',
+					isActive: false
+				}, {
+					name: '入驻贸易商',
+					isActive: false
+				}]
 			};
 		},
 		components: {
@@ -46,7 +60,9 @@
 			findNewCompanysMethod() {
 				findNewCompanys({}, (res) => {
 					if (res.code === 0) {
-						this.items = res.data;
+						this.items = res.data.filter(item => {
+							return item.companyType === 1;
+						}); // 厂家数据筛选
 					}
 				}, (err) => {
 					console.log(err);
@@ -87,12 +103,22 @@
 				console.log(111);
 			},
 			// tab切换
-			activeTab1() {
-				this.isActive = true;
+			activeTab(index) {
+				this.tabs.forEach(item => {
+					item.isActive = false;
+				});
+				this.tabs[index].isActive = true;
+				if (index === 2) {
+					this.modelShow = true;
+				}
 			},
-			// tab切换
-			activeTab2() {
-				this.isActive = false;
+			// 隐藏model
+			hideModel() {
+				this.modelShow = false;
+				this.tabs.forEach(item => {
+					item.isActive = false;
+				});
+				this.tabs[0].isActive = true;
 			}
 		}
 	};
@@ -121,12 +147,13 @@
 			}
 		}
 		.nav-bar {
+			padding-bottom: 3px;
 			background: #fff;
 			height: 36px;
 			text-align: center;
 			span {
 				float: left;
-				width: 50%;
+				width: 33%;
 				line-height: 36px;
 				font-size: 14px;
 			}
@@ -134,6 +161,11 @@
 				color: #4C93FD;
 				border-bottom: 2px solid #4C93FD;
 			}
+		}
+		.tipsInfo {
+			text-align: center;
+			font-size: 14px;
+			line-height: 40px;
 		}
 	}
 </style>
