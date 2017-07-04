@@ -234,11 +234,11 @@ router.beforeEach((to, from, next) => {
         if (localStorage['x-token']) {
             next();
         } else {
+            // location.href = 'https://w.ts57.cn/login?redirect=' + encodeURIComponent(to.fullPath);
             next({
-                path: '/login',
-                query: {
-                    redirect: to.fullPath
-                }
+                path: '/login?redirect=' + to.fullPath
+                // path: '/login',
+                // query: {redirect: to.fullPath}
             });
         }
     } else {

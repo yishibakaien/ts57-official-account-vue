@@ -26,7 +26,7 @@ export default {
             setTimeout(() => {
                 commit('HIDE');
                 (options && typeof options.complete === 'function') && options.complete();
-            }, options.time || 1000);
+            }, options.time || 1500);
         }
     }
 };
