@@ -226,6 +226,7 @@ router.beforeEach((to, from, next) => {
         if (localStorage['x-token']) {
             next();
         } else {
+        alert(to.fullPath);
             next({
                 path: '/login',
                 query: {
