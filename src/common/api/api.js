@@ -142,6 +142,13 @@ function _fetch(method = METHODS.get, data, url, cb, err) {
                         path: 'login'
                     });
                 }
+                if (res.code === 1004020) {
+                    // 权限控制
+                    var con = confirm('您无此权限\n成为会员请拨打热线:\n4008013357');
+                    if (con) {
+                      location.href = 'tel://4008013357';
+                    }
+                }
             }
             if (typeof cb === 'function') {
                 // cb.apply(this, arguments);
