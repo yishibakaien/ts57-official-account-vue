@@ -12,6 +12,11 @@
 			</div>
 		</div>
 		<paginator :hasMore="hasMore" @more="moreMethod"></paginator>
+		<ts-model-t v-show="modelShow" @cancelMethod="hideModel">
+			<p class="tipsInfo">
+				成为会员，请联系热线电话：4008013357
+			</p>
+		</ts-model-t>
 	</div>
 </template>
 
@@ -42,7 +47,9 @@
 					//					{ classes: '睫毛', value: 100013, isActive: false }
 				],
 				items: [],
-				hasMore: true
+				userType: '',
+				hasMore: true,
+				modelShow: false
 			};
 		},
 		components: {
@@ -52,6 +59,7 @@
 		},
 		created() {
 			loading();
+			this.userType = localStorage.getItem('userType');
 			this.listHomeCompanySupplysMethod();
 		},
 		methods: {
@@ -71,7 +79,14 @@
 				listHomeProductBuys(this.param, (res) => {
 					if (res.code === 0) {
 						hide();
-						this.items = this.items.concat(res.data.list);
+						if (this.userType === '2') {
+							res.data.list.forEach(item => {
+								item.userName = item.userName.slice(0, 1) + '***';
+							});
+							this.items = this.items.concat(res.data.list);
+						} else {
+							this.items = this.items.concat(res.data.list);
+						}
 						if (res.data.list.length < 10) {
 							this.hasMore = false;
 						}
@@ -87,7 +102,14 @@
 				listHomeCompanySupplys(this.param1, (res) => {
 					if (res.code === 0) {
 						hide();
-						this.items = this.items.concat(res.data.list);
+						if (this.userType === '1') {
+							res.data.list.forEach(item => {
+								item.userName = item.userName.slice(0, 1) + '***';
+							});
+							this.items = this.items.concat(res.data.list);
+						} else {
+							this.items = this.items.concat(res.data.list);
+						}
 						if (res.data.list.length < 10) {
 							this.hasMore = false;
 						}
@@ -113,32 +135,12 @@
 					return;
 				}
 			},
-//			// 分类请求数据
-//			listHomeProductBuysMethod1() {
-//				this.hasMore = true;
-//				listHomeProductBuys(this.param, (res) => {
-//					if (res.code === 0) {
-//						hide();
-//						this.items = res.data.list;
-//					}
-//				}, (err) => {
-//					console.log(err);
-//				});
-//			},
-//			// 分类
-//			selectClass(e) {
-//				this.options.forEach(item => {
-//					item.isActive = false;
-//				});
-//				this.options[e].isActive = true;
-//				console.log(this.options[e].value);
-//				this.param.buyTypes = this.options[e].value;
-//				this.param.pageNo = 1;
-//				this.listHomeProductBuysMethod1();
-//			},
 			// 跳转求购详情页
 			goDetail(e) {
-				console.log(e.id);
+				if (this.userType === '2') {
+					this.modelShow = true;
+					return;
+				}
 				this.$router.push({
 					path: '/buyDetail',
 					query: {
@@ -148,13 +150,20 @@
 			},
 			// 跳转供应详情页
 			goDetail1(e) {
-				console.log(e.id);
+				if (this.userType === '1') {
+					this.modelShow = true;
+					return;
+				}
 				this.$router.push({
 					path: '/supplyDetail',
 					query: {
 						id: e.id
 					}
 				});
+			},
+			// 隐藏弹窗
+			hideModel() {
+				this.modelShow = false;
 			}
 		}
 	};
@@ -194,6 +203,11 @@
 		}
 		.buyList-item {
 			margin-bottom: 10px;
+		}
+		.tipsInfo {
+			text-align: center;
+			font-size: 14px;
+			line-height: 40px;
 		}
 	}
 </style>
