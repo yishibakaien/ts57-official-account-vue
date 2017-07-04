@@ -6,6 +6,7 @@ import border from './1px.vue';
 import tsGo from './tsGo.vue';
 import tsModel from './tsModel.vue';
 import tsModelC from './tsModelCustom.vue';
+import tsModelT from './tsModelTips.vue';
 import tsButton from './tsButton.vue';
 import aliUpload from './aliUpload/aliUpload.vue';
 import tsTips from './downloadTip.vue';
@@ -19,6 +20,7 @@ const Components = {
 	tsGo,
 	tsModel,
 	tsModelC,
+	tsModelT,
 	tsButton,
 	tsTips,
 	searchBar,

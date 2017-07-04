@@ -12,7 +12,7 @@ import releaseSupply from './releasePages/releaseSupply.vue';
 import releaseBuy from './releasePages/releaseBuy.vue';
 import buyDetail from './buyDetail/buyDetail.vue';
 import supplyDetail from './supplyDetail/supplyDetail.vue';
-import buyList from './buyList/buyList.vue';
+import listPage from './listPage/listPage.vue';
 import supplyList from './supplyList/supplyList.vue';
 import releaseSuccess from './releasePages/releaseSuccess.vue';
 import zsbg from './zsbg/zsbg.vue';
@@ -40,7 +40,7 @@ export {
   releaseBefore,
   buyDetail,
   supplyDetail,
-  buyList,
+  listPage,
   supplyList,
   newEnter,
   searchCompany,

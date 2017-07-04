@@ -15,12 +15,12 @@ import {
     releaseSuccess,
     releaseBefore,
     buyDetail,
-    buyList,
+    listPage,
     supplyList,
     supplyDetail,
     newEnter,
     searchCompany,
-    listSelect,
+//  listSelect,
     zsbg,
     tsNav
 } from '../pages/pages';
@@ -165,14 +165,6 @@ var routes = {
             title: '供应详情'
         }
     }, {
-        path: '/buyList',
-        name: 'buyList',
-        component: buyList,
-        meta: {
-            needAuth: true,
-            title: '求购列表'
-        }
-    }, {
         path: '/supplyList',
         name: 'supplyList',
         component: supplyList,
@@ -182,11 +174,11 @@ var routes = {
         }
     }, {
         path: '/listSelect',
-        name: 'listSelect',
-        component: listSelect,
+        name: 'listPage',
+        component: listPage,
         meta: {
             needAuth: true,
-            title: '正在跳转'
+            title: '供应求购'
         }
     }, {
         path: '/releaseSuccess',
