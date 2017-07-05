@@ -3,6 +3,8 @@
     <div class="img-box" :style="{backgroundImage:'url(' + miniPic(getPic(item), 200) + ')'}"></div>
     <div class="name">{{getName(item)}}</div>
     <div class="time">{{getTime(item)}}</div>
+    <div style="visibility:hidden;clear:both;"></div>
+    <div class="clearfix" v-if="userType === 1">{{getUserName(item)}}</div>
   </div>
 </template>
 
@@ -13,6 +15,11 @@ import {
   miniPic
 } from '../common/js/utils';
 export default {
+  data() {
+    return {
+      userType: Number(localStorage['userType'])
+    };
+  },
   props: {
     item: {
       type: Object
@@ -33,6 +40,7 @@ export default {
       }
     },
     getName(item) {
+      console.log(item);
       if (this.type === 'lookingFor') {
         return formatCategory(item.category);
       }
@@ -40,7 +48,7 @@ export default {
     },
     getTime(item) {
       var time;
-      var fmt = 'yyyy-MM-dd';
+      var fmt = 'MM-dd hh:mm';
       if (this.type === 'lookingFor') {
         time = new Date(item.createDate);
         return formatDate(time, fmt);
@@ -53,6 +61,18 @@ export default {
         return item.searchSource;
       }
       return item.defaultPicUrl;
+    },
+    getUserName(item) {
+      var name = item.user.userName;
+      if (this.userType === 1) {
+        // 用户类型为厂家
+        if (name.length < 7) {
+          return name;
+        }
+        return name.substr(0, 6) + '...';
+      } else {
+        return '';
+      }
     }
   }
 };
@@ -69,10 +89,12 @@ export default {
     .name
       height 30px
       line-height 30px
+      float left
       ellipsisLn(1)
     .time
-      height 20px
-      line-height 20px
+      height 30px
+      line-height 30px
+      float right
       font-size 12px
       color #999
 </style>

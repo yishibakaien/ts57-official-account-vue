@@ -50,7 +50,7 @@
 			newEnterItem,
 			newEnterItem1
 		},
-		created() {
+		mounted() {
 			this.findNewCompanysMethod();
 			this.totalCompaniesMethod();
 			this.getCompanyBestListMethod();

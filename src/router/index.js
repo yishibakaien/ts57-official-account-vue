@@ -192,7 +192,8 @@ var routes = {
         name: 'newEnter',
         component: newEnter,
         meta: {
-            title: '入驻信息'
+            title: '入驻信息',
+            needAuth: true
         }
     }, {
         path: '/searchCompany',
