@@ -94,9 +94,9 @@ const API = {
         // 通过url 搜索图片
         url: '/search/url',
         // 获取最终的结果
-        // getResult: '/search/getResult',
+        getResult: '/search/getResult',
         // 2017年7月5日13:45:40  修改
-        getResult: '/search/getResultAll',
+        getResultAll: '/search/getResultAll',
         // 爆款热搜列表
         burstHot: '/search/burstHot',
         // 大家在找
@@ -276,7 +276,10 @@ export function urlSearch(data, cb, err) {
 export function getResult(data, cb, err) {
     return _fetch(METHODS.get, data, API.search.getResult, cb, err);
 }
-
+// 大家在找
+export function getResultAll(data, cb, err) {
+    return _fetch(METHODS.get, data, API.search.getResult, cb, err);
+}
 // 查找搜索结果
 export function searchHistory(data, cb, err) {
   let _data = data;

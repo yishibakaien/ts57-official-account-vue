@@ -53,9 +53,10 @@ import {
 // import blackTip from '../../common/js/tip/blackTip';
 
 import {
-  paginator,
-  baseItem
+  paginator
+  // baseItem
 } from '../../components/index';
+import baseItem from './base-item.vue';
 import {
   info,
   loading,

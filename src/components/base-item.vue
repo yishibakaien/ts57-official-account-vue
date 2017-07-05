@@ -63,8 +63,11 @@ export default {
       return item.defaultPicUrl;
     },
     getUserName(item) {
-      var name = item.user.userName;
+      if (!item.user) {
+        return '';
+      }
       if (this.userType === 1) {
+        var name = item.user.userName;
         // 用户类型为厂家
         if (name.length < 7) {
           return name;

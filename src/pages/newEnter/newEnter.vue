@@ -51,9 +51,12 @@
 			newEnterItem1
 		},
 		mounted() {
-			this.findNewCompanysMethod();
-			this.totalCompaniesMethod();
-			this.getCompanyBestListMethod();
+      var _this = this;
+      setTimeout(function() {
+        _this.findNewCompanysMethod();
+        _this.totalCompaniesMethod();
+        _this.getCompanyBestListMethod();
+      }, 50);
 		},
 		methods: {
 			// 获取入住厂家列表
