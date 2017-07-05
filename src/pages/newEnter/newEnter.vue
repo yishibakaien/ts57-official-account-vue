@@ -34,6 +34,7 @@
 				factory: '',
 				shop: '',
 				modelShow: false,
+				userType: '',
 				tabs: [{
 					name: '优质厂家',
 					isActive: true
@@ -54,6 +55,8 @@
 			this.findNewCompanysMethod();
 			this.totalCompaniesMethod();
 			this.getCompanyBestListMethod();
+			this.userType = localStorage.getItem('userType');
+			console.log(this.userType);
 		},
 		methods: {
 			// 获取入住厂家列表
@@ -104,13 +107,18 @@
 			},
 			// tab切换
 			activeTab(index) {
+				if (index === 1 && this.userType === 2) {
+					this.modelShow = true;
+					return;
+				}
+				if (index === 2) {
+					this.modelShow = true;
+					return;
+				}
 				this.tabs.forEach(item => {
 					item.isActive = false;
 				});
 				this.tabs[index].isActive = true;
-				if (index === 2) {
-					this.modelShow = true;
-				}
 			},
 			// 隐藏model
 			hideModel() {
