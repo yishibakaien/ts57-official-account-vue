@@ -8,8 +8,10 @@
 		<div class="nav-bar">
 			<span v-for="(tab, index) in tabs" :class="{active: tab.isActive}" @click="activeTab(index)">{{tab.name}}</span>
 		</div>
-		<div class="item-box" v-for="item in items" @click="goStore" v-show="tabs[1].isActive">
-			<new-enter-item :itemObj="item"></new-enter-item>
+		<div v-show="tabs[1].isActive">
+			<div class="item-box clearFix" v-for="item in items" @click="goStore">
+				<new-enter-item :itemObj="item"></new-enter-item>
+			</div>
 		</div>
 		<div v-show="tabs[0].isActive" class="item1-box clearFix">
 			<new-enter-item1 v-for="(e, index) in items1" :itemObj="e" :key="index" class="fl"></new-enter-item1>
@@ -34,6 +36,7 @@
 				factory: '',
 				shop: '',
 				modelShow: false,
+				userType: '',
 				tabs: [{
 					name: '优质厂家',
 					isActive: true
@@ -51,12 +54,9 @@
 			newEnterItem1
 		},
 		mounted() {
-      var _this = this;
-      setTimeout(function() {
-        _this.findNewCompanysMethod();
-        _this.totalCompaniesMethod();
-        _this.getCompanyBestListMethod();
-      }, 50);
+			this.getCompanyBestListMethod();
+			this.totalCompaniesMethod();
+			this.userType = localStorage.getItem('userType');
 		},
 		methods: {
 			// 获取入住厂家列表
@@ -94,6 +94,10 @@
 			},
 			// 跳转搜索结果页
 			goSearchCompany(e) {
+				if (this.userType === '2') {
+					this.modelShow = true;
+					return;
+				}
 				this.$router.push({
 					path: '/searchCompany',
 					query: {
@@ -107,13 +111,21 @@
 			},
 			// tab切换
 			activeTab(index) {
+				if (index === 1) {
+					if (this.userType === '2') {
+						this.modelShow = true;
+						return;
+					}
+					this.findNewCompanysMethod();
+				}
+				if (index === 2) {
+					this.modelShow = true;
+					return;
+				}
 				this.tabs.forEach(item => {
 					item.isActive = false;
 				});
 				this.tabs[index].isActive = true;
-				if (index === 2) {
-					this.modelShow = true;
-				}
 			},
 			// 隐藏model
 			hideModel() {
@@ -133,7 +145,11 @@
 		min-height: 100vh;
 		background: #f2f2f2;
 		.item-box {
+			box-sizing: border-box;
+			width: 50%;
+			float: left;
 			margin-top: 10px;
+			background: #fff;
 		}
 		.item1-box {
 			padding-bottom: 20px;
