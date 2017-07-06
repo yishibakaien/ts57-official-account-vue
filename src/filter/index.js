@@ -236,3 +236,10 @@ export function miniPic() {
     // 默认缩小为 300 * 300
     return url + '/resize,w_300,h_300';
 }
+
+// 对象数组排序 降序
+export function sortByKey(key) {
+  return function(a, b) {
+    return b[key] - a[key];
+  };
+}

@@ -235,13 +235,7 @@ export default {
         }
         var list = res.data.list.slice();
 
-        function sortByKey(key) {
-          return function(a, b) {
-            return a[key] - b[key];
-          }
-        }
-
-        list.sort(sortByKey('isBest'));
+        list.sort(_this.sortByKey('isBest'));
 
         _this.resultArr = _this.resultArr.concat(list);
         // 如果返回结果小于 pageSize

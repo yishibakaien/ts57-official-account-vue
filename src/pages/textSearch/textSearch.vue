@@ -112,7 +112,11 @@ export default {
           } else {
             _this.noPatterns = false;
           }
-          _this.patternsResultArr = _this.patternsResultArr.concat(res.data.list);
+          var list = res.data.list.slice();
+          console.log('未排序list', list);
+          list.sort(_this.sortByKey('isBest'));
+          console.log('排序list', list);
+          _this.patternsResultArr = _this.patternsResultArr.concat(list);
         });
       }
       if (this.activeTab === 2) {
