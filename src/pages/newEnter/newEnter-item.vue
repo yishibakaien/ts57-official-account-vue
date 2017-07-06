@@ -1,15 +1,18 @@
 <template>
 	<div class="item-wrap">
-		<div class="title clearFix" @click="gotoStore(itemObj.indexName)">
-			<img class="fl" :src="itemObj.companyHeadIcon" v-errorImg alt="厂家头像" />
-			<span class="fl">{{itemObj.companyName}}</span>
-			<i class="fr iconfont icon-back"></i>
+		<div class="title clearFix">
+			<img class="fl" :src="itemObj.companyHeadIcon" alt="厂家头像" />
+			<p style="line-height: 40px;">
+				<span>{{itemObj.companyName}}</span>
+			</p>
+			<span class="phone" style="line-height: 20px;">
+				<i class="iconfont icon-iconfontdianhua"></i>
+				{{itemObj.phone}}
+			</span>
 		</div>
 		<div class="content clearFix">
-			<!-- <div class="img-box" v-for="item in itemObj.products.slice(0,3)" :style="{backgroundImage: 'url(' + picUrl(item.defaultPicUrl, 200) + ')'}"> -->
-			<div class="img-box" v-for="item in itemObj.products.slice(0,3)" v-patternsPic="{pic: item.defaultPicUrl, size: 200}">
-				<!-- <img :src="item.defaultPicUrl?item.defaultPicUrl:'/static/images/assets/defaultFlower.svg'" alt="花型图片"/> -->
-			</div>
+			<!--<div class="img-box" v-for="item in itemObj.products.slice(0,3)" v-patternsPic="{pic: item.defaultPicUrl, size: 200}"></div>-->
+			<button @click="gotoStore(itemObj.indexName)">进入官网</button>
 		</div>
 	</div>
 </template>
@@ -44,42 +47,44 @@
 <style lang="stylus" scoped>
 	@import '../../common/styles/mixin';
 	.item-wrap {
-		background: #fff;
-		border-bottom: 1px solid #f2f2f2;
-		border-top: 1px solid #f2f2f2;
+		width: 100%;
+		border: 1px solid #f2f2f2;
+		/*border-bottom: 0;*/
 		.title {
-			border-bottom: 1px solid #f2f2f2;
 			img {
 				padding: 8px;
-				width: 32px;
-				height: 32px;
+				width: 56px;
+				height: 56px;
 			}
 			span {
-				line-height: 48px;
+				ellipsisLn(1);
+				width: 100px;
+				/*line-height: 40px;*/
 				font-size: 14px;
 				color: #666;
 			}
-			i {
-				margin-right: 12px;
-				margin-top: 15px;
+			.phone {
+				display: block;
+				font-size: 12px;
+				vertical-align: bottom;
 			}
-			.icon-back::before {
+			.icon-iconfontdianhua::before {
+				font-size: 12px;
 				color: #666;
 			}
 		}
 		.content {
 			margin-top: 8px;
 			margin-bottom: 8px;
-			.img-box {
-				centerPic();
-				float: left;
-				margin-left: 2.5%;
-				width: 30vw;
-				height: 30vw;
-				overflow: hidden;
-				// img {
-				// 	width: 100%;
-				// }
+			button {
+				margin: 0 5%;
+				width: 90%;
+				height: 30px;
+				background: #fff;
+				border: 0;
+				border: 1px solid #4C93FD;
+				outline: none;
+				color: #4C93FD;
 			}
 		}
 	}

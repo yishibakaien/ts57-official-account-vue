@@ -1,5 +1,5 @@
 <template>
-	<div class="item-box clearFix">
+	<div class="item-box clearFix" @click="clickMth">
 		<div class="fl">
 			<p class="name">{{itemObj.companyName}}</p>
 			<p class="main">主营：{{itemObj.mainClass || '用户暂未填写'}}</p>
@@ -14,6 +14,11 @@
 		props: {
 			itemObj: {
 				type: Object
+			}
+		},
+		methods: {
+			clickMth() {
+				this.$emit('clickMth');
 			}
 		}
 	};

@@ -2,7 +2,7 @@
 	<div class="search-resault-wrap">
 		<search-bar @goSearch="searchCompany"></search-bar>
 		<div class="search-resault-box" v-if="items.length > 0">
-			<search-item v-for="item in items" :itemObj="item" :key="item.id"></search-item>
+			<search-item v-for="item in items" :itemObj="item" :key="item.id" @clickMth="goStore(item)"></search-item>
 		</div>
 		<paginator :hasMore="hasMore" @more="moreMethod" v-if="items.length > 0"></paginator>
 		<div class="search-resault-box default-box" v-else>
@@ -69,6 +69,12 @@
 				}, (err) => {
 					alert(err);
 				});
+			},
+			// 跳转微官网
+			goStore(item) {
+				if (item.indexName) {
+					location.href = 'http://' + item.indexName + '.ts57.cn';
+				}
 			}
 		}
 	};
