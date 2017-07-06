@@ -1,8 +1,11 @@
 <template>
   <div class="base-item" @click="itemClick">
     <!-- <div class="img-box" :style="{backgroundImage:'url(' + _miniPic(item.defaultPicUrl, 200) + ')'}"></div> -->
-    <div class="img-box" v-patternsPic="{pic: item.defaultPicUrl, size: 300}"></div>
+    <div class="img-box" v-patternsPic="{pic: item.defaultPicUrl, size: 300}">
+      <div class="recomend" v-if="item.isBest === 1">推荐</div>
+    </div>
     <div class="name">{{item.productNo}}</div>
+    <div style="visibility:hidden;clear:both;"></div>
     <div class="message-wrapper">
       <div class="company-name">{{item.companyName}}</div>
       <div class="price">{{money(item.price, item.priceUnit)}}</div>
@@ -45,18 +48,32 @@ export default {
   }
 };
 </script>
-<style lang="stylus">
+<style lang="stylus" scoped>
   @import '../../common/styles/mixin.styl';
   .base-item
     box-sizing border-box
     background #fff
     padding 12px
     .img-box
+      position relative
       padding-top 90%
       centerPic()
+      .recomend
+        position absolute
+        font-size 14px
+        width 100px
+        text-align center
+        height 22px
+        line-height 22px
+        top 10px
+        right -30px
+        background #ff7011
+        color #fff
+        transform rotate(45deg)
     .name
       height 30px
       line-height 30px
+      width 100%
       overflow hidden
       text-overflow ellipsis
       white-space nowrap

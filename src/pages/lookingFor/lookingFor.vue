@@ -1,8 +1,8 @@
 <template>
   <div class="lookingfor-page">
     <div class="tab border-bottom">
-      <div class="tab-item" v-for="(item, index) in tabItem" @click="select(item, index)" :class="{active: activeItem===item}" >
-        <span class="text">{{item}}</span>
+      <div class="tab-item" v-for="(item, index) in tabItem" @click="select(item)" :class="{active: activeItem === item.info.route}" >
+        <span class="text">{{item.text}}</span>
       </div>
     </div>
     <div class="patterns-container clearfix">
@@ -28,27 +28,58 @@ import {
 export default {
   data() {
     return {
-      tabItem: ['全部', '面料', '大边', '小边', '睫毛'],
-      tabItemRouter: ['all', 'fabric', 'bigSide', 'smallSide', 'eyelash'],
-      activeItem: '全部',
+      tabItem: [{
+        text: '全部',
+        info: {
+          route: 'all',
+          category: null
+        }
+      }, {
+        text: '面料',
+        info: {
+          route: 'fabric',
+          category: 100010
+        }
+      }, {
+        text: '大边',
+        info: {
+          route: 'bigSide',
+          category: 100011
+        }
+      }, {
+        text: '小边',
+        info: {
+          route: 'smallSide',
+          category: 100012
+        }
+      }, {
+        text: '睫毛',
+        info: {
+          route: 'eyelash',
+          category: 100013
+        }
+      }],
+      activeItem: 'all',
       userType: localStorage.userType
     };
   },
   methods: {
-    select(item, index) {
+    select(item) {
       // 高亮
-      this.activeItem = item;
+      this.activeItem = item.info.route;
       // 路由
-      this.$router.push({
-        path: '/lookingFor/' + this.tabItemRouter[index]
+      this.$router.replace({
+        path: '/lookingFor/' + item.info.route
       });
     },
     toRelease() {
       if (this.userType === '2') {
+        // 档口
         this.$router.push({
           path: '/releaseBuy'
         });
       } else if (this.userType === '1') {
+        // 厂家
         this.$router.push({
           path: '/releaseSupply'
         });
@@ -95,4 +126,9 @@ export default {
   right 0
   padding 8px 16px
   background #fff
+.tipsInfo {
+  text-align: center;
+  font-size: 14px;
+  line-height: 40px;
+}
 </style>

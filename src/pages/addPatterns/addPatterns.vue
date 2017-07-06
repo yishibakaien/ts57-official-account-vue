@@ -40,7 +40,7 @@ export default {
     loading();
     listCompanyNewProduct({
         pageNo: 1,
-        pageSize: 10
+        pageSize: 40
     }, function(res) {
         console.log('厂家上新', res);
         hide();
