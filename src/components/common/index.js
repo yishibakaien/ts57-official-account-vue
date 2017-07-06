@@ -11,6 +11,8 @@ import tsButton from './tsButton.vue';
 import aliUpload from './aliUpload/aliUpload.vue';
 import tsTips from './downloadTip.vue';
 import searchBar from './searchBar.vue';
+import tsPatternsItem from './tsPatternsItem.vue';
+
 const Components = {
 	tsRadio,
 	tsRadioC,
@@ -24,7 +26,8 @@ const Components = {
 	tsButton,
 	tsTips,
 	searchBar,
-	aliUpload
+	aliUpload,
+  tsPatternsItem
 };
 const install = function(Vue) {
 	for (let i in Components) {

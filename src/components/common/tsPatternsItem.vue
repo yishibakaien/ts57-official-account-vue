@@ -1,6 +1,7 @@
 <template>
   <div class="base-item" @click="itemClick">
-    <div class="img-box" :style="{backgroundImage:'url(' + miniPic(item.defaultPicUrl, 200) + ')'}"></div>
+    <!-- <div class="img-box" :style="{backgroundImage:'url(' + _miniPic(item.defaultPicUrl, 200) + ')'}"></div> -->
+    <div class="img-box" v-patternsPic="{pic: item.defaultPicUrl, size: 300}"></div>
     <div class="name">{{item.productNo}}</div>
     <div class="message-wrapper">
       <div class="company-name">{{item.companyName}}</div>
@@ -10,12 +11,7 @@
 </template>
 
 <script>
-import {
-  // formatCategory,
-  // formatDate,
-  formateMoney,
-  miniPic
-} from '../../common/js/utils';
+
 export default {
   props: {
     item: {
@@ -23,11 +19,8 @@ export default {
     }
   },
   methods: {
-    miniPic() {
-      return miniPic.apply(null, arguments);
-    },
     money(money, unit) {
-      return formateMoney(money, unit);
+      return this.formatMoney(money, unit);
     },
     itemClick() {
       this.$router.push({
@@ -53,7 +46,7 @@ export default {
 };
 </script>
 <style lang="stylus">
-@import '../../common/styles/mixin.styl';
+  @import '../../common/styles/mixin.styl';
   .base-item
     box-sizing border-box
     background #fff

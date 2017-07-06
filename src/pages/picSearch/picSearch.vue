@@ -26,7 +26,8 @@
     <div class="result-container clearfix">
       <div class="text">搜索结果：</div>
       <div class="item-wrapper" v-for="item in resultArr">
-        <base-item :item="item"></base-item>
+        <!-- <base-item :item="item"></base-item> -->
+        <ts-patterns-item :item="item"></ts-patterns-item>
       </div>
     </div>
 
@@ -56,7 +57,7 @@ import {
   paginator
   // baseItem
 } from '../../components/index';
-import baseItem from './base-item.vue';
+// import baseItem from './base-item.vue';
 import {
   info,
   loading,
@@ -67,8 +68,7 @@ import {
 // import guide from '../../common/js/guide';
 export default {
   components: {
-    paginator,
-    baseItem
+    paginator
   },
   data() {
     return {
