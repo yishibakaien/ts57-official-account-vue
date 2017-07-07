@@ -54,7 +54,12 @@ export function patternsPic(el, args) {
     el.style.backgroundImage = 'url(' + formatPicUrl + ')';
   };
   _img.onerror = function() {
-    el.style.backgroundImage = 'url(/static/images/assets/defaultFlower.svg)';
+    // el.style.backgroundImage = 'url(/static/images/assets/defaultFlower.svg)';
+    el.style.cssText = 'background-color:#ccc;text-align:center;position:relative';
+    // el.style.backgroundColor = '#ccc';
+    // el.style.textAlign = 'center';
+    // el.style.position = 'relative';
+    el.innerHTML = '<p style="position:absolute;top:50%;left:50%;width:80%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;transform:translateX(-50%) translateY(-50%);-webkit-transform:translateX(-50%) translateY(-50%);color:#fff">' + args.value.name + '</p>';
   };
   _img.src = formatPicUrl;
 }

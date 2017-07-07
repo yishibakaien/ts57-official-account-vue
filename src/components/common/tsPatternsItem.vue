@@ -1,7 +1,7 @@
 <template>
   <div class="base-item" @click="itemClick">
     <!-- <div class="img-box" :style="{backgroundImage:'url(' + _miniPic(item.defaultPicUrl, 200) + ')'}"></div> -->
-    <div class="img-box" v-patternsPic="{pic: item.defaultPicUrl, size: 300}">
+    <div class="img-box" v-patternsPic="{pic: item.defaultPicUrl, size: 300, name: item.companyName}">
       <div class="recomend" v-if="item.isBest === 1">推荐</div>
     </div>
     <div class="name">{{item.productNo}}</div>
