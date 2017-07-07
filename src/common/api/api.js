@@ -19,7 +19,7 @@ const API = {
         byTypeKey: '/front/dicTree/byTypeKey', // 字典
         listIngredients: '/ingredient/listIngredients', // 获取成分列表
         token: '/file/token', // OSS token
-        findNewCompanys: '/company/findNewCompanys', // 最新入驻列表
+        findNewCompanys: '/company/getEntering', // 最新入驻列表
         search: '/company/search', // 文本搜花-公司搜索
         totalCompanies: '/company/totalCompanies', // 获取工厂or店铺总数统计
         listHomeCompanySupplys: '/companySupply/listHomeCompanySupplys', // 供应列表
@@ -341,7 +341,7 @@ export function listHomeCompanySupplys(data, cb, err) {
 }
 // 最新入驻
 export function findNewCompanys(data, cb, err) {
-    return _fetch(METHODS.post, data, API.lyf.findNewCompanys, cb, err);
+    return _fetch(METHODS.get, data, API.lyf.findNewCompanys, cb, err);
 }
 // 厂家和店铺总数统计
 export function totalCompanies(data, cb, err) {
