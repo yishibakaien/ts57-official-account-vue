@@ -63,6 +63,11 @@
 			findNewCompanysMethod() {
 				findNewCompanys({}, (res) => {
 					if (res.code === 0) {
+						res.data.forEach(item => {
+							if (item.companyHeadIcon.indexOf('default') > -1) {
+								item.companyHeadIcon = '';
+							}
+						});
 						this.items = res.data.filter(item => {
 							return item.companyType === 1;
 						}); // 厂家数据筛选
