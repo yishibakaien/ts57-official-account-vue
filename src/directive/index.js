@@ -59,7 +59,7 @@ export function patternsPic(el, args) {
     // el.style.backgroundColor = '#ccc';
     // el.style.textAlign = 'center';
     // el.style.position = 'relative';
-    el.innerHTML = '<p style="position:absolute;top:50%;left:50%;width:80%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;transform:translateX(-50%) translateY(-50%);-webkit-transform:translateX(-50%) translateY(-50%);color:#fff">' + args.value.name + '</p>';
+    el.innerHTML = '<p style="position:absolute;top:50%;left:50%;width:80%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;transform:translateX(-50%) translateY(-50%);-webkit-transform:translateX(-50%) translateY(-50%);color:#fff">' + (args.value.name ? args.value.name : '') + '</p>';
   };
   _img.src = formatPicUrl;
 }
