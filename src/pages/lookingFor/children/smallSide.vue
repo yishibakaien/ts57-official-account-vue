@@ -1,18 +1,25 @@
 <template>
   <div class="categroy-all">
-    <div class="item-wrapper" v-for="item in list" @click="guideToDownload">
-      <base-item :item="item" :type="type"></base-item>
+    <div class="item-wrapper" v-for="item in list">
+      <base-item :item="item" :type="type" @itemClick="itemClick"></base-item>
     </div>
     <div class="clearfix"></div>
+    <ts-model-t v-show="modelShow" @cancelMethod="hideModel">
+      <p class="tipsInfo">
+        成为会员，请联系热线电话：4008013357
+      </p>
+    </ts-model-t>
     <paginator  @more="guideToDownload" :hasMore="hasMore" v-show="requestDone"></paginator>
   </div>
 </template>
 
 <script>
 import {
-  paginator,
-  baseItem
+  paginator
 } from '../../../components/index';
+
+import baseItem from '../looking-base-item.vue';
+
 import {
   history
 } from '../../../common/api/api';
@@ -25,23 +32,22 @@ import guide from '../../../common/js/guide';
 export default {
   data() {
     return {
+      userType: Number(localStorage['userType']),
+      modelShow: false,
       list: [],
-      type: 'lookingFor',
       hasMore: false,
       requestDone: false
     };
   },
   created() {
-    console.log('smallSide created');
     var _this = this;
     loading();
     history({
-      category: 100012,
       pageNo: 1,
+      category: 100012,
       pageSize: 10
     }, function(res) {
       hide();
-      console.log('smallSide', res);
       _this.list = res.data.list;
       _this.requestDone = true;
       if (res.data.pageNO < res.data.totalPage) {
@@ -56,10 +62,29 @@ export default {
   methods: {
     guideToDownload() {
       guide();
+    },
+
+    hideModel() {
+      this.modelShow = false;
+    },
+    itemClick(id) {
+      if (this.userType === 1) {
+        // 厂家
+        this.$router.push({
+          path: '/picSearch',
+          query: {
+            id: id
+          }
+        });
+      }
+      // 贸易商
+      if (this.userType === 2) {
+        this.modelShow = true;
+      }
     }
   },
   mounted() {
-    console.log('smallSide mounted');
+    console.log('all mounted');
   },
   components: {
     paginator,

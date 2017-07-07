@@ -9,7 +9,8 @@
       <div class="text"><span class="text-blue">{{ keywords + ' '}}</span>花型搜索结果：</div>
       <div class="noop-tip" v-show="noPatterns">暂无搜索结果</div>
       <div class="patterns-item-wrapper" v-for="item in patternsResultArr">
-        <base-item :item="item"></base-item>
+        <!-- <base-item :item="item"></base-item> -->
+        <ts-patterns-item :item="item"></ts-patterns-item>
       </div>
       <paginator v-if="patternsResultArr.length" :hasMore="hasMore" @more="loadMore"></paginator>
     </div>
@@ -40,17 +41,9 @@ import {
   // searchHistory
 } from '../../common/api/api';
 console.log(search, searchCompany);
-import {
-  // formatCategory
-} from '../../common/js/utils';
+import {} from '../../common/js/utils';
 
-// import blackTip from '../../common/js/tip/blackTip';
-
-import {
-  paginator
-  // baseItem
-} from '../../components/index';
-import baseItem from './base-item.vue';
+import { paginator } from '../../components/index';
 import companyList from './company-list.vue';
 import {
   // info,
@@ -63,7 +56,6 @@ import {
 export default {
   components: {
     paginator,
-    baseItem,
     companyList
   },
   data() {
@@ -120,7 +112,11 @@ export default {
           } else {
             _this.noPatterns = false;
           }
-          _this.patternsResultArr = _this.patternsResultArr.concat(res.data.list);
+          var list = res.data.list.slice();
+          console.log('未排序list', list);
+          list.sort(_this.sortByKey('isBest'));
+          console.log('排序list', list);
+          _this.patternsResultArr = _this.patternsResultArr.concat(list);
         });
       }
       if (this.activeTab === 2) {

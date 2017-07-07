@@ -20,6 +20,7 @@ export default {
 // 字体图标，其余页面无需引用
 @import './common/styles/iconfont.css';
 @import './common/styles/base.styl';
+@import './common/styles/reset.styl';
 body
   background #f2f2f2
   color #333

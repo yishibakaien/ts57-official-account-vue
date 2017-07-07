@@ -199,3 +199,47 @@ export const buyShape = item => {
 	}
 	return buyShapeStr;
 };
+
+// 格式化价格
+export function formatMoney(price, unit) {
+    // 金额以 分 作为单位
+    price = Number(price);
+    if (price < 0.1) {
+        return '价格面议';
+    }
+    unit = Number(unit);
+    var _unit = '';
+    if (unit === 400010) {
+        _unit = '码';
+    } else if (unit === 400011) {
+        _unit = '公斤';
+    } else if (unit === 400012) {
+        _unit = '条';
+    }
+    return '￥' + (price / 100) + ' / ' + _unit;
+}
+
+// 格式化图片
+export function miniPic() {
+    var url = Array.prototype.shift.call(arguments);
+    // 判断参数
+    if (url.indexOf('?x-oss-process=image') === -1) {
+        url += '?x-oss-process=image';
+    }
+    var options = Array.prototype.shift.call(arguments);
+    if (Object.prototype.toString.apply(options) === '[object Object]') {
+        return url + '/resize,w_' + options.w + ',h_' + options.h;
+    }
+    if (/(number|string)/.test(typeof options)) {
+        return url + '/resize,w_' + options + ',h_' + options;
+    }
+    // 默认缩小为 300 * 300
+    return url + '/resize,w_300,h_300';
+}
+
+// 对象数组排序 降序
+export function sortByKey(key) {
+  return function(a, b) {
+    return b[key] - a[key];
+  };
+}

@@ -26,7 +26,8 @@
     <div class="result-container clearfix">
       <div class="text">搜索结果：</div>
       <div class="item-wrapper" v-for="item in resultArr">
-        <base-item :item="item"></base-item>
+        <!-- <base-item :item="item"></base-item> -->
+        <ts-patterns-item :item="item"></ts-patterns-item>
       </div>
     </div>
 
@@ -56,7 +57,7 @@ import {
   paginator
   // baseItem
 } from '../../components/index';
-import baseItem from './base-item.vue';
+// import baseItem from './base-item.vue';
 import {
   info,
   loading,
@@ -67,8 +68,7 @@ import {
 // import guide from '../../common/js/guide';
 export default {
   components: {
-    paginator,
-    baseItem
+    paginator
   },
   data() {
     return {
@@ -217,10 +217,6 @@ export default {
         if (_this.isSearching) {
           return;
         }
-        // var b = blackTip({
-        //   text: '正在加载中',
-        //   time: 100000
-        // });
         loading({
           text: '正在加载中'
         });
@@ -231,18 +227,17 @@ export default {
         pageSize: 10
       }, function(res) {
         if (args.length) {
-          // _this.tip.remove();
-          // blackTip({
-          //   type: 'success',
-          //   text: '已完成'
-          // });
           success({
             text: '已完成'
           });
         } else {
           hide();
         }
-        _this.resultArr = _this.resultArr.concat(res.data.list);
+        var list = res.data.list.slice();
+
+        list.sort(_this.sortByKey('isBest'));
+
+        _this.resultArr = _this.resultArr.concat(list);
         // 如果返回结果小于 pageSize
         if (res.data.list.length === res.data.pageSize) {
           _this.hasMore = true;

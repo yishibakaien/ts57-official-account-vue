@@ -140,12 +140,14 @@ function _fetch(method = METHODS.get, data, url, cb, err) {
                     // 用户未登录，清空本地缓存
                     localStorage.clear();
                     console.log(router);
-                    router.push({
-                        path: 'login',
-                        query: {
-                          redirect: router.history.current.fullPath
-                        }
-                    });
+                    if (location.href.indexOf('login') === -1) {
+                      router.push({
+                          path: 'login',
+                          query: {
+                            redirect: router.history.current.fullPath
+                          }
+                      });
+                    }
                 }
             }
             if (typeof cb === 'function') {
