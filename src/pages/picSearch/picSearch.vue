@@ -25,6 +25,7 @@
     </div>
     <div class="result-container clearfix">
       <div class="text">搜索结果：</div>
+      <p class="noresult-tip" v-if="noResult">非常抱歉，未能找到结果，请稍后再试</p>
       <div class="item-wrapper" v-for="item in resultArr">
         <!-- <base-item :item="item"></base-item> -->
         <ts-patterns-item :item="item"></ts-patterns-item>
@@ -91,7 +92,8 @@ export default {
         receiveSrc: '',
         category: '',
         user: {}
-      }
+      },
+      noResult: false
     };
   },
   mounted() {
@@ -163,6 +165,7 @@ export default {
       // if (_this.isSearching) {
       //   return;
       // }
+      _this.noResult = false;
       _this.isSearching = true;
       _this.pageNo = 1;
       _this.searchCategory = category;
@@ -211,6 +214,7 @@ export default {
     },
     getResult(isSearching) {
       var _this = this;
+      // 有args.length === 0 表示 来自点击搜索的那一下
       var args = arguments;
       console.log('args', args);
       if (args.length === 0) {
@@ -227,6 +231,10 @@ export default {
         pageSize: 10
       }, function(res) {
         if (args.length) {
+          if (!res.data.list.length) {
+            _this.noResult = true;
+            return;
+          }
           success({
             text: '已完成'
           });
@@ -309,6 +317,11 @@ export default {
     &:first-child
       margin-left 2.5%
 .text
+  padding 14px
+  font-size 14px
+  color #999
+.noresult-tip
+  text-align center
   padding 14px
   font-size 14px
   color #999
