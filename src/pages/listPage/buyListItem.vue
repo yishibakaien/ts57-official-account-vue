@@ -6,7 +6,7 @@
 		</div>
 		<border :styleData="styleData"></border>
 		<div class="content clearFix">
-			<img class="fl" :src="item.buyPicUrl?item.buyPicUrl:'/static/images/assets/defaultFlower.svg'" alt="花型图片"/>
+			<img class="fl" :src="item.buyPicUrl?item.buyPicUrl:'/static/images/default/morenhuaxing.png'" alt="花型图片"/>
 			<div class="info fl">
 				<p :title="item.buyDesc">{{item.buyDesc}}</p>
 				<span class="status" v-if="item.buyTaskCount > 0 ">共有<i>{{item.buyTaskCount}}</i>人接单</span>

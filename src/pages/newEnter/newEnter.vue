@@ -9,9 +9,21 @@
 			<span v-for="(tab, index) in tabs" :class="{active: tab.isActive}" @click="activeTab(index)">{{tab.name}}</span>
 		</div>
 		<div v-show="tabs[1].isActive">
-			<div class="item-box clearFix" v-for="item in items" @click="goStore">
-				<new-enter-item :itemObj="item"></new-enter-item>
+			<div class="clearFix">
+				<div class="item-box clearFix" v-for="item in items">
+					<new-enter-item :itemObj="item"></new-enter-item>
+				</div>
 			</div>
+			<paginator :hasMore="hasMore" @more="moreMethod(1)"></paginator>
+		</div>
+		<div v-show="tabs[2].isActive">
+			<div class="clearFix">
+				<div class="item-box clearFix" v-for="item2 in items2">
+					<new-enter-item :itemObj="item2"></new-enter-item>
+			
+				</div>
+			</div>
+			<paginator :hasMore="hasMore" @more="moreMethod(2)"></paginator>
 		</div>
 		<div v-show="tabs[0].isActive" class="item1-box clearFix">
 			<new-enter-item1 v-for="(e, index) in items1" :itemObj="e" :key="index" class="fl"></new-enter-item1>
@@ -27,16 +39,29 @@
 <script>
 	import newEnterItem from './newEnter-item.vue';
 	import newEnterItem1 from './newEnter-item1.vue';
+	import { paginator } from '../../components/index.js';
 	import { findNewCompanys, totalCompanies, getCompanyBestList } from '@/common/api/api';
 	export default {
 		data() {
 			return {
-				items: [],
-				items1: [],
+				param_chang: {
+					companyType: 1,
+					pageNo: 1,
+					pageSize: 10
+				},
+				param_mao: {
+					companyType: 2,
+					pageNo: 1,
+					pageSize: 10
+				},
+				items: [], // 入驻厂家
+				items1: [], // 优质厂家
+				items2: [], // 入驻贸易商
 				factory: '',
 				shop: '',
 				modelShow: false,
 				userType: '',
+				hasMore: true,
 				tabs: [{
 					name: '优质厂家',
 					isActive: true
@@ -51,7 +76,8 @@
 		},
 		components: {
 			newEnterItem,
-			newEnterItem1
+			newEnterItem1,
+			paginator
 		},
 		mounted() {
 			this.getCompanyBestListMethod();
@@ -61,16 +87,25 @@
 		methods: {
 			// 获取入住厂家列表
 			findNewCompanysMethod() {
-				findNewCompanys({}, (res) => {
+				findNewCompanys(this.param_chang, (res) => {
 					if (res.code === 0) {
-						res.data.forEach(item => {
-							if (item.companyHeadIcon.indexOf('default') > -1) {
-								item.companyHeadIcon = '';
-							}
-						});
-						this.items = res.data.filter(item => {
-							return item.companyType === 1;
-						}); // 厂家数据筛选
+						this.items = this.items.concat(res.data.list);
+						if (res.data.list.length < 10) {
+							this.hasMore = false;
+						}
+					}
+				}, (err) => {
+					console.log(err);
+				});
+			},
+			// 获取入住贸易商列表
+			findNewCompanysMethod1() {
+				findNewCompanys(this.param_mao, (res) => {
+					if (res.code === 0) {
+						this.items2 = this.items2.concat(res.data.list);
+						if (res.data.list.length < 10) {
+							this.hasMore = false;
+						}
 					}
 				}, (err) => {
 					console.log(err);
@@ -110,22 +145,22 @@
 					}
 				});
 			},
-			// 跳转店铺
-			goStore() {
-				console.log(111);
-			},
 			// tab切换
 			activeTab(index) {
-				if (index === 1) {
+				// 贸易商只能看到入驻厂家
+				if (index === 1 || index === 2) {
 					if (this.userType === '2') {
 						this.modelShow = true;
 						return;
 					}
+				}
+				if (index === 1) {
+					this.items = [];
 					this.findNewCompanysMethod();
 				}
 				if (index === 2) {
-					this.modelShow = true;
-					return;
+					this.items2 = [];
+					this.findNewCompanysMethod1();
 				}
 				this.tabs.forEach(item => {
 					item.isActive = false;
@@ -139,6 +174,19 @@
 					item.isActive = false;
 				});
 				this.tabs[0].isActive = true;
+			},
+			// 加载更多
+			moreMethod(e) {
+				if (e === 1) {
+					this.param_chang.pageNo++;
+					this.findNewCompanysMethod();
+					return;
+				}
+				if (e === 2) {
+					this.param_mao.pageNo++;
+					this.findNewCompanysMethod1();
+					return;
+				}
 			}
 		}
 	};

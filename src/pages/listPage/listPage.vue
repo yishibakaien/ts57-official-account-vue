@@ -90,7 +90,6 @@
 						if (res.data.list.length < 10) {
 							this.hasMore = false;
 						}
-						console.log(this.items);
 					}
 				}, (err) => {
 					console.log(err);

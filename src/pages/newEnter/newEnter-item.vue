@@ -1,7 +1,7 @@
 <template>
 	<div class="item-wrap">
 		<div class="title clearFix">
-			<img class="fl" :src="itemObj.companyHeadIcon?itemObj.companyHeadIcon:'/static/images/headPic/headPic1.png'" alt="厂家头像" />
+			<img class="fl" :src="itemObj.companyHeadIcon?itemObj.companyHeadIcon:'/static/images/default/changjia.png'" alt="厂家头像" />
 			<p style="line-height: 40px;">
 				<span>{{itemObj.companyName}}</span>
 			</p>
