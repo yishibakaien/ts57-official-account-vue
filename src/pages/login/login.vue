@@ -31,7 +31,9 @@ import {
   // getVerifyCode,
   login,
   checkPhone,
-  getVerifyCode
+  getVerifyCode,
+  // 权限检查
+  checklimit
 } from '../../common/api/api';
 // import md5 from 'blueimp-md5';
 // import aes from 'aes-js';
@@ -155,6 +157,14 @@ export default {
             console.log('登录成功x-token', xhr.getResponseHeader('x-token'));
             localStorage['x-token'] = xhr.getResponseHeader('x-token');
             localStorage['userType'] = res.data.userType;
+            checklimit({}, function(res) {
+              console.log('权限检查返回值', res);
+              if (res.data === true) {
+                localStorage['limit'] = 1;
+              } else {
+                localStorage['limit'] = 2;
+              }
+            });
           }
           if (res.code === 2000004) {
             getVerifyCode({}, function(res) {

@@ -33,6 +33,7 @@ export default {
   data() {
     return {
       userType: Number(localStorage['userType']),
+      limit: Number(localStorage['limit']),
       modelShow: false,
       list: [],
       hasMore: false,
@@ -68,7 +69,7 @@ export default {
       this.modelShow = false;
     },
     itemClick(id) {
-      if (this.userType === 1) {
+      if (this.limit === 1) {
         // 厂家
         this.$router.push({
           path: '/picSearch',
@@ -78,7 +79,7 @@ export default {
         });
       }
       // 贸易商
-      if (this.userType === 2) {
+      if (this.limit === 2) {
         this.modelShow = true;
       }
     }

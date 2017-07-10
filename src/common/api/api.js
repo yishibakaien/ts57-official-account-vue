@@ -101,6 +101,10 @@ const API = {
         burstHot: '/search/burstHot',
         // 大家在找
         history: '/search/history'
+    },
+    // 权限控制
+    limit: {
+         checklimit: '/member/checklimit'
     }
 };
 
@@ -141,19 +145,20 @@ function _fetch(method = METHODS.get, data, url, cb, err) {
                     localStorage.clear();
                     console.log(router);
                     if (location.href.indexOf('login') === -1) {
-                      router.push({
-                          path: 'login',
-                          query: {
-                            redirect: router.history.current.fullPath
-                          }
-                      });
+                        router.push({
+                            path: 'login',
+                            query: {
+                              redirect: router.history.current.fullPath
+                            }
+                        });
                     }
                 }
                 if (res.code === 1004020) {
-                  var a = confirm('您无此权限，\n成为会员，请联系热线电话：\n4008013357');
-                  if (a) {
-                    location.href = 'tel://4008013357';
-                  }
+                    localStorage['limit'] = 2;
+                    var a = confirm('您无此权限，\n成为会员，请联系热线电话：\n4008013357');
+                    if (a) {
+                        location.href = 'tel://4008013357';
+                    }
                 }
             }
             if (typeof cb === 'function') {
@@ -375,4 +380,8 @@ export function authorizeUrl(data, cb, err) {
 // 为登录成功的用户绑定微信公众号
 export function bind(data, cb, err) {
     return _fetch(METHODS.post, data, API.user.bind, cb, err);
+}
+
+export function checklimit(data, cb, err) {
+    return _fetch(METHODS.get, data, API.limit.checklimit, cb, err);
 }
