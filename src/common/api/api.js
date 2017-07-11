@@ -153,7 +153,7 @@ function _fetch(method = METHODS.get, data, url, cb, err) {
                         });
                     }
                 }
-                if (res.code === 1004020) {
+                if (Number(res.code) === 1004020) {
                     localStorage['limit'] = 2;
                     var a = confirm('您无此权限，\n成为会员，请联系热线电话：\n4008013357');
                     if (a) {
