@@ -12,11 +12,16 @@
 			</div>
 		</div>
 		<paginator :hasMore="hasMore" @more="moreMethod"></paginator>
-		<ts-model-t v-show="modelShow" @cancelMethod="hideModel">
+		<ts-model-t v-show="modelShow" :title="'提示'" @cancelMethod="hideModel">
+			<p class="tipsInfo">
+				{{modelInfo}}
+			</p>
+		</ts-model-t>
+		<!--<ts-model-t v-show="modelShow1" :title="'提示'" @cancelMethod="hideModel">
 			<p class="tipsInfo">
 				成为会员，请联系热线电话：4008013357
 			</p>
-		</ts-model-t>
+		</ts-model-t>-->
 	</div>
 </template>
 
@@ -40,16 +45,15 @@
 					pageNo: 1, // 第几页
 					pageSize: 10 // 每页记录数
 				},
-				options: [{ classes: '厂家供应', isActive: true },
+				options: [
+					{ classes: '厂家供应', isActive: true },
 					{ classes: '贸易商求购', isActive: false }
-					//					{ classes: '大边', value: 100011, isActive: false },
-					//					{ classes: '小边', value: 100012, isActive: false },
-					//					{ classes: '睫毛', value: 100013, isActive: false }
 				],
 				items: [],
 				userType: '',
 				hasMore: true,
-				modelShow: false
+				modelShow: false,
+				modelInfo: '为了保密，该求购信息仅对厂家用户开放'
 			};
 		},
 		components: {
@@ -138,6 +142,7 @@
 			goDetail(e) {
 				if (this.userType === '2') {
 					this.modelShow = true;
+					this.userInfo = '为了保密，该供应信息仅对贸易商用户开放';
 					return;
 				}
 				this.$router.push({
@@ -151,6 +156,7 @@
 			goDetail1(e) {
 				if (this.userType === '1') {
 					this.modelShow = true;
+					this.userInfo = '为了保密，该求购信息仅对厂家用户开放';
 					return;
 				}
 				this.$router.push({

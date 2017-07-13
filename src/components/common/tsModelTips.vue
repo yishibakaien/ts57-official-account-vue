@@ -3,7 +3,7 @@
 		<div class="overlay"></div>
 		<div class="flashModel animated zoomIn">
 			<div class="content1">
-				<div class="title">您无此权限</div>
+				<div class="title">{{title}}</div>
 				<slot></slot>
 			</div>
 			<div class="content2">
@@ -17,7 +17,10 @@
 <script>
 	export default {
 		props: {
-			title: ''
+			title: {
+				type: String,
+				default: '您无此权限'
+			}
 		},
 		methods: {
 			cancelMethod() {
