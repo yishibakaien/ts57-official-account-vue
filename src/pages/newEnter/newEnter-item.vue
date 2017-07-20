@@ -35,7 +35,7 @@
 			},
 			gotoStore(indexName) {
 				if (indexName) {
-					location.href = 'https://' + indexName + '.ts57.cn';
+					location.href = 'http://' + indexName + '.lacewang.cn';
 				} else {
 					console.log('接口数据暂无indexName');
 				}

@@ -62,13 +62,14 @@ export default {
       guide();
     },
     guideToStore([companyId, isWebsite, indexName]) {
+      // alert('http://' + indexName + '.lacewang.cn');
 //    console.log(companyId, isWebsite, indexName);
-      if (isWebsite === 1) {
-        location.href = 'http://' + indexName + '.ts57.cn';
-      }
-      if (isWebsite === 0) {
-        location.href = 'http://www.ts57.cn/share/index.html?companyId=' + companyId;
-      }
+      // if (isWebsite === 1) {
+      location.href = 'http://' + indexName + '.lacewang.cn';
+      // }
+      // if (isWebsite === 0) {
+      //   location.href = 'http://www.ts57.cn/share/index.html?companyId=' + companyId;
+      // }
     }
   }
 };

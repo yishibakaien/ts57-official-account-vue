@@ -146,7 +146,8 @@
         guide();
       },
       guideToStore([companyId, indexName, isWebsite]) {
-        location.href = 'http://' + indexName + '.ts57.cn';
+        // alert('http://' + indexName + '.lacewang.cn');
+        location.href = 'http://' + indexName + '.lacewang.cn';
         // if (isWebsite === 1) {
         //   location.href = 'http://' + indexName + '.ts57.cn';
         // }
