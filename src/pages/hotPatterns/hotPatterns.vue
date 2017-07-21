@@ -42,7 +42,7 @@ export default {
     //   console.log('点击查看更多');
     // },
     guideToDownload() {
-      guide('您可以在统搜57APP中查看详情，是否前往下载？');
+      guide('您可以在统搜57APP进一步进行操作，是否前往下载？');
     }
   }
 };

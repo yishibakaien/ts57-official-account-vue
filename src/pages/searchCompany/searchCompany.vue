@@ -73,7 +73,7 @@
 			// 跳转微官网
 			goStore(item) {
 				if (item.indexName) {
-					location.href = 'http://' + item.indexName + '.ts57.cn';
+					location.href = 'http://' + item.indexName + '.lacewang.cn';
 				}
 			}
 		}
@@ -90,10 +90,10 @@
 		p {
 			text-align: center;
 			line-height: 150px;
-		}	
+		}
 	}
 	.default-box {
 		min-height: 100vh;
 	}
 }
-</style> 
+</style>

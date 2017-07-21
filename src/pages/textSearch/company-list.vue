@@ -27,7 +27,7 @@ export default {
   methods: {
     addPattersListClick(indexName) {
       if (indexName) {
-        location.href = 'https://' + indexName + '.ts57.cn';
+        location.href = 'http://' + indexName + '.lacewang.cn';
       } else {
         console.log('暂无indexName参数, indexName:', indexName);
       }
