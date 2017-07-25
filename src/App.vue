@@ -9,7 +9,6 @@
 <script>
 import { toast } from './components/index';
 export default {
-  name: 'app',
   components: {
     toast
   }
