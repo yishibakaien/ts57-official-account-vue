@@ -114,7 +114,8 @@ var routes = {
         name: 'picSearch',
         component: picSearch,
         meta: {
-            title: '快照搜花'
+            title: '快照搜花',
+            needAuth: true
         }
     }, {
         path: '/newPatterns',
