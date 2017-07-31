@@ -5,6 +5,7 @@ import {
     hotPatterns,
     lookingFor,
     picSearch,
+    picSearchNew,
     patternsDetail,
     login,
     textSearch,
@@ -116,6 +117,13 @@ var routes = {
         meta: {
             title: '快照搜花',
             needAuth: true
+        }
+    }, {
+        path: '/picSearchNew',
+        component: picSearchNew,
+        meta: {
+            needAuth: true,
+            title: '快照搜花'
         }
     }, {
         path: '/newPatterns',
