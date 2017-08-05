@@ -233,9 +233,6 @@ export default {
         if (res.code === 1004020) {
           alert(res.message);
         }
-        if (res.code !== 0) {
-          _this.noResult = true;
-        }
         // 获得搜索key
         var searchKey = res.data.searchKey;
         // 开启轮询定时器
@@ -250,13 +247,6 @@ export default {
               _this.id = res.data;
               // 清空定时器
               clearInterval(timer);
-              hide();
-              // 如果没有 id 即不是传搜索结果 id 值 进入页面
-              if (!_this.$route.query.id) {
-                _this.$router.push({
-                  path: 'picSearchResult?id=' + _this.id
-                });
-              }
               timer = null;
               // 根据id请求 搜索结果
               // 传一个参数 用来标记 是加载更多还是 重新请求

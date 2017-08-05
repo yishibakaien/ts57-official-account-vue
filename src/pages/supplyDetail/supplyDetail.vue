@@ -65,9 +65,11 @@
 		min-height: 100vh;
 		background: #f2f2f2;
 		.content {
+      margin-bottom: 100px;
 			width: 100%;
 			background: #fff;
 			border-bottom: 1px solid #e5e5e5;
+
 			.img-box {
 				width: 100vw;
 				height: 100vw;

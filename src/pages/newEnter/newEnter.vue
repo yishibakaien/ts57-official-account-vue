@@ -20,7 +20,7 @@
 			<div class="clearFix">
 				<div class="item-box clearFix" v-for="item2 in items2">
 					<new-enter-item :itemObj="item2"></new-enter-item>
-			
+
 				</div>
 			</div>
 			<paginator :hasMore="hasMore" @more="moreMethod(2)"></paginator>
@@ -148,12 +148,20 @@
 			// tab切换
 			activeTab(index) {
 				// 贸易商只能看到入驻厂家
-				if (index === 1 || index === 2) {
-					if (this.userType === '2') {
-						this.modelShow = true;
-						return;
-					}
-				}
+				// if (index === 1 || index === 2) {
+				// 	if (this.userType === '2') {
+				// 		this.modelShow = true;
+				// 		return;
+				// 	}
+				// }
+        //
+        // 2017年8月4日15:44:57 cqw
+        if (index === 1 || index === 2) {
+          if (Number(localStorage['limit']) === 2) {
+            this.modelShow = true;
+            return;
+          }
+        }
 				if (index === 1) {
 					this.items = [];
 					this.findNewCompanysMethod();

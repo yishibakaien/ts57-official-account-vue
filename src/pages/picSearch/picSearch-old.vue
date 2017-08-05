@@ -7,9 +7,9 @@
           <i class="iconfont icon-tianjiatupian" :style="{display: cropPic ? 'none' : 'inline-block'}"></i>
         </div>
       </div>
-      <!-- <div class="search-button-box">
+      <div class="search-button-box">
         <button class="button button-blue" v-for="item in category" @click="doSearch(item.category)" :disabled="isSearching || !cropPic">{{item.text}}</button>
-      </div> -->
+      </div>
     </div>
     <div v-if="receive.receiveId">
         <div class="receive-id-box">
@@ -31,23 +31,14 @@
         <ts-patterns-item :item="item"></ts-patterns-item>
       </div>
     </div>
-    <paginator v-if="resultArr.length" :hasMore="hasMore" @more="loadMore"></paginator>
 
-    <div id="cropperWrapper" ref="cropperWrapper" style="display: none;position: absolute;z-index: 101;top: 0;bottom: 0;width: 100%">
-        <img id="cropperImage" ref="cropper" style="max-width: 100%">
-    </div>
+    <paginator v-if="resultArr.length" :hasMore="hasMore" @more="loadMore"></paginator>
   </div>
 </template>
 
 <script>
 // AlloyTeam 图片裁剪
 import AlloyCrop from '../../common/js/crop/crop';
-console.log(AlloyCrop);
-
-var Cropper = require('../../common/js/cropNew/cropper.js').Cropper;
-// import Cropper from '../../common/js/cropNew/cropper.js';
-
-console.log('Cropper', Cropper);
 // import AlloyCrop from '../../common/js/newCrop/alloyCrop.js';
 import {
   encoded,
@@ -150,55 +141,18 @@ export default {
         // alert(url);
         /* eslint-disable no-new */
         // try {
-
-        // AlloyCrop({
-        //     image_src: url,
-        //     circle: false,
-        //     width: 240,
-        //     height: 240,
-        //     ok: function(base64) {
-        //         _this.cropPic = base64;
-        //     },
-        //     cancel: function() {},
-        //     ok_text: '截取',
-        //     cancel_text: '取消'
-        // });
-        _this.$refs.cropper.src = url;
-        var cropper = new Cropper(_this.$refs.cropper);
-        console.log(cropper);
-        _this.$refs.cropperWrapper.style.display = 'block';
-        setTimeout(function() {
-            bindCropEvent();
-        }, 500);
-        function bindCropEvent() {
-            var btns = document.querySelectorAll('.btn-cell');
-            console.log(btns, btns.length);
-            Array.prototype.forEach.call(btns, function(item) {
-                item.onclick = picCroped;
-            });
-        }
-        function picCroped() {
-            var category = Number(this.getAttribute('category'));
-            // console.log(category);
-            _this.$refs.cropperWrapper.style.display = 'none';
-
-            var base64 = cropper.getCroppedCanvas().toDataURL('image/png');
-
-            _this.cropPic = base64;
-
-            console.log('base64.length', base64.length);
-
-            cropper.destroy();
-
-            loading({
-              text: '搜索' + _this.type(category) + '中'
-            });
-
-            _this.doSearch(category);
-            // picSearchQueryParams.category = category;
-            // picSearchQueryParams.encoded = base64;
-            // doPicSearch();
-        }
+        AlloyCrop({
+            image_src: url,
+            circle: false,
+            width: 240,
+            height: 240,
+            ok: function(base64) {
+                _this.cropPic = base64;
+            },
+            cancel: function() {},
+            ok_text: '截取',
+            cancel_text: '取消'
+        });
     },
     doSearch(category) {
       // 没有上传图片，则返回
@@ -230,12 +184,6 @@ export default {
         searchType: 300,
         encoded: this.cropPic
       }, function(res) {
-        if (res.code === 1004020) {
-          alert(res.message);
-        }
-        if (res.code !== 0) {
-          _this.noResult = true;
-        }
         // 获得搜索key
         var searchKey = res.data.searchKey;
         // 开启轮询定时器
@@ -250,13 +198,6 @@ export default {
               _this.id = res.data;
               // 清空定时器
               clearInterval(timer);
-              hide();
-              // 如果没有 id 即不是传搜索结果 id 值 进入页面
-              if (!_this.$route.query.id) {
-                _this.$router.push({
-                  path: 'picSearchResult?id=' + _this.id
-                });
-              }
               timer = null;
               // 根据id请求 搜索结果
               // 传一个参数 用来标记 是加载更多还是 重新请求
@@ -341,9 +282,9 @@ export default {
   }
 };
 </script>
-<style lang="stylus">
+<style lang="stylus" scoped>
 @import '../../common/styles/mixin.styl';
-// @import '../../common/js/cropNew/cropper.styl';
+
 .search-category
   background #fff
   position relative
@@ -409,368 +350,4 @@ export default {
         height 40px
         color #999
         ellipsisLn(2)
-
-// 截图组件
-/*!
- * Cropper.js v1.0.0-rc.3
- * https://github.com/fengyuanchen/cropperjs
- *
- * Copyright (c) 2017 Fengyuan Chen
- * Released under the MIT license
- *
- * Date: 2017-07-07T12:56:42.462Z
- */
-
-.cropper-container {
-  font-size: 0;
-  line-height: 0;
-
-  position: relative;
-
-  -webkit-user-select: none;
-
-     -moz-user-select: none;
-
-      -ms-user-select: none;
-
-          user-select: none;
-
-  direction: ltr;
-  -ms-touch-action: none;
-      touch-action: none
-}
-
-.cropper-container img {
-  /* Avoid margin top issue (Occur only when margin-top <= -height) */
-  display: block;
-  min-width: 0 !important;
-  max-width: none !important;
-  min-height: 0 !important;
-  max-height: none !important;
-  width: 100%;
-  height: 100%;
-  image-orientation: 0deg
-}
-
-.cropper-wrap-box,
-.cropper-canvas,
-.cropper-drag-box,
-.cropper-crop-box,
-.cropper-modal {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-}
-
-.cropper-wrap-box {
-  overflow: hidden;
-}
-
-.cropper-drag-box {
-  opacity: 0;
-  background-color: #fff;
-}
-
-.cropper-modal {
-  opacity: .6;
-  background-color: #000;
-}
-
-.cropper-view-box {
-  display: block;
-  overflow: hidden;
-
-  width: 100%;
-  height: 100%;
-
-  outline: 1px solid #39f;
-  outline-color: rgba(51, 153, 255, 0.75);
-}
-
-.cropper-dashed {
-  position: absolute;
-
-  display: block;
-
-  opacity: .5;
-  border: 0 dashed #eee
-}
-
-.cropper-dashed.dashed-h {
-  top: 33.33333%;
-  left: 0;
-  width: 100%;
-  height: 33.33333%;
-  border-top-width: 1px;
-  border-bottom-width: 1px
-}
-
-.cropper-dashed.dashed-v {
-  top: 0;
-  left: 33.33333%;
-  width: 33.33333%;
-  height: 100%;
-  border-right-width: 1px;
-  border-left-width: 1px
-}
-
-.cropper-center {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-
-  display: block;
-
-  width: 0;
-  height: 0;
-
-  opacity: .75
-}
-
-.cropper-center:before,
-  .cropper-center:after {
-  position: absolute;
-  display: block;
-  content: ' ';
-  background-color: #eee
-}
-
-.cropper-center:before {
-  top: 0;
-  left: -3px;
-  width: 7px;
-  height: 1px
-}
-
-.cropper-center:after {
-  top: -3px;
-  left: 0;
-  width: 1px;
-  height: 7px
-}
-
-.cropper-face,
-.cropper-line,
-.cropper-point {
-  position: absolute;
-
-  display: block;
-
-  width: 100%;
-  height: 100%;
-
-  opacity: .1;
-}
-
-.cropper-face {
-  top: 0;
-  left: 0;
-
-  background-color: #fff;
-}
-
-.cropper-line {
-  background-color: #39f
-}
-
-.cropper-line.line-e {
-  top: 0;
-  right: -3px;
-  width: 5px;
-  cursor: e-resize
-}
-
-.cropper-line.line-n {
-  top: -3px;
-  left: 0;
-  height: 5px;
-  cursor: n-resize
-}
-
-.cropper-line.line-w {
-  top: 0;
-  left: -3px;
-  width: 5px;
-  cursor: w-resize
-}
-
-.cropper-line.line-s {
-  bottom: -3px;
-  left: 0;
-  height: 5px;
-  cursor: s-resize
-}
-
-.cropper-point {
-  width: 5px;
-  height: 5px;
-
-  opacity: .75;
-  background-color: #39f
-}
-
-.cropper-point.point-e {
-  top: 50%;
-  right: -3px;
-  margin-top: -3px;
-  cursor: e-resize
-}
-
-.cropper-point.point-n {
-  top: -3px;
-  left: 50%;
-  margin-left: -3px;
-  cursor: n-resize
-}
-
-.cropper-point.point-w {
-  top: 50%;
-  left: -3px;
-  margin-top: -3px;
-  cursor: w-resize
-}
-
-.cropper-point.point-s {
-  bottom: -3px;
-  left: 50%;
-  margin-left: -3px;
-  cursor: s-resize
-}
-
-.cropper-point.point-ne {
-  top: -3px;
-  right: -3px;
-  cursor: ne-resize
-}
-
-.cropper-point.point-nw {
-  top: -3px;
-  left: -3px;
-  cursor: nw-resize
-}
-
-.cropper-point.point-sw {
-  bottom: -3px;
-  left: -3px;
-  cursor: sw-resize
-}
-
-.cropper-point.point-se {
-  right: -3px;
-  bottom: -3px;
-  width: 20px;
-  height: 20px;
-  cursor: se-resize;
-  opacity: 1
-}
-
-@media (min-width: 768px) {
-
-  .cropper-point.point-se {
-    width: 15px;
-    height: 15px
-  }
-}
-
-@media (min-width: 992px) {
-
-  .cropper-point.point-se {
-    width: 10px;
-    height: 10px
-  }
-}
-
-@media (min-width: 1200px) {
-
-  .cropper-point.point-se {
-    width: 5px;
-    height: 5px;
-    opacity: .75
-  }
-}
-
-.cropper-point.point-se:before {
-  position: absolute;
-  right: -50%;
-  bottom: -50%;
-  display: block;
-  width: 200%;
-  height: 200%;
-  content: ' ';
-  opacity: 0;
-  background-color: #39f
-}
-
-.cropper-invisible {
-  opacity: 0;
-}
-
-.cropper-bg {
-  background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQAQMAAAAlPW0iAAAAA3NCSVQICAjb4U/gAAAABlBMVEXMzMz////TjRV2AAAACXBIWXMAAArrAAAK6wGCiw1aAAAAHHRFWHRTb2Z0d2FyZQBBZG9iZSBGaXJld29ya3MgQ1M26LyyjAAAABFJREFUCJlj+M/AgBVhF/0PAH6/D/HkDxOGAAAAAElFTkSuQmCC');
-}
-
-.cropper-hide {
-  position: absolute;
-
-  display: block;
-
-  width: 0;
-  height: 0;
-}
-
-.cropper-hidden {
-  display: none !important;
-}
-
-.cropper-move {
-  cursor: move;
-}
-
-.cropper-crop {
-  cursor: crosshair;
-}
-
-.cropper-disabled .cropper-drag-box,
-.cropper-disabled .cropper-face,
-.cropper-disabled .cropper-line,
-.cropper-disabled .cropper-point {
-  cursor: not-allowed;
-}
-
-/*2017年7月28日17:14:11  cqw 新增*/
-.cropper-btn-wrapper {
-  position: absolute;
-  width: 100%;
-  display: flex;
-  bottom: 0;
-  height: 60px;
-  background: rgba(0,0,0,0.7);
-  color: #fff;
-}
-.cropper-btn-wrapper .btn-cell {
-  flex: 1;
-  height: 60px;
-  text-align: center;
-}
-.cropper-btn-text {
-  display: inline-block;
-  position: absolute;
-  bottom: 60px;
-  text-align: center;
-  line-height: 25px;
-  font-size: 14px;
-  width: 100%;
-}
-.cropper-btn {
-  display: inline-block;
-  line-height: 25px;
-  margin-top: 17px;
-  font-size: 14px;
-  border-radius: 4px;
-  width: 70px;
-  height: 25px;
-  border: 1px solid #fff;
-}
 </style>
