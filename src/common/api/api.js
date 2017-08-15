@@ -134,6 +134,7 @@ function _fetch(method = METHODS.get, data, url, cb, err) {
         method: method,
         url: baseURL + url,
         headers: _headers,
+        timeout: data.timeout || 30000,
         data: _formatData(method, data),
         success: function(res, status, xhr) {
             if (res.code !== 0) {

@@ -164,7 +164,12 @@ export default {
         //     cancel_text: '取消'
         // });
         _this.$refs.cropper.src = url;
-        var cropper = new Cropper(_this.$refs.cropper);
+        var cropper = new Cropper(_this.$refs.cropper, {
+            scalable: false,
+            zoomable: false,
+            minCropBoxWidth: 60,
+            minCropBoxHeight: 60
+        });
         console.log(cropper);
         _this.$refs.cropperWrapper.style.display = 'block';
         setTimeout(function() {
@@ -180,9 +185,16 @@ export default {
         function picCroped() {
             var category = Number(this.getAttribute('category'));
             // console.log(category);
-            _this.$refs.cropperWrapper.style.display = 'none';
 
             var base64 = cropper.getCroppedCanvas().toDataURL('image/png');
+            console.log(base64);
+            if (base64.length > 1000000) {
+                alert('图片体积过大，您截取的图片大小需要再减少 ' + Math.floor(((base64.length / 1000000) - 1) * 100) + '% 左右');
+                hide();
+                return;
+            };
+
+            _this.$refs.cropperWrapper.style.display = 'none';
 
             _this.cropPic = base64;
 
@@ -228,6 +240,7 @@ export default {
       encoded({
         category: this.searchCategory,
         searchType: 300,
+        timeout: 60000,
         encoded: this.cropPic
       }, function(res) {
         if (res.code === 1004020) {
