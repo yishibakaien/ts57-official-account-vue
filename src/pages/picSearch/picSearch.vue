@@ -167,6 +167,7 @@ export default {
         var cropper = new Cropper(_this.$refs.cropper, {
             scalable: false,
             zoomable: false,
+            autoCropArea: 0.6,
             minCropBoxWidth: 60,
             minCropBoxHeight: 60
         });
@@ -186,7 +187,7 @@ export default {
             var category = Number(this.getAttribute('category'));
             // console.log(category);
 
-            var base64 = cropper.getCroppedCanvas().toDataURL('image/png');
+            var base64 = cropper.getCroppedCanvas().toDataURL();
             console.log(base64);
             if (base64.length > 1000000) {
                 alert('图片体积过大，您截取的图片大小需要再减少 ' + Math.floor(((base64.length / 1000000) - 1) * 100) + '% 左右');
