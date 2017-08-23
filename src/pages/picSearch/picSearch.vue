@@ -41,13 +41,13 @@
 
 <script>
 // AlloyTeam 图片裁剪
-import AlloyCrop from '../../common/js/crop/crop';
-console.log(AlloyCrop);
+// import AlloyCrop from '../../common/js/crop/crop';
+// console.log(AlloyCrop);
 
 var Cropper = require('../../common/js/cropNew/cropper.js').Cropper;
 // import Cropper from '../../common/js/cropNew/cropper.js';
 
-console.log('Cropper', Cropper);
+// console.log('Cropper', Cropper);
 // import AlloyCrop from '../../common/js/newCrop/alloyCrop.js';
 import {
   encoded,
@@ -188,9 +188,9 @@ export default {
             // console.log(category);
 
             var base64 = cropper.getCroppedCanvas().toDataURL();
-            console.log(base64);
-            if (base64.length > 1000000) {
-                alert('图片体积过大，您截取的图片大小需要再减少 ' + Math.floor(((base64.length / 1000000) - 1) * 100) + '% 左右');
+            console.log('截取图片的长度', base64.length);
+            if (base64.length > 10000000) {
+                alert('图片大小超过10M，无法传送，您截取的图片大小需要再减少 ' + Math.floor(((base64.length / 10000000) - 1) * 100) + '% 左右');
                 hide();
                 return;
             };
@@ -270,6 +270,7 @@ export default {
                 _this.$router.push({
                   path: 'picSearchResult?id=' + _this.id
                 });
+                return;
               }
               timer = null;
               // 根据id请求 搜索结果
