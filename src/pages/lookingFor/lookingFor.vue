@@ -2,7 +2,7 @@
   <div class="lookingfor-page">
     <div class="tab border-bottom">
       <div class="tab-item" v-for="(item, index) in tabItem" @click="select(item)" :class="{active: activeItem === item.info.route}" >
-        <span class="text">{{item.text}}</span>
+        <span class="tab-text">{{item.text}}</span>
       </div>
     </div>
     <div class="patterns-container clearfix">
@@ -92,7 +92,7 @@ export default {
   }
 };
 </script>
-<style lang="stylus">
+<style lang="stylus" scoped>
 .tab
   display flex
   position fixed
@@ -107,14 +107,14 @@ export default {
   background #fff
   .tab-item
     flex 1
-    .text
+    .tab-text
       display inline-block
       box-sizing border-box
       height 40px
       line-height 40px
     &.active
       color #4c93fd
-      .text
+      .tab-text
           border-bottom 2px solid #4c93fd
 .patterns-container
   margin-top 40px

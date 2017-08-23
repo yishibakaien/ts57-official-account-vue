@@ -134,10 +134,14 @@
 			},
 			// 跳转搜索结果页
 			goSearchCompany(e) {
-				if (this.userType === '2') {
-					this.modelShow = true;
-					return;
-				}
+        if (Number(localStorage['limit']) === 2) {
+          this.modelShow = true;
+          return;
+        }
+				// if (this.userType === '2') {
+				// 	this.modelShow = true;
+				// 	return;
+				// }
 				this.$router.push({
 					path: '/searchCompany',
 					query: {
