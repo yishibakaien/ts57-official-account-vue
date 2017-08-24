@@ -6,7 +6,7 @@
 		</div>
 		<border :styleData="styleData"></border>
 		<div class="content clearFix">
-			<img class="fl" :src="item.buyPicUrl?item.buyPicUrl:'/static/images/assets/defaultFlower.svg'" alt="花型图片"/>
+			<img class="fl" :src="item.productPicUrl?item.productPicUrl:'/static/images/assets/defaultFlower.svg'" alt="花型图片"/>
 			<div class="info fl">
 				<p :title="item.buyDesc">{{item.supplyDesc}}</p>
 				<span class="status">{{item.supplyShape | buyShape}}</span>
@@ -27,6 +27,9 @@
 				}
 			};
 		},
+    mounted() {
+      console.log(this.item);
+    },
 		props: {
 			item: {
 				type: Object

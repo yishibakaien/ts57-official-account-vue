@@ -28,6 +28,9 @@
 				}
 			};
 		},
+    mounted() {
+      console.log(this.item);
+    },
 		props: {
 			item: {
 				type: Object
