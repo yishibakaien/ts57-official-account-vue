@@ -222,9 +222,13 @@
 		}
 		.title {
 			font-size: 14px;
+      text-align: center;
 			span {
-				margin-left: 40px;
-				line-height: 36px;
+				// margin-left: 40px;
+				line-height: 36px
+        &:nth-of-type(2) {
+          margin-left 30px
+        }
 			}
 			em {
 				color: #FF8400;

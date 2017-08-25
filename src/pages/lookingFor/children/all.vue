@@ -96,6 +96,9 @@ export default {
 </script>
 <style lang="stylus">
 @import '../../../common/styles/mixin';
+.tipsInfo
+  text-align: center
+
 .item-wrapper
   itemListLayout()
 </style>

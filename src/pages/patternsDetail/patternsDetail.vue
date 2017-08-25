@@ -7,18 +7,19 @@
             <!-- #20001 -->{{productNo}}
             </div>
             <div class="price">
-                <span class="text">参考价:&nbsp;&nbsp;</span><span class="money" id="price">{{price}}
+                <span class="price-text">参考价:&nbsp;&nbsp;</span><span class="money" id="price">{{price}}
                 <!-- ￥10.00/码 -->
                 </span>
             </div>
         </div>
         <div class="right" @click="guideToDownload">
             <div class="save" id="star">
-                <i class="iconfont icon-star"></i>
-                <span class="text">收藏</span>
+            <span class="view-num" id="viewNum">{{viewCount}}</span>
+                <!-- <i class="iconfont icon-star"></i> -->
+                <!-- <span class="text">收藏</span> -->
             </div>
             <div class="page-view">
-                <span class="view-num" id="viewNum">{{viewCount}}</span>
+
                 <span>次浏览</span>
             </div>
         </div>
@@ -222,7 +223,7 @@
     margin-top: 12px;
     font-size: 14px;
 }
-.desc-wrapper .left .price .text {
+.desc-wrapper .left .price .price-text {
     color: #666;
 }
 .desc-wrapper .left .price .money {
