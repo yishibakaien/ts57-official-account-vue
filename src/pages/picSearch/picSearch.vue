@@ -622,36 +622,58 @@ export default {
   width: 5px;
   height: 5px;
 
-  opacity: .75;
+  opacity: 1;
   background-color: #39f
+}
+
+.cropper-point span {
+  display: inline-block;
+  width: 24px;
+  height: 2px;
+  line-height: 2px;
+  left: -10px;
+  font-size: 24px;
+  text-align: center;
+  color: #39f;
+  opacity: 1;
+  position: relative;
+  text-shadow: 0 0 5px rgba(0,0,0,.5);
 }
 
 .cropper-point.point-e {
   top: 50%;
   right: -3px;
   margin-top: -3px;
-  cursor: e-resize
+  cursor: e-resize;
+
+  background-color: transparent;
 }
 
 .cropper-point.point-n {
   top: -3px;
   left: 50%;
   margin-left: -3px;
-  cursor: n-resize
+  cursor: n-resize;
+
+  background-color: transparent;
 }
 
 .cropper-point.point-w {
   top: 50%;
   left: -3px;
   margin-top: -3px;
-  cursor: w-resize
+  cursor: w-resize;
+
+  background-color: transparent;
 }
 
 .cropper-point.point-s {
   bottom: -3px;
   left: 50%;
   margin-left: -3px;
-  cursor: s-resize
+  cursor: s-resize;
+
+  background-color: transparent;
 }
 
 .cropper-point.point-ne {
